@@ -1,0 +1,12 @@
+#input-text {
+    background: none;
+    border: none;
+    border-bottom: solid 1px #383838;
+    height: 54px;
+    width: 100%;
+    color: #fff;
+}
+
+.input-main label {
+    font-size: 12px;
+}

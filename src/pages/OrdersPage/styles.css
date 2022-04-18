@@ -1,0 +1,10 @@
+.input-order {
+    display:flex;
+    flex-direction:column;
+}
+
+.orders-buttons {
+    display:flex;
+    flex-direction: row;
+    margin: 5px 0;
+}

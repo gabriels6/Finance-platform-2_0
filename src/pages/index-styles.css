@@ -1,0 +1,59 @@
+.card {
+    border: solid 1px #aaa;
+    padding: 5px 10px;
+    display:flex;
+    flex-direction: row;
+    margin: 5px 0px;
+}
+
+.control {
+    margin: 5px 10%;
+}
+
+.card button {
+
+}
+
+.title {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.info-text {
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.value-section {
+    margin-right: 75px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+button {
+    border:none;
+    color: #383838;
+    border: solid 1px #383838;
+    padding: 5px 10px;
+    border-radius: 2px;
+    transition: background .5s;
+    margin-right: 5px;
+}
+
+button:hover {
+    color: #fff;
+    background:#383838;
+    transition: all .5s
+}
+
+.value-text {
+    font-size: 14px;
+}
+
+.horizontal-align {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+

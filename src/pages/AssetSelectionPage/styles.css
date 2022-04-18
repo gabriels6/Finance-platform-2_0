@@ -1,0 +1,10 @@
+.asset-search {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.asset-search-result {
+    display:flex;
+    flex-direction: column;
+}

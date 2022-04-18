@@ -1,0 +1,36 @@
+.message {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0px;
+    color: black;
+}
+
+.message-warning {
+    background: #fdff73;
+    border: #fdff5e;
+}
+
+.message-error {
+    background: #ff8a8a;
+    border: #ff5e5e;
+}
+
+.message-success {
+    background: #80ff8a;
+    border: #55fa62;
+}
+
+.message-warning:hover {
+    background: #fdff5e;
+    transition: all .5s;
+}
+
+.message-error:hover {
+    background: #ff5e5e;
+    transition: all .5s;
+}
+
+.message-success:hover {
+    background: #55fa62;
+    transition: all .5s;
+}
