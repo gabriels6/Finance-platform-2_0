@@ -37,7 +37,7 @@ const AssetMaintaince = () => {
     }
 
     function handleSaveAsset(event) {
-        financeDataApi.saveAsset(assetItem, userContext.token).then((data) => {
+        financeDataApi.saveAsset(assetItem, userContext.integrationToken).then((data) => {
             userContext.setMessages([
                 ...userContext.messages,
                 {
