@@ -87,7 +87,7 @@ const AssetMaintaince = () => {
                     </Form.Label>
                     <Form.Control
                         type="text"
-                        id="inputType"
+                        id="inputAsset_Type"
                         onChange={handleChangeAssetitem}
                     />
                     <Form.Label htmlFor="inputExternal_Id">
