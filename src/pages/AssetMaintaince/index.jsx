@@ -48,7 +48,7 @@ const AssetMaintaince = () => {
             setReloaded(false);
         }).catch((err) => {
             userContext.setMessages([
-                userContext.messages,
+                ...userContext.messages,
                 {
                     type: 'error',
                     value: err.error
@@ -56,6 +56,29 @@ const AssetMaintaince = () => {
             ])
             setReloaded(false);
         })
+    }
+
+    function handleEditClick(event) {
+        let id = event.target.id;
+        financeDataApi.deleteAsset({
+            id: id
+        }, userContext.integrationToken).then((data) => {
+            userContext.setMessages([
+                ...userContext.messages,
+                {
+                    type: 'success',
+                    value: 'Asset sucessfully deleted!'
+                }
+            ]);
+        }).catch((err) => {
+            userContext.setMessages([
+                ...userContext.messages,
+                {
+                    type: 'error',
+                    value: err.error || err.message
+                }
+            ]);
+        });
     }
 
     return (

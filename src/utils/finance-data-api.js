@@ -142,5 +142,8 @@ export default {
     },
     async saveAsset(assetBody, apiKey) {
         return await this.apiPost('/api/assets', assetBody, apiKey);
+    },
+    async deleteAsset(params, apiKey) {
+        return await this.apiDelete('/api/assets', params, apiKey);
     }
 }
