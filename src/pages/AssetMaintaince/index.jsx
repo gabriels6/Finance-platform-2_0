@@ -14,7 +14,7 @@ const AssetMaintaince = () => {
     const [assetItem, setAssetItem] = useState({
         id: null,
         symbol: '',
-        type: '',
+        asset_type: '',
         external_id: '',
     });
 
@@ -82,7 +82,7 @@ const AssetMaintaince = () => {
                         id="inputSymbol"
                         onChange={handleChangeAssetitem}
                     />
-                    <Form.Label htmlFor="inputType">
+                    <Form.Label htmlFor="inputAsset_Type">
                         Type
                     </Form.Label>
                     <Form.Control
