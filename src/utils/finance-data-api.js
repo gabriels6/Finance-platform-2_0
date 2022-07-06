@@ -16,6 +16,15 @@ export default {
 
         return data;
     },
+    async apiPost(url, body, apiKey) {
+        const {data} = await api.post(url, body, {
+            headers: {
+                'x_api_key': apiKey
+            }
+        });
+
+        return data;
+    },
     async apiDelete(url, params, apiKey) {
         const { data } = await api.delete(url, {
             params,
@@ -130,5 +139,8 @@ export default {
             symbol: symbol,
             end_date: endDate
         }, apiKey);
+    },
+    async saveAsset(assetBody, apiKey) {
+        return await this.apiPost('/api/assets', assetBody, apiKey);
     }
 }

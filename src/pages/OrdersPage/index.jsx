@@ -111,11 +111,13 @@ const OrdersPage = () => {
             <div className="card">
                 <table>
                     <thead>
-                        <th>Id</th>
-                        <th>Asset</th>
-                        <th>Quantity</th>
-                        <th>Date</th>
-                        <th></th>
+                        <tr>
+                            <th>Id</th>
+                            <th>Asset</th>
+                            <th>Quantity</th>
+                            <th>Date</th>
+                            <th></th>
+                        </tr>
                     </thead>
                     <tbody>
                         {userContext.orders.map((item, index) => (

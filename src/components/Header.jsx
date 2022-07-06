@@ -86,6 +86,23 @@ const Header = () => {
                                             </LinkContainer>
                                         </NavDropdown.Item>
                                     </NavDropdown>
+
+                                    <NavDropdown title="Maintainance" menuVariant="dark">
+                                        <NavDropdown.Item>
+                                            <LinkContainer to="/maintainance/asset">
+                                                <Nav.Link>
+                                                    Asset
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <LinkContainer to="/maintaince/prices">
+                                                <Nav.Link>
+                                                    Asset Prices
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                        </NavDropdown.Item>
+                                    </NavDropdown>
                                 </Nav>
                                 <Nav>
                                     <Form className="d-flex">

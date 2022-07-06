@@ -6,6 +6,7 @@ import './index-styles.css';
 import AssetSelectionPage from './AssetSelectionPage';
 import AssetRiskPage from './AssetRiskPage';
 import OrdersPage from './OrdersPage';
+import AssetMaintaince from './AssetMaintaince';
 
 const SwitchControl = () => {
     return (
@@ -23,6 +24,7 @@ const SwitchControl = () => {
                 <Route element={<AssetSelectionPage/>} path="/management/asset-selection"/>
                 <Route element={<AssetRiskPage/>} path="/analysis/asset-risk"/>
                 <Route element={<OrdersPage/>} path="/management/orders"/>
+                <Route element={<AssetMaintaince/>} path="/maintainance/asset"/>
             </Routes>
         </>
     );
