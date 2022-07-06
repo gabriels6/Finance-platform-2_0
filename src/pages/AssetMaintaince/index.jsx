@@ -58,7 +58,7 @@ const AssetMaintaince = () => {
         })
     }
 
-    function handleEditClick(event) {
+    function handleDeleteAsset(event) {
         let id = event.target.id;
         financeDataApi.deleteAsset({
             id: id
@@ -158,7 +158,7 @@ const AssetMaintaince = () => {
                                             </Button>
                                         </td>
                                         <td>
-                                            <Button variant="outline-danger" id={asset.id}>
+                                            <Button variant="outline-danger" id={asset.id} onClick={handleDeleteAsset}>
                                                 Delete
                                             </Button>
                                         </td>
