@@ -51,7 +51,7 @@ const AssetSelectionPage = () => {
         let selectedIndex = event.target.id.split("-")[1];
         let asset = foundAssets[selectedIndex];
         financeDataApi.importAsset(asset.symbol, API_KEY).then((data) => {
-            financeDataApi.importAssetSeries(asset.symbol, '',API_KEY).then((data) => {
+            financeDataApi.importAssetSeries(asset.symbol, '2021-01-01',API_KEY).then((data) => {
                 console.log("Asset Data imported sucessfully!");
             });
         });
