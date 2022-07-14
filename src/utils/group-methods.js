@@ -23,7 +23,7 @@ export default {
 
         return assetTypes;
     },
-    groupAssetHist(assetValueHist) {
+    groupAssetHist(assetValueHist, dataValueName) {
         return assetValueHist.reduce((prevValue, item) => {
             let dateFound = false;
             prevValue.forEach((asset) => {
@@ -34,11 +34,11 @@ export default {
                 let valueObject = {
                     date: item.date,
                 }
-                valueObject[item.asset.symbol] = item.price
+                valueObject[item.asset.symbol] = item[dataValueName]
                 prevValue.push(valueObject)
             } else {
                 prevValue.forEach((value) => {
-                  if (value.date === item.date) value[item.asset.symbol] = item.price;  
+                  if (value.date === item.date) value[item.asset.symbol] = item[dataValueName];  
                 });
             }
             return prevValue.sort((item, nextItem) => {

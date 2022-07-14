@@ -2,9 +2,10 @@ import { scaleOrdinal } from 'd3-scale';
 import { schemeCategory10 } from 'd3-scale-chromatic';
 import React, { useContext } from 'react';
 import { Button } from 'react-bootstrap';
-import { ScatterChart, CartesianGrid, XAxis, YAxis, Scatter, Tooltip, Label, LabelList, BarChart, Bar, Legend } from 'recharts';
+import { ScatterChart, CartesianGrid, XAxis, YAxis, Scatter, Tooltip, Label, LabelList, BarChart, Bar, Legend, LineChart, Line } from 'recharts';
 import UserContext from '../../context/UserContext';
 import financeDataApi from '../../utils/finance-data-api';
+import groupMethods from '../../utils/group-methods';
 import './styles.css';
 
 const AssetRiskPage = () => {
@@ -15,9 +16,12 @@ const AssetRiskPage = () => {
     function handleRefresh(event) {
         let apiKey = userContext.integrationToken;
         let assets = userContext.favoriteAssets.map((asset) => asset.symbol)
-        let assetPromises = assets.map((asset) => {
-            return financeDataApi.getAssetData(asset, apiKey);
-        })
+        let assetPromises = [];
+        let assetPricePromises = [];
+        assets.forEach((asset) => {
+            assetPromises.push(financeDataApi.getAssetData(asset, apiKey));
+            assetPricePromises.push(financeDataApi.getAssetPriceHist(asset, '', userContext.date, apiKey));
+        });
         Promise.all(assetPromises).then((assetData) => {
             userContext.setFavoriteAssets([
                 ...assetData.flat().map((assets) => ({
@@ -28,7 +32,11 @@ const AssetRiskPage = () => {
                 }))
             ])
         })
-        
+        Promise.all(assetPricePromises).then((assetPriceData) => {
+            userContext.setAssetValueHist([
+                ...assetPriceData.flat(1)
+            ])
+        });
     }
 
     return (
@@ -77,6 +85,22 @@ const AssetRiskPage = () => {
                     <Legend />
                     <Bar dataKey="treynorIndex" fill="#bf00ff" />
                 </BarChart> 
+            </div>
+            <div className="card asset-risk-return-chart">
+                <div className="title">
+                    Asset Rentability Comparison
+                </div>
+                <LineChart width={730} height={250} data={groupMethods.groupAssetHist(userContext.assetValueHist,'rentability')}
+                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="date" />
+                    <YAxis />
+                    <Legend />
+                    <Tooltip />
+                    { groupMethods.groupAssetHistSecurities(userContext.assetValueHist).map((symbol,index) => (
+                        <Line type="monotone" dataKey={symbol} key={`part-`+index} stroke={colors[index % 10]} />
+                    )) }
+                </LineChart>
             </div>
         </div>
     )

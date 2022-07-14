@@ -101,7 +101,7 @@ const PortfolioPage = () => {
                 <div className="title">
                     Asset Value History
                 </div>
-                <LineChart width={730} height={250} data={groupMethods.groupAssetHist(userContext.assetValueHist)}
+                <LineChart width={730} height={250} data={groupMethods.groupAssetHist(userContext.assetValueHist,'price')}
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" />
