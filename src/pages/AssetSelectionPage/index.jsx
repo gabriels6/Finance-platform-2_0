@@ -4,6 +4,8 @@ import parseMethods from '../../utils/parse-methods';
 import UserContext from '../../context/UserContext';
 import financeDataApi from '../../utils/finance-data-api';
 import './styles.css';
+import { MessageHolder } from '../../components';
+import { error } from 'console';
 
 const AssetSelectionPage = () => {
 
@@ -47,18 +49,34 @@ const AssetSelectionPage = () => {
         });
     }
 
+    function handleError(error) {
+        let messages = [...userContext.messages]
+        messages.push({
+            type:"error",
+            value: error.message
+        });
+        userContext.setMessages(messages);
+    }
+
     function handleImportAsset(event) {
         let selectedIndex = event.target.id.split("-")[1];
         let asset = foundAssets[selectedIndex];
         financeDataApi.importAsset(asset.symbol, API_KEY).then((data) => {
             financeDataApi.importAssetSeries(asset.symbol, '2021-01-01',API_KEY).then((data) => {
-                console.log("Asset Data imported sucessfully!");
-            });
-        });
+                userContext.setMessages([
+                    ...userContext.messages,
+                    {
+                        type: 'success',
+                        value: "Asset Data imported sucessfully!"
+                    }
+                ]);
+            }).catch((err) => { handleError(err); });
+        }).catch((err) => { handleError(err); });
     }
 
     return(
         <div className="control">
+            <MessageHolder/>
             <div className="card asset-search">
                 <div>
                     Search for Asset
