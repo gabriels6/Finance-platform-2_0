@@ -45,7 +45,7 @@ const AssetSelectionPage = () => {
         financeDataApi.searchAsset(keyword,'', API_KEY).then((data) => {
             setFoundAssets(parseMethods.parseJSONWithNumbers(data));
         }).catch((err) => {
-            console.log(err);
+            handleError(err)
         });
     }
 
