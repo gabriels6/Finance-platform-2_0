@@ -7,12 +7,11 @@ import './styles.css';
 
 const AssetMaintaince = () => {
 
-    const [assets, setAssets] = useState([]);
     const [reloaded, setReloaded] = useState(false);
     const userContext = useContext(UserContext);
 
     const [assetItem, setAssetItem] = useState({
-        id: null,
+        id: '',
         symbol: '',
         asset_type: '',
         external_id: '',
@@ -22,7 +21,7 @@ const AssetMaintaince = () => {
         if(!reloaded) {
             setReloaded(true);
             financeDataApi.getAssets(userContext.integrationToken).then((assetData) => {
-                setAssets([...assetData]);
+                userContext.setAssets([...assetData]);
             });
         }
     })
@@ -81,6 +80,17 @@ const AssetMaintaince = () => {
         });
     }
 
+    function handleEdit(event) {
+        let assetId = event.target.id
+        let selectedAsset = userContext.assets.find((assetItem, index) => (assetItem.id == assetId));
+        setAssetItem({
+            id: selectedAsset.id,
+            symbol: selectedAsset.symbol,
+            asset_type: selectedAsset.asset_type.name,
+            external_id: selectedAsset.external_id
+        })
+    }
+
     return (
         <div className='control'>
             <MessageHolder/>
@@ -96,6 +106,7 @@ const AssetMaintaince = () => {
                         type="text"
                         id="inputId"
                         onChange={handleChangeAssetitem}
+                        value={assetItem.id}
                     />
                     <Form.Label htmlFor="inputSymbol">
                         Symbol
@@ -104,6 +115,7 @@ const AssetMaintaince = () => {
                         type="text"
                         id="inputSymbol"
                         onChange={handleChangeAssetitem}
+                        value={assetItem.symbol}
                     />
                     <Form.Label htmlFor="inputAsset_Type">
                         Type
@@ -112,6 +124,7 @@ const AssetMaintaince = () => {
                         type="text"
                         id="inputAsset_Type"
                         onChange={handleChangeAssetitem}
+                        value={assetItem.asset_type}
                     />
                     <Form.Label htmlFor="inputExternal_Id">
                         External Id
@@ -120,6 +133,7 @@ const AssetMaintaince = () => {
                         type="text"
                         id="inputExternal_Id"
                         onChange={handleChangeAssetitem}
+                        value={assetItem.external_id}
                     />
                     <div className="assets-buttons">
                         <Button variant='outline-primary' onClick={handleSaveAsset}>
@@ -145,7 +159,7 @@ const AssetMaintaince = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            { assets.map((asset,index) => {
+                            { userContext.assets.map((asset,index) => {
                                 return (
                                     <tr key={'asset-item-'+index}>
                                         <td>{asset.id}</td>
@@ -153,7 +167,7 @@ const AssetMaintaince = () => {
                                         <td>{asset.asset_type.name}</td>
                                         <td>{asset.external_id}</td>
                                         <td>
-                                            <Button variant="outline-primary" id={asset.id}>
+                                            <Button variant="outline-primary" id={asset.id} onClick={handleEdit}>
                                                 Edit
                                             </Button>
                                         </td>

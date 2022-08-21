@@ -5,7 +5,6 @@ import UserContext from '../../context/UserContext';
 import financeDataApi from '../../utils/finance-data-api';
 import './styles.css';
 import { MessageHolder } from '../../components';
-import { error } from 'console';
 
 const AssetSelectionPage = () => {
 
@@ -45,17 +44,8 @@ const AssetSelectionPage = () => {
         financeDataApi.searchAsset(keyword,'', API_KEY).then((data) => {
             setFoundAssets(parseMethods.parseJSONWithNumbers(data));
         }).catch((err) => {
-            handleError(err)
+            userContext.handleError(err)
         });
-    }
-
-    function handleError(error) {
-        let messages = [...userContext.messages]
-        messages.push({
-            type:"error",
-            value: error.message
-        });
-        userContext.setMessages(messages);
     }
 
     function handleImportAsset(event) {
@@ -70,8 +60,8 @@ const AssetSelectionPage = () => {
                         value: "Asset Data imported sucessfully!"
                     }
                 ]);
-            }).catch((err) => { handleError(err); });
-        }).catch((err) => { handleError(err); });
+            }).catch((err) => { userContext.handleError(err); });
+        }).catch((err) => { userContext.handleError(err); });
     }
 
     return(

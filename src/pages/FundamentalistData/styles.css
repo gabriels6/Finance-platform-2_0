@@ -1,0 +1,13 @@
+.fundamentalist-data-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.fundamentalist-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.fundamentalist-subtitle {
+    font-weight: bold;
+}
