@@ -6,6 +6,7 @@ import { Header } from './components';
 import UserContext from './context/UserContext';
 import SwitchControl from './pages';
 import { useCookies } from 'react-cookie';
+import financeDataApi from './utils/finance-data-api';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
   const [showHeader, setShowHeader] = useState(true);
   const [messages, setMessages] = useState([]);
   const [cookies, setCookies, removeCookies] = useCookies(['token', 'user', 'date', 'integrationToken']);
+  const [portfolioAssets, setPortfolioAssets] = useState([]);
   const [assets, setAssets] = useState([]);
   const [assetValueHist, setAssetValueHist] = useState([]);
   const [favoriteAssets, setFavoriteAssets] = useState([]);
@@ -26,6 +28,7 @@ function App() {
     showHeader: showHeader,
     messages: messages,
     cookies: cookies,
+    portfolioAssets: portfolioAssets,
     assets: assets,
     assetValueHist: assetValueHist,
     favoriteAssets: favoriteAssets,
@@ -38,21 +41,49 @@ function App() {
     setMessages: setMessages,
     setCookies: setCookies,
     removeCookies: removeCookies,
+    setPortfolioAssets: setPortfolioAssets,
     setAssets: setAssets,
     setAssetValueHist: setAssetValueHist,
     setFavoriteAssets: setFavoriteAssets,
     switchDate: switchDate,
     setOrders: setOrders,
+    handleError: handleError,
+    handleSuccess: handleSuccess
   }
 
   function switchDate(date) {
     setCookies("date", date);
   }
 
+  function handleMessage(type, message) {
+    let messages = [...initialState.messages]
+    messages.push({
+        type: type,
+        value: message, 
+    });
+    initialState.setMessages(messages);
+  }
+
+  function handleError(error) {
+    handleMessage("error",error.message || error)
+  }
+
+  function handleSuccess(successMessage) {
+    handleMessage("success",successMessage);
+    
+  }
+
   useEffect(() => {
     if(initialState.token == "" && cookies.token != null) {
-      setUser(cookies.user);
-      setToken(cookies.token);
+        setUser(cookies.user);
+        setToken(cookies.token);
+        if(initialState.assets.length == 0) {
+          financeDataApi.getAssets(initialState.integrationToken).then((data) => {
+            setAssets([...data]);
+          }).catch(err => {
+            
+          })
+        }
     }
   })
 

@@ -145,5 +145,11 @@ export default {
     },
     async deleteAsset(params, apiKey) {
         return await this.apiDelete('/api/assets', params, apiKey);
+    },
+    async importFundamentalistData(body = {symbol: "", type: ""}, apiKey) {
+        return await this.apiPost('/api/integrator/assets/import_overview', body, apiKey)
+    },
+    async getFundamentalistData(params = {symbol: "", date:null}, apiKey) {
+        return await this.apiGet('/api/fundamentalist_data', params, apiKey);
     }
 }

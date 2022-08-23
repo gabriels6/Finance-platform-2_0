@@ -19,13 +19,13 @@ const PortfolioPage = () => {
         let apiKey = userContext.integrationToken;
         financeDataApi.getPortfolio(userContext.date, apiKey).then((data) => {
             let promises = []
-            data.forEach((asset) => {
-                promises.push(financeDataApi.getAssetPriceHist(asset.asset.symbol,'',userContext.date, apiKey))
+            data.forEach((assetItem) => {
+                promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, apiKey))
             })
             Promise.all(promises).then((assets) => {
                 userContext.setAssetValueHist([...assets.flat(1)])
             })
-            userContext.setAssets([...data]);
+            userContext.setPortfolioAssets([...data]);
         });
         
     }
@@ -41,7 +41,7 @@ const PortfolioPage = () => {
                         Nav
                     </div>
                     <div className="value-text">
-                        ${userContext.assets.reduce((prevNav, item) => {
+                        ${userContext.portfolioAssets.reduce((prevNav, item) => {
                             return prevNav + item.value
                         }, 0.0).toFixed(2) }
                     </div>
@@ -51,7 +51,7 @@ const PortfolioPage = () => {
                         Quantity
                     </div>
                     <div className="value-text">
-                        { userContext.assets.reduce((prevNav, item) => {
+                        { userContext.portfolioAssets.reduce((prevNav, item) => {
                             return prevNav + item.quantity
                         }, 0.0).toFixed(2) }
                     </div>
@@ -67,13 +67,13 @@ const PortfolioPage = () => {
                     </div>
                     <ResponsiveContainer>
                         <PieChart>
-                            <Pie data={userContext.assets.map((item) => ({...item, name: item.asset.symbol + "-" + item.type}))} nameKey="name" dataKey="value" innerRadius="45%" outerRadius="80%" label>
-                                { userContext.assets.map((asset, index) => (
+                            <Pie data={userContext.portfolioAssets.map((item) => ({...item, name: item.asset.symbol + "-" + item.type}))} nameKey="name" dataKey="value" innerRadius="45%" outerRadius="80%" label>
+                                { userContext.portfolioAssets.map((asset, index) => (
                                     <Cell key={`slice-${index}`} fill={colors[index % 10]}/>
                                 ))}
                             </Pie>
-                            <Pie data={userContext.assets.map((item) => ({...item, name: item.asset.symbol + "-" + item.type}))} nameKey="name" dataKey="quantity" innerRadius="15%" outerRadius="40%">
-                                { userContext.assets.map((asset, index) => (
+                            <Pie data={userContext.portfolioAssets.map((item) => ({...item, name: item.asset.symbol + "-" + item.type}))} nameKey="name" dataKey="quantity" innerRadius="15%" outerRadius="40%">
+                                { userContext.portfolioAssets.map((asset, index) => (
                                     <Cell key={`slice-${index}`} fill={colors[index % 10]}/>
                                 ))}
                             </Pie>
@@ -87,8 +87,8 @@ const PortfolioPage = () => {
                     </div>
                     <ResponsiveContainer>
                         <PieChart>
-                            <Pie data={groupMethods.groupAssetsByType(userContext.assets)} nameKey="type" dataKey="quantity" innerRadius="35%" outerRadius="65%" label>
-                                {groupMethods.groupAssetsByType(userContext.assets).map((asset, index) => (
+                            <Pie data={groupMethods.groupAssetsByType(userContext.portfolioAssets)} nameKey="type" dataKey="quantity" innerRadius="35%" outerRadius="65%" label>
+                                {groupMethods.groupAssetsByType(userContext.portfolioAssets).map((asset, index) => (
                                     <Cell key={`part-${index}`} fill={colors[index % 10]}/>
                                 ))}
                             </Pie>

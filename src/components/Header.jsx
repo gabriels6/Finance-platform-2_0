@@ -68,6 +68,13 @@ const Header = () => {
                                                 </Nav.Link>
                                             </LinkContainer>
                                         </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <LinkContainer to="/analysis/fundamentalist-data">
+                                                <Nav.Link>
+                                                    Fundamentalist Data
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                        </NavDropdown.Item>
                                     </NavDropdown>
 
                                     <NavDropdown title="Management" menuVariant="dark">
