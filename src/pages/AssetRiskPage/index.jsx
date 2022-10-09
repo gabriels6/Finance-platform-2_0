@@ -31,7 +31,6 @@ const AssetRiskPage = () => {
         let auxiliarDataForVar = assetDataForVar;
         auxiliarDataForVar[event.target.id] = event.target.value
         setAssetDataForVar(auxiliarDataForVar)
-        console.log(assetDataForVar)
     }
 
     function handleRefresh(event) {

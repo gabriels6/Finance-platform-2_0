@@ -86,7 +86,6 @@ function App() {
         }
     }
     if(initialState.favoriteAssets?.length == 0 && cookies.favoriteAssets?.length > 0) {
-      console.log(cookies.favoriteAssets)
       initialState.setFavoriteAssets([
         ...cookies.favoriteAssets
       ])
