@@ -14,7 +14,7 @@ function App() {
   const [token, setToken] = useState("");
   const [showHeader, setShowHeader] = useState(true);
   const [messages, setMessages] = useState([]);
-  const [cookies, setCookies, removeCookies] = useCookies(['token', 'user', 'date', 'integrationToken']);
+  const [cookies, setCookies, removeCookies] = useCookies(['token', 'user', 'date', 'integrationToken','favoriteAssets']);
   const [portfolioAssets, setPortfolioAssets] = useState([]);
   const [assets, setAssets] = useState([]);
   const [assetValueHist, setAssetValueHist] = useState([]);
@@ -84,6 +84,12 @@ function App() {
             
           })
         }
+    }
+    if(initialState.favoriteAssets?.length == 0 && cookies.favoriteAssets?.length > 0) {
+      console.log(cookies.favoriteAssets)
+      initialState.setFavoriteAssets([
+        ...cookies.favoriteAssets
+      ])
     }
   })
 

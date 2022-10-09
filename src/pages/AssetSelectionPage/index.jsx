@@ -20,20 +20,24 @@ const AssetSelectionPage = () => {
         let asset = foundAssets[index];
         financeDataApi.getAssetData(asset.symbol, API_KEY).then((data) => {
             let assetData = data[0]
-            userContext.setFavoriteAssets([...userContext.favoriteAssets, {
+            let newFavoriteAssetArray = [...userContext.favoriteAssets, {
                 ...asset,
                 treynorIndex: assetData.treynor_index,
                 beta: assetData.beta,
                 return: assetData.rentability
-            }]);
+            }]
+            userContext.setFavoriteAssets(newFavoriteAssetArray);
+            userContext.setCookies("favoriteAssets",JSON.stringify(newFavoriteAssetArray));
         });
     }
 
     function handleFavoritesRemove(event) {
         let selectedIndex = event.target.id.split("-")[1];
-        userContext.setFavoriteAssets(userContext.favoriteAssets.filter((asset, index) => {
+        let filteredFavoriteAssets = userContext.favoriteAssets.filter((asset, index) => {
             return index !== (selectedIndex * 1);
-        }))
+        })
+        userContext.setFavoriteAssets(filteredFavoriteAssets);
+        userContext.setCookies("favoriteAssets",JSON.stringify(filteredFavoriteAssets));
     }
 
     function handleKeyword(event) {
@@ -89,16 +93,18 @@ const AssetSelectionPage = () => {
                 <div>
                     <table>
                         <thead>
-                            <th>Symbol</th>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Region</th>
-                            <th>Market Open</th>
-                            <th>Market Close</th>
-                            <th>Timezone</th>
-                            <th>Currency</th>
-                            <th></th>
-                            <th></th>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Region</th>
+                                <th>Market Open</th>
+                                <th>Market Close</th>
+                                <th>Timezone</th>
+                                <th>Currency</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
                         </thead>
                         <tbody>
                             {foundAssets.map((asset, index) => (
@@ -145,7 +151,7 @@ const AssetSelectionPage = () => {
                         </thead>
                         <tbody>
                             {userContext.favoriteAssets.map((asset, index) => (
-                                <tr key="index">
+                                <tr key={index}>
                                     <td>{asset.symbol}</td>
                                     <td>{asset.name}</td>
                                     <td>{asset.type}</td>

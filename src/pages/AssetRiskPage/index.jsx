@@ -1,7 +1,8 @@
 import { scaleOrdinal } from 'd3-scale';
 import { schemeCategory10 } from 'd3-scale-chromatic';
 import React, { useContext } from 'react';
-import { Button } from 'react-bootstrap';
+import { useState } from 'react';
+import { Button, Form, FormControl, FormLabel } from 'react-bootstrap';
 import { ScatterChart, CartesianGrid, XAxis, YAxis, Scatter, Tooltip, Label, LabelList, BarChart, Bar, Legend, LineChart, Line } from 'recharts';
 import UserContext from '../../context/UserContext';
 import financeDataApi from '../../utils/finance-data-api';
@@ -13,6 +14,26 @@ const AssetRiskPage = () => {
     const colors = scaleOrdinal(schemeCategory10).range();
     const userContext = useContext(UserContext);
 
+    const API_KEY = userContext.integrationToken
+
+    const [assetDataForVar, setAssetDataForVar] = useState({
+        symbol: "",
+        reliability: 95.0,
+        expected_return: 0.0,
+        initial_date: "",
+        final_date: "",
+        amount: ""
+    });
+
+    const [assetVarResult, setAssetVarResult] = useState(0.0)
+
+    function handleAssetDataForVar(event) {
+        let auxiliarDataForVar = assetDataForVar;
+        auxiliarDataForVar[event.target.id] = event.target.value
+        setAssetDataForVar(auxiliarDataForVar)
+        console.log(assetDataForVar)
+    }
+
     function handleRefresh(event) {
         let apiKey = userContext.integrationToken;
         let assets = userContext.favoriteAssets.map((asset) => asset.symbol)
@@ -23,19 +44,27 @@ const AssetRiskPage = () => {
             assetPricePromises.push(financeDataApi.getAssetPriceHist(asset, '', userContext.date, apiKey));
         });
         Promise.all(assetPromises).then((assetData) => {
+            let parsedAssetData = assetData.flat().map((assets) => ({
+                ...assets,
+                treynorIndex: assets.treynor_index,
+                beta: assets.beta,
+                return: assets.rentability
+            }))
+
             userContext.setFavoriteAssets([
-                ...assetData.flat().map((assets) => ({
-                    ...assets,
-                    treynorIndex: assets.treynor_index,
-                    beta: assets.beta,
-                    return: assets.rentability
-                }))
+                ...parsedAssetData
             ])
         })
         Promise.all(assetPricePromises).then((assetPriceData) => {
             userContext.setAssetValueHist([
                 ...assetPriceData.flat(1)
             ])
+        });
+    }
+
+    function calculateAssetVar(){
+        financeDataApi.calculateVar(assetDataForVar, API_KEY).then((data) => {
+            setAssetVarResult(data?.var)
         });
     }
 
@@ -101,6 +130,34 @@ const AssetRiskPage = () => {
                         <Line type="monotone" dataKey={symbol} key={`part-`+index} stroke={colors[index % 10]} />
                     )) }
                 </LineChart>
+            </div>
+            <div className="card asset-var">
+                <div className="title">
+                    Asset VaR
+                </div>
+                <Form className="d-flex flex-column">
+                    {Object.entries(assetDataForVar).map((value, index) => (
+                        <div>
+                            <FormLabel>
+                                {value[0]}
+                            </FormLabel>
+                            <FormControl
+                                key={index}
+                                type="search"
+                                className="me-2"
+                                aria-label="Search"
+                                id={value[0]}
+                                onChange={handleAssetDataForVar}
+                            />
+                        </div>
+                    ))}
+                    <div>
+                    <Button variant="outline-success" onClick={calculateAssetVar}>Calculate</Button>
+                    </div>
+                </Form>
+                <div className="subtitle">
+                    Result: {assetVarResult}
+                </div>
             </div>
         </div>
     )

@@ -151,5 +151,15 @@ export default {
     },
     async getFundamentalistData(params = {symbol: "", date:null}, apiKey) {
         return await this.apiGet('/api/fundamentalist_data', params, apiKey);
+    },
+    async calculateVar(params = {
+        symbol: "",
+        reliability: 95.0,
+        expected_return: 0.0,
+        initial_date: "",
+        final_date: "",
+        amount: ""
+    }, apiKey) {
+        return await this.apiGet('/api/risk/var/calculate_asset', params, apiKey);
     }
 }

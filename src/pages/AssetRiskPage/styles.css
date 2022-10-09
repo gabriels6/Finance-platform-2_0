@@ -8,3 +8,8 @@
     display: flex;
     flex-direction: column;
 }
+
+.asset-var {
+    display:flex;
+    flex-direction: column;
+}
