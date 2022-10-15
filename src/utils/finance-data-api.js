@@ -161,5 +161,8 @@ export default {
         amount: ""
     }, apiKey) {
         return await this.apiGet('/api/risk/var/calculate_asset', params, apiKey);
+    },
+    async getImobiliaryFundsdata(params = {}, apiKey) {
+        return await this.apiGet('/api/integrator/assets/all_imobiliary_funds_data', params, apiKey)
     }
 }

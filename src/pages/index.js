@@ -8,6 +8,7 @@ import AssetRiskPage from './AssetRiskPage';
 import OrdersPage from './OrdersPage';
 import AssetMaintaince from './AssetMaintaince';
 import FundamentalistDataPage from './FundamentalistData';
+import ImobiliaryFundsOportunities from './ImobiliaryFundsOportunities';
 
 const SwitchControl = () => {
     return (
@@ -27,6 +28,7 @@ const SwitchControl = () => {
                 <Route element={<OrdersPage/>} path="/management/orders"/>
                 <Route element={<AssetMaintaince/>} path="/maintainance/asset"/>
                 <Route element={<FundamentalistDataPage/>} path="/analysis/fundamentalist-data"/>
+                <Route element={<ImobiliaryFundsOportunities/>} path="/analysis/imobiliary-funds-oportunities"/>
             </Routes>
         </>
     );
