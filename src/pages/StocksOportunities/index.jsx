@@ -34,7 +34,7 @@ const StocksOportunities = () => {
             initialOffset += 50;
         }
         Promise.all(promises).then((data) => {
-            setStocksFilter([...data.flat()])
+            setStocksList([...data.flat()])
         })
     }
 
