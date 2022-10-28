@@ -164,5 +164,11 @@ export default {
     },
     async getImobiliaryFundsdata(params = {}, apiKey) {
         return await this.apiGet('/api/integrator/assets/all_imobiliary_funds_data', params, apiKey)
+    },
+    async getStocksData(params = {}, apiKey) {
+        return await this.apiGet('/api/integrator/assets/all_stocks_data', params, apiKey)
+    },
+    async getDividendsData(params = {}, apikey) {
+        return await this.apiGet('/api/integrator/assets/stock_dividends', params, apikey)
     }
 }

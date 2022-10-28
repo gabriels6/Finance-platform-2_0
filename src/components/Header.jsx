@@ -82,6 +82,20 @@ const Header = () => {
                                                 </Nav.Link>
                                             </LinkContainer>
                                         </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <LinkContainer to="/analysis/stocks-oportunities">
+                                                <Nav.Link>
+                                                    Stocks Oportunities
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <LinkContainer to="/analysis/dividend-map">
+                                                <Nav.Link>
+                                                    Dividend Map
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                        </NavDropdown.Item>
                                     </NavDropdown>
 
                                     <NavDropdown title="Management" menuVariant="dark">
