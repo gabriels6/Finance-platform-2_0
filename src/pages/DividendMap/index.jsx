@@ -24,7 +24,7 @@ const DividendMap = () => {
     })
 
     function handleGetDividends() {
-        financeDataApi.getDividendsData(queryValues).then((data) => {
+        financeDataApi.getDividendsData(queryValues, API_KEY).then((data) => {
             let dividendArray = [...dividendList,...data]
             dividendArray = dividendArray.sort((a,b) => {
                 let firstDate = new Date(a?.comDate.split("/").reverse().join("/"))
