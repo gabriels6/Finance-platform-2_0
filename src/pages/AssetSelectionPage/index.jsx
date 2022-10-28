@@ -148,6 +148,7 @@ const AssetSelectionPage = () => {
                             <th>Timezone</th>
                             <th>Currency</th>
                             <th></th>
+                            <th></th>
                         </thead>
                         <tbody>
                             {userContext.favoriteAssets.map((asset, index) => (
@@ -163,6 +164,11 @@ const AssetSelectionPage = () => {
                                     <td>
                                         <Button variant="outline-danger" id={'favoriteAsset-'+index} onClick={handleFavoritesRemove}>
                                             Remove Asset
+                                        </Button>
+                                    </td>
+                                    <td>
+                                        <Button variant="outline-primary" id={'favoriteAsset-'+index} onClick={handleImportAsset}>
+                                            Import Asset
                                         </Button>
                                     </td>
                                 </tr>
