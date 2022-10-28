@@ -29,9 +29,9 @@ const StocksOportunities = () => {
         let initialOffset = 0
         setStocksList([{}]);
         let promises = []
-        while(initialOffset < 5) {
+        while(initialOffset < 400) {
             promises.push(financeDataApi.getStocksData({offset: initialOffset, pages: 1}, API_KEY));
-            initialOffset += 1;
+            initialOffset += 50;
         }
         Promise.all(promises).then((data) => {
             setStocksFilter([...data.flat()])
