@@ -12,6 +12,7 @@ export default React.createContext({
     date: "",
     integrationToken: "",
     orders: [],
+    portfolios: [],
     setUser: (newUser) => { },
     setToken: (newToken) => { },
     setShowHeader: (newShowHeader) => { },
@@ -23,4 +24,5 @@ export default React.createContext({
     setFavoriteAssets: (newFavoriteAssets) => { },
     switchDate: (newDate) => { },
     setOrders: (newOrders) => { },
+    setPortfolios: (newPortfolios) => { },
 });

@@ -12,6 +12,8 @@ const OrdersPage = () => {
     const [asset, setAsset] = useState("");
     const [quantity, setQuantity] = useState(0);
     const [date, setDate] = useState("");
+    const [portfolioName, setPortfolioName] = useState("");
+    const [currency, setCurrency] = useState("");
 
     function handleAsset(event) {
         setAsset(event.target.value);
@@ -25,8 +27,16 @@ const OrdersPage = () => {
         setDate(event.target.value);
     }
 
+    function handlePortfolioName(event) {
+        setPortfolioName(event.target.value);
+    }
+
+    function handleCurrency(event) {
+        setCurrency(event.target.value);
+    }
+
     function handleCreateOrder(event) {
-        financeDataApi.createOrder(asset, quantity, date, userContext.integrationToken).then((result) => {
+        financeDataApi.createOrder(asset, quantity, date, portfolioName, currency, userContext.integrationToken).then((result) => {
             userContext.setMessages([...userContext.messages,{
                 type: "success",
                 value: "Order created successfully!"
@@ -97,6 +107,22 @@ const OrdersPage = () => {
                     type="date"
                     id="inputDate"
                     onChange={handleDate}
+                />
+                <Form.Label htmlFor="inputPortfolio">
+                    Portfolio name
+                </Form.Label>
+                <Form.Control
+                    type="text"
+                    id="inputPortfolio"
+                    onChange={handlePortfolioName}
+                />
+                <Form.Label htmlFor="inputCurrency">
+                    Currency
+                </Form.Label>
+                <Form.Control
+                    type="text"
+                    id="inputCurrency"
+                    onChange={handleCurrency}
                 />
                 <div className="orders-buttons">
                     <button onClick={handleCreateOrder}>

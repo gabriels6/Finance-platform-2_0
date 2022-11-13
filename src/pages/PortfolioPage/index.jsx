@@ -17,7 +17,7 @@ const PortfolioPage = () => {
 
     function handleGetPortfolio(event) {
         let apiKey = userContext.integrationToken;
-        financeDataApi.getPortfolio(userContext.date, apiKey).then((data) => {
+        financeDataApi.getPortfolio(event.currentTarget.id, userContext.date, apiKey).then((data) => {
             let promises = []
             data.forEach((assetItem) => {
                 promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, apiKey))
@@ -56,9 +56,20 @@ const PortfolioPage = () => {
                         }, 0.0).toFixed(2) }
                     </div>
                 </div>
-                <div className="value-section">
-                    <button onClick={handleGetPortfolio}>Refresh data</button>
+            </div>
+            <div className='card horizontal-align'>
+                <div className="title">
+                        Portfolios
                 </div>
+                <div className='horizontal-align'>
+                    {userContext.portfolios.map((item, index) => {
+                        return (
+                            <div key={index} className='card' id={item.name} onClick={handleGetPortfolio}>
+                                {item.name} - ({item.currency?.symbol})
+                            </div>
+                        )
+                    })}
+                </div>  
             </div>
             <div className="horizontal-align">
                 <div className="card portfolio-graphic">

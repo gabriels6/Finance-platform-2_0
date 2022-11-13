@@ -50,11 +50,13 @@ export default {
             start_date: startDate
         },apiKey);
     },
-    async createOrder(asset, quantity, date, apiKey) {
+    async createOrder(asset, quantity, date, portfolioName, currency, apiKey) {
         const {data} = await api.post('/api/orders', {
             quantity: quantity,
             asset: asset,
-            date: date
+            date: date,
+            portfolio_name: portfolioName,
+            currency: currency,
         },{
             headers: {
                 'x_api_key': apiKey
@@ -63,9 +65,10 @@ export default {
 
         return data;
     },
-    async getPortfolio(date, apiKey) {
+    async getPortfolio(portfolioName, date, apiKey) {
         const {data} = await api.get('/api/orders/portfolio', {
             params: {
+                portfolio_name: portfolioName,
                 date: date
             },
             headers: {
@@ -129,11 +132,6 @@ export default {
 
         return data;
     },
-    async getPortfolio(date, apiKey) {
-        return await this.apiGet('/api/orders/portfolio',{
-            date: date
-        }, apiKey);
-    },
     async getAssetPriceHist(symbol, startDate, endDate, apiKey) {
         return await this.apiGet('/api/asset_prices',{
             symbol: symbol,
@@ -170,5 +168,8 @@ export default {
     },
     async getDividendsData(params = {}, apikey) {
         return await this.apiGet('/api/integrator/assets/stock_dividends', params, apikey)
+    },
+    async getAllUserPortfolios(params = {}, apiKey) {
+        return await this.apiGet('/api/portfolio', params, apiKey);
     }
 }

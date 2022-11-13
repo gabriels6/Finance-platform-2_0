@@ -20,6 +20,7 @@ function App() {
   const [assetValueHist, setAssetValueHist] = useState([]);
   const [favoriteAssets, setFavoriteAssets] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [portfolios, setPortfolios] = useState([]);
 
   const initialState = {
     user: user,
@@ -35,6 +36,7 @@ function App() {
     date: cookies.date,
     integrationToken: cookies.integrationToken,
     orders: orders,
+    portfolios: portfolios,
     setUser: setUser,
     setToken: setToken,
     setShowHeader: setShowHeader, 
@@ -47,8 +49,9 @@ function App() {
     setFavoriteAssets: setFavoriteAssets,
     switchDate: switchDate,
     setOrders: setOrders,
+    setPortfolios: setPortfolios,
     handleError: handleError,
-    handleSuccess: handleSuccess
+    handleSuccess: handleSuccess,
   }
 
   function switchDate(date) {
@@ -89,6 +92,11 @@ function App() {
       initialState.setFavoriteAssets([
         ...cookies.favoriteAssets
       ])
+    }
+    if(initialState.portfolios?.length == 0) {
+      financeDataApi.getAllUserPortfolios({},initialState.integrationToken).then((data) => {
+        initialState.setPortfolios([...data])
+      })
     }
   })
 
