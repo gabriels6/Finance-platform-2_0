@@ -9,34 +9,52 @@ const OrdersPage = () => {
 
     const userContext = useContext(UserContext);
 
-    const [asset, setAsset] = useState("");
-    const [quantity, setQuantity] = useState(0);
-    const [date, setDate] = useState("");
-    const [portfolioName, setPortfolioName] = useState("");
-    const [currency, setCurrency] = useState("");
+    const [orderFormData, setOrderFormData] = useState({
+        id: '',
+        asset: '',
+        quantity: 0,
+        date: '',
+        portfolioName: '',
+        currency: '',
+        price: 0
+    });
+
+    function handleFormData(key, value) {
+        let currentFormData = {...orderFormData};
+        currentFormData[key] = value;
+        setOrderFormData({...currentFormData});
+    }
+
+    function handleId(event) {
+        handleFormData('id', event.target.value);
+    }
 
     function handleAsset(event) {
-        setAsset(event.target.value);
+        handleFormData('asset',event.target.value);
     }
 
     function handleQuantity(event) {
-        setQuantity(event.target.value);
+        handleFormData('quantity',event.target.value);
     }
 
     function handleDate(event) {
-        setDate(event.target.value);
+        handleFormData('date',event.target.value);
     }
 
     function handlePortfolioName(event) {
-        setPortfolioName(event.target.value);
+        handleFormData('portfolioName',event.target.value);
     }
 
     function handleCurrency(event) {
-        setCurrency(event.target.value);
+        handleFormData('currency',event.target.value);
+    }
+
+    function handlePrice(event) {
+        handleFormData('price',event.target.value);
     }
 
     function handleCreateOrder(event) {
-        financeDataApi.createOrder(asset, quantity, date, portfolioName, currency, userContext.integrationToken).then((result) => {
+        financeDataApi.createOrder(orderFormData.id, orderFormData.asset, orderFormData.quantity, orderFormData.price, orderFormData.date, orderFormData.portfolioName, orderFormData.currency, userContext.integrationToken).then((result) => {
             userContext.setMessages([...userContext.messages,{
                 type: "success",
                 value: "Order created successfully!"
@@ -77,6 +95,20 @@ const OrdersPage = () => {
         })
     }
 
+    function handleEdit(event) {
+        let orderId = event.target.id
+        let selectedOrder = userContext.orders.find((orderItem, index) => (orderItem.id == orderId));
+        setOrderFormData({
+            id: selectedOrder.id,
+            asset: selectedOrder.asset.external_id,
+            quantity: selectedOrder.quantity,
+            date: selectedOrder.date?.replace("T00:00:00.000Z",""),
+            portfolioName: selectedOrder.financial_portfolio.name,
+            currency: selectedOrder.financial_portfolio.currency.symbol,
+            price: selectedOrder.price
+        })
+    }
+
     return (
         <div className='control'>
             <MessageHolder/>
@@ -85,12 +117,22 @@ const OrdersPage = () => {
             </div>
             <div className="card input-order">
                 <Form.Label htmlFor="inputAsset">
+                    Id
+                </Form.Label>
+                <Form.Control
+                    type="text"
+                    id="inputId"
+                    onChange={handleId}
+                    value={orderFormData.id}
+                />
+                <Form.Label htmlFor="inputAsset">
                     Asset
                 </Form.Label>
                 <Form.Control
                     type="text"
                     id="inputAsset"
                     onChange={handleAsset}
+                    value={orderFormData.asset}
                 />
                 <Form.Label htmlFor="inputQuantity">
                     Quantity
@@ -99,6 +141,16 @@ const OrdersPage = () => {
                     type="text"
                     id="inputQuantity"
                     onChange={handleQuantity}
+                    value={orderFormData.quantity}
+                />
+                <Form.Label htmlFor="inputPrice">
+                    Price
+                </Form.Label>
+                <Form.Control
+                    type="text"
+                    id="inputPrice"
+                    onChange={handlePrice}
+                    value={orderFormData.price}
                 />
                 <Form.Label htmlFor="inputDate">
                     Date
@@ -107,6 +159,7 @@ const OrdersPage = () => {
                     type="date"
                     id="inputDate"
                     onChange={handleDate}
+                    value={orderFormData.date}
                 />
                 <Form.Label htmlFor="inputPortfolio">
                     Portfolio name
@@ -115,6 +168,7 @@ const OrdersPage = () => {
                     type="text"
                     id="inputPortfolio"
                     onChange={handlePortfolioName}
+                    value={orderFormData.portfolioName}
                 />
                 <Form.Label htmlFor="inputCurrency">
                     Currency
@@ -123,6 +177,7 @@ const OrdersPage = () => {
                     type="text"
                     id="inputCurrency"
                     onChange={handleCurrency}
+                    value={orderFormData.currency}
                 />
                 <div className="orders-buttons">
                     <button onClick={handleCreateOrder}>
@@ -141,7 +196,9 @@ const OrdersPage = () => {
                             <th>Id</th>
                             <th>Asset</th>
                             <th>Quantity</th>
+                            <th>Portfolio</th>
                             <th>Date</th>
+                            <th>Price</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -151,8 +208,13 @@ const OrdersPage = () => {
                                 <td>{item.id}</td>
                                 <td>{item.asset.symbol}</td>
                                 <td>{item.quantity}</td>
+                                <td>{item.financial_portfolio?.name} - {item.financial_portfolio?.currency.symbol}</td>
                                 <td>{item.date}</td>
+                                <td>{item.price}</td>
                                 <td>
+                                    <Button id={item.id} variant='primary' onClick={handleEdit}>
+                                        Edit
+                                    </Button>
                                     <Button id={'order-'+item.id} variant='danger' onClick={handleRemoveOrder}>
                                         Delete Order
                                     </Button>

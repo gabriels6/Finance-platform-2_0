@@ -50,10 +50,12 @@ export default {
             start_date: startDate
         },apiKey);
     },
-    async createOrder(asset, quantity, date, portfolioName, currency, apiKey) {
+    async createOrder(id, asset, quantity, price, date, portfolioName, currency, apiKey) {
         const {data} = await api.post('/api/orders', {
+            id: id,
             quantity: quantity,
             asset: asset,
+            price: price,
             date: date,
             portfolio_name: portfolioName,
             currency: currency,
