@@ -92,12 +92,13 @@ export default {
 
         return data;
     },
-    async getAssetData(symbol, startDate, apiKey) {
+    async getAssetData(symbol, startDate, endDate, apiKey) {
 
         const {data} = await api.get('/api/assets', {
             params: {
                 external_id: symbol,
                 start_date: startDate,
+                end_date: endDate,
             },
             headers: {
                 'x_api_key': apiKey
