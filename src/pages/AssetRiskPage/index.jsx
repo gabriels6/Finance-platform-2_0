@@ -26,6 +26,7 @@ const AssetRiskPage = () => {
     });
 
     const [assetVarResult, setAssetVarResult] = useState(0.0)
+    const [startDate, setStartDate] = useState('');
 
     function handleAssetDataForVar(event) {
         let auxiliarDataForVar = assetDataForVar;
@@ -39,8 +40,8 @@ const AssetRiskPage = () => {
         let assetPromises = [];
         let assetPricePromises = [];
         assets.forEach((asset) => {
-            assetPromises.push(financeDataApi.getAssetData(asset, apiKey));
-            assetPricePromises.push(financeDataApi.getAssetPriceHist(asset, '', userContext.date, apiKey));
+            assetPromises.push(financeDataApi.getAssetData(asset, startDate, apiKey));
+            assetPricePromises.push(financeDataApi.getAssetPriceHist(asset, startDate, userContext.date, apiKey));
         });
         Promise.all(assetPromises).then((assetData) => {
             let parsedAssetData = assetData.flat().map((assets) => ({
@@ -61,6 +62,10 @@ const AssetRiskPage = () => {
         });
     }
 
+    function handleStartDate(event) {
+        setStartDate(event.target.value);
+    }
+
     function calculateAssetVar(){
         financeDataApi.calculateVar(assetDataForVar, API_KEY).then((data) => {
             setAssetVarResult(data?.var)
@@ -73,7 +78,10 @@ const AssetRiskPage = () => {
                 <div>
                     Asset Risk Reports
                 </div>
-                <div>
+                <div class="horizontal-align">
+                    <Form className="d-flex">
+                        <FormControl className="me-2" type="date" value={startDate} onChange={handleStartDate} />
+                    </Form>
                     <Button variant="outline-primary" onClick={handleRefresh}>
                         Refresh Values
                     </Button>
