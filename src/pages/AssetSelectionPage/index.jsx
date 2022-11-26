@@ -18,7 +18,7 @@ const AssetSelectionPage = () => {
     function handleFavoritesAdd(event) {
         let index = event.target.id.split("-")[1];
         let asset = foundAssets[index];
-        financeDataApi.getAssetData(asset.symbol, API_KEY).then((data) => {
+        financeDataApi.getAssetData(asset.symbol, '', '', API_KEY).then((data) => {
             let assetData = data[0]
             let newFavoriteAssetArray = [...userContext.favoriteAssets, {
                 ...asset,
