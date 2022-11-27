@@ -124,6 +124,31 @@ const PortfolioPage = () => {
                     )) }
                 </LineChart>
             </div>
+            <div className="card">
+                <div className="title">
+                    Portfolio Asset Types
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Asset</td>
+                            <td>Average Price</td>
+                            <td>Current Price</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {userContext.portfolioAssets.map((item, index) => {
+                            return(
+                                <tr key={index}>
+                                    <td>{item.asset.symbol}</td>
+                                    <td>{item.average_price}</td>
+                                    <td>{item.price_today}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }
