@@ -121,7 +121,7 @@ const PortfolioPage = () => {
                     </div>
                     <ResponsiveContainer>
                         <PieChart>
-                            <Pie data={userContext.sectorExposures} nameKey="sector" dataKey="total" innerRadius="35%" outerRadius="65%" label>
+                            <Pie data={userContext.sectorExposures.map((value) => ({ ...value, sector: value.sector + ` (${Math.round(value.percentage * 10000,2)/100 }%)`})) } nameKey="sector" dataKey="total" innerRadius="35%" outerRadius="65%" label>
                                 {userContext.sectorExposures.map((asset, index) => (
                                     <Cell key={`part-${index}`} fill={colors[index % 10]}/>
                                 ))}
