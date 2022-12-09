@@ -19,13 +19,16 @@ const PortfolioPage = () => {
         let apiKey = userContext.integrationToken;
         financeDataApi.getPortfolio(event.currentTarget.id, userContext.date, apiKey).then((data) => {
             let promises = []
-            data.forEach((assetItem) => {
+            let assetItems = data.orders
+            let sectorExposures = data.sector_exposure
+            assetItems.forEach((assetItem) => {
                 promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, apiKey))
             })
             Promise.all(promises).then((assets) => {
                 userContext.setAssetValueHist([...assets.flat(1)])
             })
-            userContext.setPortfolioAssets([...data]);
+            userContext.setPortfolioAssets([...assetItems]);
+            userContext.setSectorExposures([...sectorExposures]);
         });
         
     }
@@ -88,6 +91,11 @@ const PortfolioPage = () => {
                                     <Cell key={`slice-${index}`} fill={colors[index % 10]}/>
                                 ))}
                             </Pie>
+                            <Pie data={userContext.portfolioAssets.map((item) => ({...item, name: item.asset.symbol + "-" + item.type}))} nameKey="name" dataKey="quantity" innerRadius="15%" outerRadius="40%">
+                                { userContext.portfolioAssets.map((asset, index) => (
+                                    <Cell key={`slice-${index}`} fill={colors[index % 10]}/>
+                                ))}
+                            </Pie>
                             <Tooltip trigger="click" />
                         </PieChart>
                     </ResponsiveContainer>
@@ -100,6 +108,21 @@ const PortfolioPage = () => {
                         <PieChart>
                             <Pie data={groupMethods.groupAssetsByType(userContext.portfolioAssets)} nameKey="type" dataKey="quantity" innerRadius="35%" outerRadius="65%" label>
                                 {groupMethods.groupAssetsByType(userContext.portfolioAssets).map((asset, index) => (
+                                    <Cell key={`part-${index}`} fill={colors[index % 10]}/>
+                                ))}
+                            </Pie>
+                            <Tooltip trigger="click" />
+                        </PieChart>
+                    </ResponsiveContainer>
+                </div>
+                <div className="card portfolio-graphic-subtitle">
+                    <div className="title">
+                        Portfolio Sector Exposure
+                    </div>
+                    <ResponsiveContainer>
+                        <PieChart>
+                            <Pie data={userContext.sectorExposures} nameKey="sector" dataKey="total" innerRadius="35%" outerRadius="65%" label>
+                                {userContext.sectorExposures.map((asset, index) => (
                                     <Cell key={`part-${index}`} fill={colors[index % 10]}/>
                                 ))}
                             </Pie>

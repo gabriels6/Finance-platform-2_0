@@ -21,6 +21,7 @@ function App() {
   const [favoriteAssets, setFavoriteAssets] = useState([]);
   const [orders, setOrders] = useState([]);
   const [portfolios, setPortfolios] = useState([]);
+  const [sectorExposures, setSectorExposures] = useState([]);
 
   const initialState = {
     user: user,
@@ -37,6 +38,7 @@ function App() {
     integrationToken: cookies.integrationToken,
     orders: orders,
     portfolios: portfolios,
+    sectorExposures: sectorExposures,
     setUser: setUser,
     setToken: setToken,
     setShowHeader: setShowHeader, 
@@ -52,6 +54,7 @@ function App() {
     setPortfolios: setPortfolios,
     handleError: handleError,
     handleSuccess: handleSuccess,
+    setSectorExposures: setSectorExposures,
   }
 
   function switchDate(date) {

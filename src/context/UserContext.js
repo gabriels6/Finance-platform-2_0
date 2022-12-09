@@ -12,6 +12,7 @@ export default React.createContext({
     date: "",
     integrationToken: "",
     orders: [],
+    sectorExposures: [],
     portfolios: [],
     setUser: (newUser) => { },
     setToken: (newToken) => { },
@@ -25,4 +26,5 @@ export default React.createContext({
     switchDate: (newDate) => { },
     setOrders: (newOrders) => { },
     setPortfolios: (newPortfolios) => { },
+    setSectorExposures: (newSectorExposures) => { }
 });

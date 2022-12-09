@@ -15,6 +15,7 @@ const AssetMaintaince = () => {
         symbol: '',
         asset_type: '',
         external_id: '',
+        sector: '',
     });
 
     useEffect(() => {
@@ -87,7 +88,8 @@ const AssetMaintaince = () => {
             id: selectedAsset.id,
             symbol: selectedAsset.symbol,
             asset_type: selectedAsset.asset_type.name,
-            external_id: selectedAsset.external_id
+            external_id: selectedAsset.external_id,
+            sector: selectedAsset.sector.name
         })
     }
 
@@ -135,6 +137,15 @@ const AssetMaintaince = () => {
                         onChange={handleChangeAssetitem}
                         value={assetItem.external_id}
                     />
+                    <Form.Label htmlFor="inputExternal_Id">
+                        Sector
+                    </Form.Label>
+                    <Form.Control
+                        type="text"
+                        id="inputSector"
+                        onChange={handleChangeAssetitem}
+                        value={assetItem.sector}
+                    />
                     <div className="assets-buttons">
                         <Button variant='outline-primary' onClick={handleSaveAsset}>
                             Create Asset
@@ -154,6 +165,7 @@ const AssetMaintaince = () => {
                                 <th>Symbol</th>
                                 <th>Type</th>
                                 <th>External Id</th>
+                                <th>Sector</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -166,6 +178,7 @@ const AssetMaintaince = () => {
                                         <td>{asset.symbol}</td>
                                         <td>{asset.asset_type.name}</td>
                                         <td>{asset.external_id}</td>
+                                        <td>{asset.sector.name}</td>
                                         <td>
                                             <Button variant="outline-primary" id={asset.id} onClick={handleEdit}>
                                                 Edit
