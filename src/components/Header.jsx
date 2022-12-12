@@ -47,11 +47,23 @@ const Header = () => {
                         userContext.token !== "" ? (
                             <>
                                 <Nav className="me-auto">
-                                    <LinkContainer to="/portfolio">
-                                        <Nav.Link>
-                                            Portfolio
-                                        </Nav.Link>
-                                    </LinkContainer>
+                                    <NavDropdown title="Portfolios" menuVariant="dark">
+                                        <NavDropdown.Item>
+                                            <LinkContainer to="/portfolio">
+                                                <Nav.Link>
+                                                Portfolio
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <LinkContainer to="/portfolio/realtime-portfolio">
+                                                <Nav.Link>
+                                                Real-time
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                        </NavDropdown.Item>
+                                    </NavDropdown>
+
 
                                     <NavDropdown title="Analysis" menuVariant="dark">
                                         <NavDropdown.Item>

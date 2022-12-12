@@ -16,6 +16,7 @@ const AssetMaintaince = () => {
         asset_type: '',
         external_id: '',
         sector: '',
+        investing_external_id: '',
     });
 
     useEffect(() => {
@@ -89,7 +90,8 @@ const AssetMaintaince = () => {
             symbol: selectedAsset.symbol,
             asset_type: selectedAsset.asset_type.name,
             external_id: selectedAsset.external_id,
-            sector: selectedAsset.sector.name
+            sector: selectedAsset.sector.name,
+            investing_external_id: selectedAsset.investing_external_id
         })
     }
 
@@ -137,7 +139,7 @@ const AssetMaintaince = () => {
                         onChange={handleChangeAssetitem}
                         value={assetItem.external_id}
                     />
-                    <Form.Label htmlFor="inputExternal_Id">
+                    <Form.Label htmlFor="inputSector">
                         Sector
                     </Form.Label>
                     <Form.Control
@@ -145,6 +147,15 @@ const AssetMaintaince = () => {
                         id="inputSector"
                         onChange={handleChangeAssetitem}
                         value={assetItem.sector}
+                    />
+                    <Form.Label htmlFor="inputInvesting_external_id">
+                        Investing External Id
+                    </Form.Label>
+                    <Form.Control
+                        type="text"
+                        id="inputInvesting_external_id"
+                        onChange={handleChangeAssetitem}
+                        value={assetItem.investing_external_id}
                     />
                     <div className="assets-buttons">
                         <Button variant='outline-primary' onClick={handleSaveAsset}>
@@ -166,6 +177,7 @@ const AssetMaintaince = () => {
                                 <th>Type</th>
                                 <th>External Id</th>
                                 <th>Sector</th>
+                                <th>Investing External Id</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -179,6 +191,7 @@ const AssetMaintaince = () => {
                                         <td>{asset.asset_type.name}</td>
                                         <td>{asset.external_id}</td>
                                         <td>{asset.sector.name}</td>
+                                        <td>{asset.investing_external_id}</td>
                                         <td>
                                             <Button variant="outline-primary" id={asset.id} onClick={handleEdit}>
                                                 Edit

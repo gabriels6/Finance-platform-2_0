@@ -176,5 +176,8 @@ export default {
     },
     async getAllUserPortfolios(params = {}, apiKey) {
         return await this.apiGet('/api/portfolio', params, apiKey);
+    },
+    async getRealtimeAssets(params = {}, apiKey) {
+        return await this.apiGet('/api/integrator/assets/current_stocks_data', params, apiKey);
     }
 }

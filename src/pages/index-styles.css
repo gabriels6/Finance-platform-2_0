@@ -1,5 +1,5 @@
 .card {
-    border: solid 1px #aaa;
+    border: solid 1px #ddd;
     padding: 5px 10px;
     display:flex;
     flex-direction: row;
@@ -57,3 +57,8 @@ button:hover {
     justify-content: space-between;
 }
 
+.vertical-align {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

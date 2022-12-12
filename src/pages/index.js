@@ -10,6 +10,7 @@ import AssetMaintaince from './AssetMaintaince';
 import FundamentalistDataPage from './FundamentalistData';
 import ImobiliaryFundsOportunities from './ImobiliaryFundsOportunities';
 import StocksOportunities from './StocksOportunities';
+import RealtimePortfolioPage from './RealtimePortfolioPage';
 import DividendMap from './DividendMap';
 
 const SwitchControl = () => {
@@ -33,6 +34,7 @@ const SwitchControl = () => {
                 <Route element={<ImobiliaryFundsOportunities/>} path="/analysis/imobiliary-funds-oportunities"/>
                 <Route element={<StocksOportunities/>} path="/analysis/stocks-oportunities"/>
                 <Route element={<DividendMap/>} path="/analysis/dividend-map"/>
+                <Route element={<RealtimePortfolioPage/>} path="/portfolio/realtime-portfolio"/>
             </Routes>
         </>
     );
