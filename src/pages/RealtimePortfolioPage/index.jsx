@@ -27,7 +27,7 @@ const RealtimePortfolioPage = () => {
             if(realtimePortfolio.assets.length > 0) {
                 financeDataApi.getRealtimeAssets({
                     symbols: realtimePortfolio.assets.map((item) => (item.asset.symbol)),
-                }).then((data) => {
+                },userContext.integrationToken).then((data) => {
                     data.forEach((item) => {
                         let currentAssetIndex = realtimePortfolio.assets.findIndex((portfolioItem, index) => (portfolioItem.asset.investing_external_id == item.asset));
                         let newAssets = realtimePortfolio.assets;
