@@ -39,7 +39,7 @@ const RealtimePortfolioPage = () => {
                     });
                 })
             }
-        },4000);
+        },8000);
     }, [refresh]);
 
     function handleGetPortfolio(event) {
@@ -69,7 +69,7 @@ const RealtimePortfolioPage = () => {
                         </div>
                         <div className="value-text">
                             ${realtimePortfolio.assets.reduce((prevNav, item) => {
-                                return prevNav + item.value
+                                return prevNav + (item.quantity * (item.current_price || item.price))
                             }, 0.0).toFixed(2) }
                         </div>
                     </div>
@@ -109,6 +109,7 @@ const RealtimePortfolioPage = () => {
                                     <td>Asset</td>
                                     <td>Investing external Id.</td>
                                     <td>Quantity</td>
+                                    <td>Price</td>
                                     <td>Average Price</td>
                                     <td>Value</td>
                                     <td>Current Price</td>
@@ -123,6 +124,7 @@ const RealtimePortfolioPage = () => {
                                             <td>{item.asset.symbol}</td>
                                             <td>{item.asset.investing_external_id}</td>
                                             <td>{item.quantity}</td>
+                                            <td>{item.price}</td>
                                             <td>{item.average_price}</td>
                                             <td>{item.value}</td>
                                             <td>{Math.round(item.current_price * 100)/100 || 0.0}</td>
