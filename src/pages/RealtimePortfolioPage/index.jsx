@@ -129,7 +129,7 @@ const RealtimePortfolioPage = () => {
                                             <td>{item.value}</td>
                                             <td>{Math.round(item.current_price * 100)/100 || 0.0}</td>
                                             <td>{Math.round(item.current_value * 100)/100 || 0.0}</td>
-                                            <td className={((item.current_price - item.price)/item.price || 0.0) >= 0 ? "green" : "red"}>{Math.round((item.current_price - item.price)/item.price * 100)/100 || 0.0}%</td>
+                                            <td className={((item.current_price - item.price)/item.price || 0.0) >= 0 ? "green" : "red"}>{Math.round((item.current_price - item.price)/item.price * 10000)/100 || 0.0}%</td>
                                         </tr>
                                     )
                                 })}
