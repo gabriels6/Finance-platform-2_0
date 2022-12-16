@@ -38,7 +38,6 @@ const RealtimePortfolioPage = () => {
                         let currentAssetIndex = realtimePortfolio.assets.findIndex((portfolioItem, index) => (portfolioItem.asset.investing_external_id == item.asset));
                         let newAssets = realtimePortfolio.assets;
                         if(currentAssetIndex >= 0) {
-                            console.log(newAssets[currentAssetIndex])
                             newAssets[currentAssetIndex].current_price = item.price
                             newAssets[currentAssetIndex].current_value = Math.round(item.price * newAssets[currentAssetIndex].quantity * 100 || 0.0)/100
                             setRealtimePortfolio({...realtimePortfolio, assets: [...newAssets]})
@@ -175,7 +174,7 @@ const RealtimePortfolioPage = () => {
                             <Line type="monotone" dataKey="value" name="value" stroke={colors[1 % 10]} />
                         </LineChart>
                     </div>
-                    <div className="horizontal-align">
+                    <div className="horizontal-align wrap">
                         {
                             Object.entries(assetValues).map((item, index) => {
                                 let key = item[0]
