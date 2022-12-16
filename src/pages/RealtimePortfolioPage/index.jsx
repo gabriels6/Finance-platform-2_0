@@ -19,7 +19,6 @@ const RealtimePortfolioPage = () => {
 
     const [refresh, setRefresh] = useState(0);
     const [navs, setNavs] = useState([]);
-    const [assetValues, setAssetValues] = useState({})
     const [realtimePortfolio, setRealtimePortfolio] = useState({
         assets: [],
         exposures: []
@@ -41,16 +40,6 @@ const RealtimePortfolioPage = () => {
                             newAssets[currentAssetIndex].current_price = item.price
                             newAssets[currentAssetIndex].current_value = Math.round(item.price * newAssets[currentAssetIndex].quantity * 100 || 0.0)/100
                             setRealtimePortfolio({...realtimePortfolio, assets: [...newAssets]})
-                            setAssetValues(prevValues => {
-                                let currAssetHist = prevValues[newAssets[currentAssetIndex].asset.symbol] || [];
-                                currAssetHist.push({
-                                    time: nowDate.getHours()+":"+nowDate.getMinutes()+":"+nowDate.getSeconds() + " - " + newAssets[currentAssetIndex].current_value,
-                                    value: newAssets[currentAssetIndex].current_value
-                                })
-                                let newAssetValuesHistory = {...prevValues}
-                                newAssetValuesHistory[newAssets[currentAssetIndex].asset.symbol] = currAssetHist
-                                return {...newAssetValuesHistory}
-                            })
                             currentNav += newAssets[currentAssetIndex].current_value
                         }
                     });
@@ -173,30 +162,6 @@ const RealtimePortfolioPage = () => {
                             <Tooltip />
                             <Line type="monotone" dataKey="value" name="value" stroke={colors[1 % 10]} />
                         </LineChart>
-                    </div>
-                    <div className="horizontal-align wrap">
-                        {
-                            Object.entries(assetValues).map((item, index) => {
-                                let key = item[0]
-                                let values = item[1]
-                                return (
-                                    <div className="card vertical-align realtime-asset" key={key}>
-                                        <div className="title">
-                                            {key}
-                                        </div>
-                                        <LineChart width={550} height={250} data={values}
-                                            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                                            <CartesianGrid strokeDasharray="3 3" />
-                                            <XAxis dataKey="time"/>
-                                            <YAxis domain={['value - 200','value + 200']}/>
-                                            <Legend/>
-                                            <Tooltip />
-                                            <Line type="monotone" dataKey="value" name="value" stroke={colors[index % 10]} />
-                                        </LineChart>
-                                    </div>
-                                )
-                            })
-                        }
                     </div>
                     
                     
