@@ -19,6 +19,7 @@ const RealtimePortfolioPage = () => {
 
     const [refresh, setRefresh] = useState(0);
     const [navs, setNavs] = useState([]);
+    const [assetValues, setAssetValues] = useState({})
     const [realtimePortfolio, setRealtimePortfolio] = useState({
         assets: [],
         exposures: []
@@ -32,17 +33,28 @@ const RealtimePortfolioPage = () => {
                     symbols: realtimePortfolio.assets.map((item) => (item.asset.symbol)),
                 },userContext.integrationToken).then((data) => {
                     let currentNav = 0.0;
+                    let nowDate = new Date(Date.now());
                     data.forEach((item) => {
                         let currentAssetIndex = realtimePortfolio.assets.findIndex((portfolioItem, index) => (portfolioItem.asset.investing_external_id == item.asset));
                         let newAssets = realtimePortfolio.assets;
                         if(currentAssetIndex >= 0) {
+                            console.log(newAssets[currentAssetIndex])
                             newAssets[currentAssetIndex].current_price = item.price
-                            newAssets[currentAssetIndex].current_value = item.price * newAssets[currentAssetIndex].quantity
+                            newAssets[currentAssetIndex].current_value = Math.round(item.price * newAssets[currentAssetIndex].quantity * 100 || 0.0)/100
                             setRealtimePortfolio({...realtimePortfolio, assets: [...newAssets]})
-                            currentNav += (item.price || 0.0) * newAssets[currentAssetIndex].quantity
+                            setAssetValues(prevValues => {
+                                let currAssetHist = prevValues[newAssets[currentAssetIndex].asset.symbol] || [];
+                                currAssetHist.push({
+                                    time: nowDate.getHours()+":"+nowDate.getMinutes()+":"+nowDate.getSeconds() + " - " + newAssets[currentAssetIndex].current_value,
+                                    value: newAssets[currentAssetIndex].current_value
+                                })
+                                let newAssetValuesHistory = {...prevValues}
+                                newAssetValuesHistory[newAssets[currentAssetIndex].asset.symbol] = currAssetHist
+                                return {...newAssetValuesHistory}
+                            })
+                            currentNav += newAssets[currentAssetIndex].current_value
                         }
                     });
-                    let nowDate = new Date(Date.now());
                     setNavs(prevNavs => [
                         ...prevNavs,
                         {
@@ -151,7 +163,7 @@ const RealtimePortfolioPage = () => {
                     </div>  
                     <div className="card">
                         <div className="title">
-                            Asset Value History
+                            Portfolio History
                         </div>
                         <LineChart width={730} height={250} data={navs}
                             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -160,9 +172,35 @@ const RealtimePortfolioPage = () => {
                             <YAxis domain={['value - 200','value + 200']}/>
                             <Legend/>
                             <Tooltip />
-                            <Line type="monotone" dataKey="value" name="nav" stroke={colors[1 % 10]} />
+                            <Line type="monotone" dataKey="value" name="value" stroke={colors[1 % 10]} />
                         </LineChart>
                     </div>
+                    <div className="horizontal-align">
+                        {
+                            Object.entries(assetValues).map((item, index) => {
+                                let key = item[0]
+                                let values = item[1]
+                                return (
+                                    <div className="card vertical-align realtime-asset" key={key}>
+                                        <div className="title">
+                                            {key}
+                                        </div>
+                                        <LineChart width={550} height={250} data={values}
+                                            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                                            <CartesianGrid strokeDasharray="3 3" />
+                                            <XAxis dataKey="time"/>
+                                            <YAxis domain={['value - 200','value + 200']}/>
+                                            <Legend/>
+                                            <Tooltip />
+                                            <Line type="monotone" dataKey="value" name="value" stroke={colors[index % 10]} />
+                                        </LineChart>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                    
+                    
                 </div>
         </div>
     )
