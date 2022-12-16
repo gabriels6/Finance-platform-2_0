@@ -4,6 +4,8 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useContext } from "react";
+import { Tooltip } from "react-bootstrap";
+import { CartesianGrid, Legend, Line, LineChart, XAxis, YAxis } from "recharts";
 import UserContext from "../../context/UserContext";
 import financeDataApi from "../../utils/finance-data-api";
 import "./styles.css";
@@ -16,6 +18,7 @@ const RealtimePortfolioPage = () => {
 
 
     const [refresh, setRefresh] = useState(0);
+    const [navs, setNavs] = useState([])
     const [realtimePortfolio, setRealtimePortfolio] = useState({
         assets: [],
         exposures: []
@@ -28,6 +31,7 @@ const RealtimePortfolioPage = () => {
                 financeDataApi.getRealtimeAssets({
                     symbols: realtimePortfolio.assets.map((item) => (item.asset.symbol)),
                 },userContext.integrationToken).then((data) => {
+                    let currentNav = 0.0;
                     data.forEach((item) => {
                         let currentAssetIndex = realtimePortfolio.assets.findIndex((portfolioItem, index) => (portfolioItem.asset.investing_external_id == item.asset));
                         let newAssets = realtimePortfolio.assets;
@@ -35,8 +39,17 @@ const RealtimePortfolioPage = () => {
                             newAssets[currentAssetIndex].current_price = item.price
                             newAssets[currentAssetIndex].current_value = item.price * newAssets[currentAssetIndex].quantity
                             setRealtimePortfolio({...realtimePortfolio, assets: [...newAssets]})
+                            currentNav += (item.price || 0.0) * newAssets[currentAssetIndex].quantity
                         }
                     });
+                    let nowDate = new Date(Date.now());
+                    setNavs(prevNavs => [
+                        ...prevNavs,
+                        {
+                            time: nowDate.getHours()+":"+nowDate.getMinutes()+":"+nowDate.getSeconds() + " - " + Math.round(currentNav * 100)/100,
+                            value: currentNav,
+                        }
+                    ])
                 })
             }
         },8000);
@@ -135,8 +148,21 @@ const RealtimePortfolioPage = () => {
                                 })}
                             </tbody>
                         </table>
-                        
                     </div>  
+                    <div className="card">
+                        <div className="title">
+                            Asset Value History
+                        </div>
+                        <LineChart width={730} height={250} data={navs}
+                            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="time" />
+                            <YAxis/>
+                            <Legend/>
+                            <Tooltip />
+                            <Line type="monotone" dataKey="value" name="nav" stroke={colors[1 % 10]} />
+                        </LineChart>
+                    </div>
                 </div>
         </div>
     )
