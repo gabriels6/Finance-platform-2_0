@@ -18,7 +18,7 @@ const RealtimePortfolioPage = () => {
 
 
     const [refresh, setRefresh] = useState(0);
-    const [navs, setNavs] = useState([])
+    const [navs, setNavs] = useState([]);
     const [realtimePortfolio, setRealtimePortfolio] = useState({
         assets: [],
         exposures: []
@@ -47,7 +47,7 @@ const RealtimePortfolioPage = () => {
                         ...prevNavs,
                         {
                             time: nowDate.getHours()+":"+nowDate.getMinutes()+":"+nowDate.getSeconds() + " - " + Math.round(currentNav * 100)/100,
-                            value: currentNav,
+                            value: Math.round(currentNav * 100)/100,
                         }
                     ])
                 })
@@ -156,8 +156,8 @@ const RealtimePortfolioPage = () => {
                         <LineChart width={730} height={250} data={navs}
                             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="time" />
-                            <YAxis/>
+                            <XAxis dataKey="time"/>
+                            <YAxis domain={['value - 200','value + 200']}/>
                             <Legend/>
                             <Tooltip />
                             <Line type="monotone" dataKey="value" name="nav" stroke={colors[1 % 10]} />
