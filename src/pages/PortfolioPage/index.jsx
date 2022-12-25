@@ -131,11 +131,11 @@ const PortfolioPage = () => {
                     </ResponsiveContainer>
                 </div>
             </div>
-            <div className="card">
+            <div className="card vertical-align">
                 <div className="title">
                     Asset Value History
                 </div>
-                <LineChart width={730} height={250} data={groupMethods.groupAssetHist(userContext.assetValueHist,'price')}
+                <LineChart width={1180} height={580} data={groupMethods.groupAssetHist(userContext.assetValueHist,'price')}
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" />
