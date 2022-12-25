@@ -3,7 +3,7 @@ import { schemeCategory10 } from 'd3-scale-chromatic';
 import React, { useContext } from 'react';
 import { useState } from 'react';
 import { Button, Form, FormControl, FormLabel } from 'react-bootstrap';
-import { ScatterChart, CartesianGrid, XAxis, YAxis, Scatter, Tooltip, Label, LabelList, BarChart, Bar, Legend, LineChart, Line } from 'recharts';
+import { ScatterChart, CartesianGrid, XAxis, YAxis, Scatter, Tooltip, Label, LabelList, BarChart, Bar, Legend, LineChart, Line, ResponsiveContainer } from 'recharts';
 import UserContext from '../../context/UserContext';
 import financeDataApi from '../../utils/finance-data-api';
 import groupMethods from '../../utils/group-methods';
@@ -91,52 +91,56 @@ const AssetRiskPage = () => {
                 <div className="title">
                     Risk x Return
                 </div>
-                <ScatterChart 
-                    width={1050} 
-                    height={350} 
-                    margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-                >
-                    <CartesianGrid />
-                    <XAxis dataKey="return" type="number" name="Return" unit="%" >
-                        <Label value="Return" offset={0} position="insideBottom"/>
-                    </XAxis>
-                    <YAxis dataKey="beta" type="number" name="Beta" unit=" pts" >
-                        <Label value="Risk" offset={0} angle={-90} position="insideLeft"/>
-                    </YAxis>
-                    <Scatter name="A school" data={userContext.favoriteAssets} fill="#8884d8" >
-                        <LabelList dataKey="symbol" position="right"/>
-                    </Scatter>
-                    <Tooltip cursor={{strokeDasharray: '8 8'}} />
-                </ScatterChart>
+                <ResponsiveContainer>
+                    <ScatterChart
+                        margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+                    >
+                        <CartesianGrid />
+                        <XAxis dataKey="return" type="number" name="Return" unit="%" domain={[-150,150]}>
+                            <Label value="Return" offset={0} position="insideBottom"/>
+                        </XAxis>
+                        <YAxis dataKey="beta" type="number" name="Beta" unit=" pts">
+                            <Label value="Risk" offset={0} angle={-90} position="insideLeft"/>
+                        </YAxis>
+                        <Scatter name="A school" data={userContext.favoriteAssets} fill="#8884d8" >
+                            <LabelList dataKey="symbol" position="right"/>
+                        </Scatter>
+                        <Tooltip cursor={{strokeDasharray: '8 8'}} />
+                    </ScatterChart>
+                </ResponsiveContainer>
             </div>
             <div className="card asset-risk-return-chart">
                 <div className="title">
                     Treynor Ratio
                 </div>
-                <BarChart width={1050} height={350} data={userContext.favoriteAssets}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="symbol" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="treynorIndex" fill="#bf00ff" />
-                </BarChart> 
+                <ResponsiveContainer>
+                    <BarChart data={userContext.favoriteAssets}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="symbol" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="treynorIndex" fill="#bf00ff" />
+                    </BarChart>
+                </ResponsiveContainer>
             </div>
             <div className="card asset-risk-return-chart">
                 <div className="title">
                     Asset Rentability Comparison
                 </div>
-                <LineChart width={730} height={250} data={groupMethods.groupAssetHist(userContext.assetValueHist,'rentability')}
-                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <Legend />
-                    <Tooltip />
-                    { groupMethods.groupAssetHistSecurities(userContext.assetValueHist).map((symbol,index) => (
-                        <Line type="monotone" dataKey={symbol} key={`part-`+index} stroke={colors[index % 10]} />
-                    )) }
-                </LineChart>
+                <ResponsiveContainer>
+                    <LineChart data={groupMethods.groupAssetHist(userContext.assetValueHist,'rentability')}
+                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="date" />
+                        <YAxis />
+                        <Legend />
+                        <Tooltip />
+                        { groupMethods.groupAssetHistSecurities(userContext.assetValueHist).map((symbol,index) => (
+                            <Line type="monotone" dataKey={symbol} key={`part-`+index} stroke={colors[index % 10]} />
+                        )) }
+                    </LineChart>
+                </ResponsiveContainer>
             </div>
             <div className="card asset-var">
                 <div className="title">

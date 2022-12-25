@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useContext } from "react";
 import { Tooltip } from "react-bootstrap";
-import { CartesianGrid, Legend, Line, LineChart, XAxis, YAxis } from "recharts";
+import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import UserContext from "../../context/UserContext";
 import financeDataApi from "../../utils/finance-data-api";
 import "./styles.css";
@@ -149,19 +149,21 @@ const RealtimePortfolioPage = () => {
                             </tbody>
                         </table>
                     </div>  
-                    <div className="card">
+                    <div className="card portfolio-history vertical-align">
                         <div className="title">
                             Portfolio History
                         </div>
-                        <LineChart width={730} height={250} data={navs}
-                            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="time"/>
-                            <YAxis domain={['value - 200','value + 200']}/>
-                            <Legend/>
-                            <Tooltip />
-                            <Line type="monotone" dataKey="value" name="value" stroke={colors[1 % 10]} />
-                        </LineChart>
+                        <ResponsiveContainer>
+                            <LineChart data={navs}
+                                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="time"/>
+                                <YAxis domain={['value - 200','value + 200']}/>
+                                <Legend/>
+                                <Tooltip />
+                                <Line type="monotone" dataKey="value" name="value" stroke={colors[1 % 10]} />
+                            </LineChart>
+                        </ResponsiveContainer>
                     </div>
                     
                     

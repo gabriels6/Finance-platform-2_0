@@ -7,9 +7,13 @@
 .asset-risk-return-chart {
     display: flex;
     flex-direction: column;
+    height:600px;
+    width: auto;
 }
 
 .asset-var {
     display:flex;
     flex-direction: column;
+    height:600px;
+    width: auto;
 }

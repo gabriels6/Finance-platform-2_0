@@ -75,7 +75,7 @@ const PortfolioPage = () => {
                 </div>  
             </div>
             <div className="horizontal-align">
-                <div className="card portfolio-graphic">
+                <div className="card portfolio-graphic vertical-align">
                     <div className="title">
                         Portfolio Assets
                     </div>
@@ -100,7 +100,7 @@ const PortfolioPage = () => {
                         </PieChart>
                     </ResponsiveContainer>
                 </div>
-                <div className="card portfolio-graphic-subtitle">
+                <div className="card vertical-align portfolio-graphic-subtitle">
                     <div className="title">
                         Portfolio Asset Types
                     </div>
@@ -115,7 +115,7 @@ const PortfolioPage = () => {
                         </PieChart>
                     </ResponsiveContainer>
                 </div>
-                <div className="card portfolio-graphic-subtitle">
+                <div className="card vertical-align portfolio-graphic-subtitle">
                     <div className="title">
                         Portfolio Sector Exposure
                     </div>
@@ -131,21 +131,23 @@ const PortfolioPage = () => {
                     </ResponsiveContainer>
                 </div>
             </div>
-            <div className="card vertical-align">
+            <div className="card portfolio-asset-hist vertical-align">
                 <div className="title">
                     Asset Value History
                 </div>
-                <LineChart width={1180} height={580} data={groupMethods.groupAssetHist(userContext.assetValueHist,'price')}
-                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <Legend />
-                    <Tooltip />
-                    { groupMethods.groupAssetHistSecurities(userContext.assetValueHist).map((symbol,index) => (
-                        <Line type="monotone" dataKey={symbol} key={`part-`+index} stroke={colors[index % 10]} />
-                    )) }
-                </LineChart>
+                <ResponsiveContainer>
+                    <LineChart data={groupMethods.groupAssetHist(userContext.assetValueHist,'price')}
+                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="date" />
+                        <YAxis />
+                        <Legend />
+                        <Tooltip />
+                        { groupMethods.groupAssetHistSecurities(userContext.assetValueHist).map((symbol,index) => (
+                            <Line type="monotone" dataKey={symbol} key={`part-`+index} stroke={colors[index % 10]} />
+                        )) }
+                    </LineChart>
+                </ResponsiveContainer>
             </div>
             <div className="card">
                 <div className="title">
