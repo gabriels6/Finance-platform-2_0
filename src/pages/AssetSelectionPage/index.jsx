@@ -16,8 +16,10 @@ const AssetSelectionPage = () => {
     const API_KEY = userContext.integrationToken
 
     function handleFavoritesAdd(event) {
-        let index = event.target.id.split("-")[1];
-        let asset = foundAssets[index];
+        let selectedSymbol = event.target.id.split("-")[1];
+        let asset = foundAssets.find((value) => {
+            return value.symbol == selectedSymbol;
+        });
         financeDataApi.getAssetData(asset.symbol, '', '', API_KEY).then((data) => {
             let assetData = data[0]
             let newFavoriteAssetArray = [...userContext.favoriteAssets, {
