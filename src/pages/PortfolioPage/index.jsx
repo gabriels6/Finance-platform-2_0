@@ -29,6 +29,7 @@ const PortfolioPage = () => {
             })
             userContext.setPortfolioAssets([...assetItems]);
             userContext.setSectorExposures([...sectorExposures]);
+            userContext.setPortfolioDividendYield(data.portfolio_dividend_yield)
         });
         
     }
@@ -57,6 +58,14 @@ const PortfolioPage = () => {
                         { userContext.portfolioAssets.reduce((prevNav, item) => {
                             return prevNav + item.quantity
                         }, 0.0).toFixed(2) }
+                    </div>
+                </div>
+                <div className="value-section">
+                    <div className="info-text">
+                        Portfolio Yield
+                    </div>
+                    <div className="value-text">
+                        { (userContext.portfolioDividendYield * 100)?.toFixed(2) }%
                     </div>
                 </div>
             </div>

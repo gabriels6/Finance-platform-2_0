@@ -14,6 +14,8 @@ export default React.createContext({
     orders: [],
     sectorExposures: [],
     portfolios: [],
+    portfolioAssets: {},
+    portfolioDividendYield: 0.0,
     setUser: (newUser) => { },
     setToken: (newToken) => { },
     setShowHeader: (newShowHeader) => { },
@@ -26,5 +28,7 @@ export default React.createContext({
     switchDate: (newDate) => { },
     setOrders: (newOrders) => { },
     setPortfolios: (newPortfolios) => { },
-    setSectorExposures: (newSectorExposures) => { }
+    setSectorExposures: (newSectorExposures) => { },
+    setPortfolioAssets: (newPortfolioAssets) => { },
+    setPortfolioDividendYield: (newPortfolioDividendYield) => { }
 });
