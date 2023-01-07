@@ -142,6 +142,41 @@ const Header = () => {
                                                 </Nav.Link>
                                             </LinkContainer>
                                         </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <LinkContainer to="/maintainance/asset-types">
+                                                <Nav.Link>
+                                                    Asset Types
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <LinkContainer to="/maintainance/sectors">
+                                                <Nav.Link>
+                                                    Sectors
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <LinkContainer to="/maintainance/receivables">
+                                                <Nav.Link>
+                                                    Receivables
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <LinkContainer to="/maintainance/receivable-types">
+                                                <Nav.Link>
+                                                    Receivable Types
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <LinkContainer to="/maintainance/currencies">
+                                                <Nav.Link>
+                                                    Currencies
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                        </NavDropdown.Item>
                                     </NavDropdown>
                                 </Nav>
                                 <Nav>
