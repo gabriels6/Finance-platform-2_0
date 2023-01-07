@@ -32,9 +32,9 @@ const AssetSelectionPage = () => {
     }
 
     function handleFavoritesRemove(event) {
-        let selectedIndex = event.target.id.split("-")[1];
-        let filteredFavoriteAssets = userContext.favoriteAssets.filter((asset, index) => {
-            return index !== (selectedIndex * 1);
+        let selectedSymbol = event.target.id.split("-")[1];
+        let filteredFavoriteAssets = userContext.favoriteAssets.filter((asset) => {
+            return asset.symbol !== selectedSymbol;
         })
         userContext.setFavoriteAssets(filteredFavoriteAssets);
         userContext.setCookies("favoriteAssets",JSON.stringify(filteredFavoriteAssets));
