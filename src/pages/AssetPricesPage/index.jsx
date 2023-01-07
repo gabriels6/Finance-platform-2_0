@@ -19,7 +19,6 @@ const AssetPricesPage = () => {
         let currAssetPriceQuery = assetPriceQuery;
         currAssetPriceQuery[event.target.name] = event.target.value;
         setAssetPriceQuery({...currAssetPriceQuery});
-        console.log(assetPriceQuery);
     }
 
     function handleRefresh(event) {
