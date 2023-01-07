@@ -34,7 +34,7 @@ const CrudPage = ({model = "", fields = {}}) => {
     }
 
     function handleSave(event) {
-        financeDataApi.apiPost("/api/"+model, item, useContext.integrationToken).then((data) => {
+        financeDataApi.apiPost("/api/"+model, item, userContext.integrationToken).then((data) => {
             userContext.setMessages([
                 ...userContext.messages,
                 {
@@ -82,7 +82,6 @@ const CrudPage = ({model = "", fields = {}}) => {
         let assetId = event.target.id
         let selectedAsset = existingItems.find((item, index) => ((item.id || item._id?.$oid) == assetId));
         setItem(Object.fromEntries(Object.entries(selectedAsset).map((value, index) => [value[0], value[1] || ""])))
-        console.log(item)
     }
 
     return (
