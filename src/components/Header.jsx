@@ -136,7 +136,7 @@ const Header = () => {
                                             </LinkContainer>
                                         </NavDropdown.Item>
                                         <NavDropdown.Item>
-                                            <LinkContainer to="/maintaince/prices">
+                                            <LinkContainer to="/maintainance/asset-prices">
                                                 <Nav.Link>
                                                     Asset Prices
                                                 </Nav.Link>

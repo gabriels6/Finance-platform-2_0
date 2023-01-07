@@ -53,10 +53,19 @@ const AssetSelectionPage = () => {
     }
 
     function handleImportAsset(event) {
-        let selectedIndex = event.target.id.split("-")[1];
-        let asset = foundAssets[selectedIndex];
-        financeDataApi.importAsset(asset.symbol, API_KEY).then((data) => {
-            financeDataApi.importAssetSeries(asset.symbol, '2021-01-01',API_KEY).then((data) => {
+        let selectedSymbol = event.target.id.split("-")[1];
+        importAsset(selectedSymbol);
+    }
+
+    function handleImportAllAssets(event) {
+        userContext.favoriteAssets.forEach((asset) => {
+            importAsset(asset?.symbol)
+        })
+    }
+
+    function importAsset(symbol) {
+        financeDataApi.importAsset(symbol, API_KEY).then((data) => {
+            financeDataApi.importAssetSeries(symbol, '2021-01-01',API_KEY).then((data) => {
                 userContext.setMessages([
                     ...userContext.messages,
                     {
@@ -118,12 +127,12 @@ const AssetSelectionPage = () => {
                                     <td>{asset.timezone}</td>
                                     <td>{asset.currency}</td>
                                     <td>
-                                        <Button variant="outline-primary" id={'searchAsset-'+index} onClick={handleFavoritesAdd}>
+                                        <Button variant="outline-primary" id={'searchAsset-'+asset.symbol} onClick={handleFavoritesAdd}>
                                             Add to Favorites
                                         </Button>
                                     </td>
                                     <td>
-                                        <Button variant="outline-primary" id={'favoriteAsset-'+index} onClick={handleImportAsset}>
+                                        <Button variant="outline-primary" id={'favoriteAsset-'+asset.symbol} onClick={handleImportAsset}>
                                             Import Asset
                                         </Button>
                                     </td>
@@ -134,8 +143,13 @@ const AssetSelectionPage = () => {
                 </div>
             </div>
             <div className="card asset-search-result">
-                <div className="title">
-                    Favorite Assets
+                <div className='horizontal-align'>
+                    <div className="title">
+                        Favorite Assets
+                    </div>
+                    <Button className="m-3" variant="outline-primary" onClick={handleImportAllAssets}>
+                        Import All Favorite Assets
+                    </Button>
                 </div>
                 <table>
                         <thead>
@@ -162,12 +176,12 @@ const AssetSelectionPage = () => {
                                     <td>{asset.timezone}</td>
                                     <td>{asset.currency}</td>
                                     <td>
-                                        <Button variant="outline-danger" id={'favoriteAsset-'+index} onClick={handleFavoritesRemove}>
+                                        <Button variant="outline-danger" id={'favoriteAsset-'+asset.symbol} onClick={handleFavoritesRemove}>
                                             Remove Asset
                                         </Button>
                                     </td>
                                     <td>
-                                        <Button variant="outline-primary" id={'favoriteAsset-'+index} onClick={handleImportAsset}>
+                                        <Button variant="outline-primary" id={'favoriteAsset-'+asset.symbol} onClick={handleImportAsset}>
                                             Import Asset
                                         </Button>
                                     </td>

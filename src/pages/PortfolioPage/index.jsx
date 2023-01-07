@@ -149,9 +149,9 @@ const PortfolioPage = () => {
                     </LineChart>
                 </ResponsiveContainer>
             </div>
-            <div className="card">
+            <div className="card vertical-align">
                 <div className="title">
-                    Portfolio Asset Types
+                    Portfolio Asset Data
                 </div>
                 <table>
                     <thead>

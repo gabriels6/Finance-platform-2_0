@@ -152,6 +152,9 @@ export default {
     async importFundamentalistData(body = {symbol: "", type: ""}, apiKey) {
         return await this.apiPost('/api/integrator/assets/import_overview', body, apiKey)
     },
+    async importDividends(body = {symbol: ""}, apiKey) {
+        return await this.apiPost('/api/integrator/assets/import_stock_dividends', body, apiKey)
+    },
     async getFundamentalistData(params = {symbol: "", date:null}, apiKey) {
         return await this.apiGet('/api/fundamentalist_data', params, apiKey);
     },

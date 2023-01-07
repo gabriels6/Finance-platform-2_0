@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
 import { Button, Form, FormControl } from 'react-bootstrap';
+import { MessageHolder } from '../../components';
 import UserContext from '../../context/UserContext';
 import financeDataApi from '../../utils/finance-data-api';
 import './styles.css';
@@ -41,8 +42,21 @@ const DividendMap = () => {
         });
     }
 
+    function handleImportDividends() {
+        financeDataApi.importDividends(queryValues, API_KEY).then((data) => {
+            userContext.setMessages([
+                ...userContext.messages,
+                {
+                    type: 'success',
+                    value: "Dividends for " + queryValues.symbol + " imported succesfully!"
+                }
+            ]);
+        }).catch((err) => {userContext.handleError(err)});
+    }
+
     return (
         <div className="control">
+            <MessageHolder/>
             <div className="card dividend-form">
                 <div className="title">Dividends Map</div>
                 <Form className="d-flex">
@@ -54,7 +68,7 @@ const DividendMap = () => {
                     onChange={(event) => { setQueryValues({...queryValues, symbol: event.target.value}) }}
                     />
                     <Button variant="outline-success" onClick={handleGetDividends}>Get Dividends</Button>
-                    
+                    <Button variant="outline-success" onClick={handleImportDividends}>Import Dividends</Button>
                 </Form>
             </div>
             <div className="card">
