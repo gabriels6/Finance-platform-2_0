@@ -182,5 +182,8 @@ export default {
     },
     async getRealtimeAssets(params = {}, apiKey) {
         return await this.apiGet('/api/integrator/assets/current_stocks_data', params, apiKey);
+    },
+    async getDividendsProjection(params = {}, apiKey) {
+        return await this.apiGet('/api/projection/dividends', params, apiKey);
     }
 }
