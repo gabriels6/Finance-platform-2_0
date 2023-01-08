@@ -168,6 +168,8 @@ const PortfolioPage = () => {
                             <td>Asset</td>
                             <td>Average Price</td>
                             <td>Current Price</td>
+                            <td>Dividend Yield 12 months</td>
+                            <td>Dividend Yield on cost 12 months</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -177,6 +179,8 @@ const PortfolioPage = () => {
                                     <td>{item.asset.symbol}</td>
                                     <td>{item.average_price}</td>
                                     <td>{item.price_today}</td>
+                                    <td>{item.dividend_yield}</td>
+                                    <td>{item.dividend_yield_on_cost}</td>
                                 </tr>
                             )
                         })}
