@@ -24,7 +24,10 @@ const DividendProjection = () => {
         monthly_increase_quantity: 0,
     });
 
-    const [projectionResults, setProjectionResults] = useState([]);
+    const [projectionResults, setProjectionResults] = useState({
+        average_dividend_yield: 0.0,
+        projected_dividends: []
+    });
 
     function handleProjectionQuery(event) {
         let currQuery = projectionQuery;
@@ -43,6 +46,16 @@ const DividendProjection = () => {
             <MessageHolder/>
             <div className='title'>
                 Dividends Projection
+            </div>
+            <div className='card horizontal-align'>
+                <div className="value-section">
+                    <div className="info-text">
+                        Average Dividend Yield
+                    </div>
+                    <div className="value-text">
+                        { projectionResults.average_dividend_yield.toFixed(2) }%
+                    </div>
+                </div>
             </div>
             <div className='card horizontal-align'>
                 <Form className="d-flex">
@@ -83,7 +96,7 @@ const DividendProjection = () => {
             </div>
             <div className='card horizontal-align portfolio-asset-hist'>
                 <ResponsiveContainer>
-                    <AreaChart data={projectionResults}
+                    <AreaChart data={projectionResults.projected_dividends}
                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="date" />
