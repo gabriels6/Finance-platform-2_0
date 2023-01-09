@@ -53,7 +53,7 @@ const DividendProjection = () => {
                         Average Dividend Yield
                     </div>
                     <div className="value-text">
-                        { (projectionResults * 100).average_dividend_yield.toFixed(2) }%
+                        { (projectionResults.average_dividend_yield * 100).average_dividend_yield.toFixed(2) }%
                     </div>
                 </div>
             </div>
