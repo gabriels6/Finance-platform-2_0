@@ -185,5 +185,8 @@ export default {
     },
     async getDividendsProjection(params = {}, apiKey) {
         return await this.apiGet('/api/projection/dividends', params, apiKey);
+    },
+    async getIncomeTaxPortfolio(params = {}, apiKey) {
+        return await this.apiGet('/api/income_tax/from_portfolio', params, apiKey)
     }
 }

@@ -15,6 +15,7 @@ import DividendMap from './DividendMap';
 import AssetPricesPage from './AssetPricesPage';
 import { CrudPage } from '../components';
 import DividendProjection from './DividendProjection';
+import IncomeTaxReport from './IncomeTaxReport';
 
 const SwitchControl = () => {
 
@@ -33,6 +34,7 @@ const SwitchControl = () => {
         [<RealtimePortfolioPage/>, "/portfolio/realtime-portfolio"],
         [<AssetPricesPage/>, "/maintainance/asset-prices"],
         [<DividendProjection/>, "/projection/dividends"],
+        [<IncomeTaxReport/>, "/analysis/income-tax-report"],
         [<CrudPage model='asset_types' fields={{id: 0, name: "", income_tax_identifier: "", created_at: "", updated_at: ""}}/>, "/maintainance/asset-types"],
         [<CrudPage model='sectors' fields={{id: 0, name: "", created_at: "", updated_at: ""}}/>, "/maintainance/sectors"],
         [<CrudPage model='receivables' fields={{asset_id: 0, receivable_type_id: 0, value: 0.0, date: "", payment_date: ""}}/>, "/maintainance/receivables"],

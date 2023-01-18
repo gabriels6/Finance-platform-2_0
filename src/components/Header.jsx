@@ -108,6 +108,13 @@ const Header = () => {
                                                 </Nav.Link>
                                             </LinkContainer>
                                         </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <LinkContainer to="/analysis/income-tax-report">
+                                                <Nav.Link>
+                                                    Income Tax
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                        </NavDropdown.Item>
                                     </NavDropdown>
 
                                     <NavDropdown title="Management" menuVariant="dark">
