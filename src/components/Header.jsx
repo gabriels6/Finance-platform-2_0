@@ -115,6 +115,13 @@ const Header = () => {
                                                 </Nav.Link>
                                             </LinkContainer>
                                         </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <LinkContainer to="/analysis/exchange-rates">
+                                                <Nav.Link>
+                                                    Exchange Rates
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                        </NavDropdown.Item>
                                     </NavDropdown>
 
                                     <NavDropdown title="Management" menuVariant="dark">

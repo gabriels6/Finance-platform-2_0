@@ -80,6 +80,18 @@ export default {
 
         return data;
     },
+    async getConsolidatedPortfolio(date, apiKey) {
+        const {data} = await api.get('/api/portfolio/consolidated_portfolio', {
+            params: {
+                date: date
+            },
+            headers: {
+                'x_api_key': apiKey
+            }
+        });
+
+        return data;
+    },
     async searchAsset(symbol, startDate, apiKey) {
 
         const {data} = await api.get('/api/integrator/assets/search', {
@@ -136,11 +148,12 @@ export default {
 
         return data;
     },
-    async getAssetPriceHist(symbol, startDate, endDate, apiKey) {
+    async getAssetPriceHist(symbol, startDate, endDate, currency, apiKey) {
         return await this.apiGet('/api/asset_prices',{
             symbol: symbol,
             start_date: startDate,
-            end_date: endDate
+            end_date: endDate,
+            currency: currency
         }, apiKey);
     },
     async saveAsset(assetBody, apiKey) {
@@ -169,13 +182,13 @@ export default {
         return await this.apiGet('/api/risk/var/calculate_asset', params, apiKey);
     },
     async getImobiliaryFundsdata(params = {}, apiKey) {
-        return await this.apiGet('/api/integrator/assets/all_imobiliary_funds_data', params, apiKey)
+        return await this.apiGet('/api/integrator/assets/all_imobiliary_funds_data', params, apiKey);
     },
     async getStocksData(params = {}, apiKey) {
-        return await this.apiGet('/api/integrator/assets/all_stocks_data', params, apiKey)
+        return await this.apiGet('/api/integrator/assets/all_stocks_data', params, apiKey);
     },
     async getDividendsData(params = {}, apikey) {
-        return await this.apiGet('/api/integrator/assets/stock_dividends', params, apikey)
+        return await this.apiGet('/api/integrator/assets/stock_dividends', params, apikey);
     },
     async getAllUserPortfolios(params = {}, apiKey) {
         return await this.apiGet('/api/portfolio', params, apiKey);
@@ -187,6 +200,12 @@ export default {
         return await this.apiGet('/api/projection/dividends', params, apiKey);
     },
     async getIncomeTaxPortfolio(params = {}, apiKey) {
-        return await this.apiGet('/api/income_tax/from_portfolio', params, apiKey)
+        return await this.apiGet('/api/income_tax/from_portfolio', params, apiKey);
+    },
+    async importExchangeRates(params = {}, apiKey) {
+        return await this.apiPost('/api/integrator/exchange_rates/import', params, apiKey);
+    },
+    async getExchangeRates(params = {}, apiKey) {
+        return await this.apiGet('/api/exchange_rates/',params, apiKey);
     }
 }

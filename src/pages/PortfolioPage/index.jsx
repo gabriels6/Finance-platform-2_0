@@ -22,7 +22,7 @@ const PortfolioPage = () => {
             let assetItems = data.orders
             let sectorExposures = data.sector_exposure
             assetItems.forEach((assetItem) => {
-                promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, apiKey))
+                promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, '', apiKey))
             })
             Promise.all(promises).then((assets) => {
                 userContext.setAssetValueHist([...assets.flat(1)])
@@ -32,6 +32,24 @@ const PortfolioPage = () => {
             userContext.setPortfolioDividendYield(data.portfolio_dividend_yield)
         });
         
+    }
+
+    function handleGetConsolidatedPortfolio(event) {
+        let apiKey = userContext.integrationToken;
+        financeDataApi.getConsolidatedPortfolio(userContext.date, apiKey).then((data) => {
+            let promises = []
+            let assetItems = data.orders
+            let sectorExposures = data.sector_exposure
+            assetItems.forEach((assetItem) => {
+                promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, 'BRL',apiKey))
+            })
+            Promise.all(promises).then((assets) => {
+                userContext.setAssetValueHist([...assets.flat(1)])
+            })
+            userContext.setPortfolioAssets([...assetItems]);
+            userContext.setSectorExposures([...sectorExposures]);
+            userContext.setPortfolioDividendYield(data.portfolio_dividend_yield)
+        });
     }
 
     return (
@@ -46,7 +64,7 @@ const PortfolioPage = () => {
                     </div>
                     <div className="value-text">
                         ${userContext.portfolioAssets.reduce((prevNav, item) => {
-                            return prevNav + item.value
+                            return prevNav + (item.converted_value || item.value)
                         }, 0.0).toFixed(2) }
                     </div>
                 </div>
@@ -81,6 +99,9 @@ const PortfolioPage = () => {
                             </div>
                         )
                     })}
+                    <div className='card' id='consolidated-portfolio' onClick={handleGetConsolidatedPortfolio}>
+                        Consolidated Portfolio - BRL
+                    </div>
                 </div>  
             </div>
             <div className="horizontal-align">
@@ -90,7 +111,7 @@ const PortfolioPage = () => {
                     </div>
                     <ResponsiveContainer>
                         <PieChart>
-                            <Pie data={userContext.portfolioAssets.map((item) => ({...item, name: item.asset.symbol + "-" + item.type}))} nameKey="name" dataKey="value" innerRadius="45%" outerRadius="80%" label>
+                            <Pie data={userContext.portfolioAssets.map((item) => ({...item, name: item.asset.symbol + "-" + item.type}))} nameKey="name" dataKey={userContext.portfolioAssets[0]?.converted_value ? "converted_value" : "value"} innerRadius="45%" outerRadius="80%" label>
                                 { userContext.portfolioAssets.map((asset, index) => (
                                     <Cell key={`slice-${index}`} fill={colors[index % 10]}/>
                                 ))}
