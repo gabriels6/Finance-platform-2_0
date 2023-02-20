@@ -207,5 +207,14 @@ export default {
     },
     async getExchangeRates(params = {}, apiKey) {
         return await this.apiGet('/api/exchange_rates/',params, apiKey);
+    },
+    async getAssetComposition(body = {
+        asset_data: [{
+            symbol: "",
+            quantity: 0.0,
+
+        }]
+    }, apiKey) {
+        return await this.apiPost('/api/projection/asset_composition',body, apiKey);
     }
 }

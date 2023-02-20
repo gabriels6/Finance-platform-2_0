@@ -140,11 +140,18 @@ const Header = () => {
                                             </LinkContainer>
                                         </NavDropdown.Item>
                                     </NavDropdown>
-                                    <NavDropdown title="Projection" menuVariant="dark">
+                                    <NavDropdown title="Projection" menuVariant="dark"> 
                                         <NavDropdown.Item>
                                             <LinkContainer to="/projection/dividends">
                                                 <Nav.Link>
                                                     Dividends
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <LinkContainer to="/projection/asset-composition">
+                                                <Nav.Link>
+                                                    Asset Composition
                                                 </Nav.Link>
                                             </LinkContainer>
                                         </NavDropdown.Item>
