@@ -52,7 +52,7 @@ const RealtimePortfolioPage = () => {
                     ])
                 })
             }
-        },8000);
+        },16000);
     }, [refresh]);
 
     function handleGetPortfolio(event) {
