@@ -67,7 +67,7 @@ const AssetSelectionPage = () => {
 
     function importAsset(symbol) {
         financeDataApi.importAsset(symbol, API_KEY).then((data) => {
-            financeDataApi.importAssetSeries(symbol, '2021-01-01',API_KEY).then((data) => {
+            financeDataApi.importAssetSeries(symbol, '2017-01-01',API_KEY).then((data) => {
                 userContext.setMessages([
                     ...userContext.messages,
                     {
