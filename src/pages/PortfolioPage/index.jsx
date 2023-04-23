@@ -8,12 +8,15 @@ import { schemeCategory10 } from 'd3-scale-chromatic';
 import groupMethods from '../../utils/group-methods';
 import calculateMethods from '../../utils/calculate-methods';
 import financeDataApi from '../../utils/finance-data-api';
+import { FormSelect } from 'react-bootstrap';
 
 const PortfolioPage = () => {
 
     const colors = scaleOrdinal(schemeCategory10).range();
 
     const userContext = useContext(UserContext);
+
+    const [topPriceMethod, setTopPriceMethod] = useState('min_prices')
 
     function handleGetPortfolio(event) {
         let apiKey = userContext.integrationToken;
@@ -28,7 +31,8 @@ const PortfolioPage = () => {
             })
             financeDataApi.getTopPrices({
                 symbols: symbolsString,
-                date: userContext.date
+                date: userContext.date,
+                method: topPriceMethod
             }, apiKey).then((data) => {
                 userContext.setTopPrices(data);
             })
@@ -58,6 +62,11 @@ const PortfolioPage = () => {
             userContext.setSectorExposures([...sectorExposures]);
             userContext.setPortfolioDividendYield(data.portfolio_dividend_yield)
         });
+    }
+
+    function handleTopPriceMethod(event) {
+        setTopPriceMethod(event.target.value)
+        console.log(topPriceMethod)
     }
 
     return (
@@ -217,8 +226,16 @@ const PortfolioPage = () => {
                 </table>
             </div>
             <div className="card vertical-align">
-                <div className="title">
-                    Portfolio TopPrices
+                <div className='card horizontal-align'>
+                    <div className="title">
+                        Portfolio TopPrices
+                    </div>
+                    <div className=''>
+                        <FormSelect onChange={handleTopPriceMethod}>
+                            <option name="min_prices">Por menor preço dos 12 meses</option>
+                            <option name="dividend">Por perda de valor contra dividendos</option>
+                        </FormSelect>
+                    </div>
                 </div>
                 <table>
                     <thead>
