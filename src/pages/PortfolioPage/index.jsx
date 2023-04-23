@@ -232,7 +232,7 @@ const PortfolioPage = () => {
                     </div>
                     <div className=''>
                         <FormSelect onChange={handleTopPriceMethod}>
-                            <option name="min_prices">Por menor preço dos 12 meses</option>
+                            <option name="min_prices">Por menor preço dos 6 meses</option>
                             <option name="dividend">Por perda de valor contra dividendos</option>
                         </FormSelect>
                     </div>
