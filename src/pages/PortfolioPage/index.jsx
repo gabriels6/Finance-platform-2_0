@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import './styles.css';
 import { InputButton } from '../../components';
 import { scaleOrdinal } from 'd3-scale';
@@ -21,8 +21,16 @@ const PortfolioPage = () => {
             let promises = []
             let assetItems = data.orders
             let sectorExposures = data.sector_exposure
+            let symbolsString = ""
             assetItems.forEach((assetItem) => {
+                symbolsString += assetItem.asset.symbol + ","
                 promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, '', apiKey))
+            })
+            financeDataApi.getTopPrices({
+                symbols: symbolsString,
+                date: userContext.date
+            }, apiKey).then((data) => {
+                userContext.setTopPrices(data);
             })
             Promise.all(promises).then((assets) => {
                 userContext.setAssetValueHist([...assets.flat(1)])
@@ -202,6 +210,29 @@ const PortfolioPage = () => {
                                     <td>{item.price_today}</td>
                                     <td>{(item.dividend_yield * 100.0).toFixed(2)}%</td>
                                     <td>{(item.dividend_yield_on_cost * 100.0).toFixed(2)}%</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
+            <div className="card vertical-align">
+                <div className="title">
+                    Portfolio TopPrices
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Asset</td>
+                            <td>Top Price</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {userContext.topPrices.map((item, index) => {
+                            return(
+                                <tr key={index}>
+                                    <td>{item.symbol}</td>
+                                    <td>{item.top_price.toFixed(2)}</td>
                                 </tr>
                             )
                         })}

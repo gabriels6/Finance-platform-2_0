@@ -216,5 +216,8 @@ export default {
         }]
     }, apiKey) {
         return await this.apiPost('/api/projection/asset_composition',body, apiKey);
+    },
+    async getTopPrices(params = {}, apiKey) {
+        return await this.apiGet('/api/assets/top_prices', params, apiKey);
     }
 }
