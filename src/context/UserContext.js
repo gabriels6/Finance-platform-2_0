@@ -17,6 +17,7 @@ export default React.createContext({
     portfolioAssets: {},
     portfolioDividendYield: 0.0,
     topPrices: [],
+    portfolioRentability: 0.0,
     setUser: (newUser) => { },
     setToken: (newToken) => { },
     setShowHeader: (newShowHeader) => { },
@@ -32,5 +33,6 @@ export default React.createContext({
     setSectorExposures: (newSectorExposures) => { },
     setPortfolioAssets: (newPortfolioAssets) => { },
     setPortfolioDividendYield: (newPortfolioDividendYield) => { },
-    setTopPrices: (newTopPrices) => { }
+    setTopPrices: (newTopPrices) => { },
+    setPortfolioRentability: (newPortfolioRentability) => { }
 });

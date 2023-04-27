@@ -24,6 +24,7 @@ const PortfolioPage = () => {
             let promises = []
             let assetItems = data.orders
             let sectorExposures = data.sector_exposure
+            let rentability = data.rentability
             let symbolsString = ""
             assetItems.forEach((assetItem) => {
                 symbolsString += assetItem.asset.symbol + ","
@@ -41,7 +42,8 @@ const PortfolioPage = () => {
             })
             userContext.setPortfolioAssets([...assetItems]);
             userContext.setSectorExposures([...sectorExposures]);
-            userContext.setPortfolioDividendYield(data.portfolio_dividend_yield)
+            userContext.setPortfolioDividendYield(data.portfolio_dividend_yield);
+            userContext.setPortfolioRentability(rentability);
         });
         
     }
@@ -61,6 +63,7 @@ const PortfolioPage = () => {
             userContext.setPortfolioAssets([...assetItems]);
             userContext.setSectorExposures([...sectorExposures]);
             userContext.setPortfolioDividendYield(data.portfolio_dividend_yield)
+            userContext.setPortfolioRentability(data.rentability);
         });
     }
 
@@ -87,12 +90,30 @@ const PortfolioPage = () => {
                 </div>
                 <div className="value-section">
                     <div className="info-text">
+                        Invested Amount
+                    </div>
+                    <div className="value-text">
+                        ${userContext.portfolioAssets.reduce((prevNav, item) => {
+                            return prevNav + (item.converted_purchase_value || item.purchase_value)
+                        }, 0.0).toFixed(2) }
+                    </div>
+                </div>
+                <div className="value-section">
+                    <div className="info-text">
                         Quantity
                     </div>
                     <div className="value-text">
                         { userContext.portfolioAssets.reduce((prevNav, item) => {
                             return prevNav + item.quantity
                         }, 0.0).toFixed(2) }
+                    </div>
+                </div>
+                <div className="value-section">
+                    <div className="info-text">
+                        Portfolio Rentability
+                    </div>
+                    <div className="value-text">
+                        { (userContext.portfolioRentability * 100)?.toFixed(2) }%
                     </div>
                 </div>
                 <div className="value-section">

@@ -24,6 +24,7 @@ function App() {
   const [sectorExposures, setSectorExposures] = useState([]);
   const [portfolioDividendYield, setPortfolioDividendYield] = useState(0.0);
   const [topPrices, setTopPrices] = useState([]);
+  const [portfolioRentability, setPortfolioRentability] = useState(0.0);
 
   const initialState = {
     user: user,
@@ -43,6 +44,7 @@ function App() {
     sectorExposures: sectorExposures,
     portfolioDividendYield: portfolioDividendYield,
     topPrices: topPrices,
+    portfolioRentability: portfolioRentability,
     setUser: setUser,
     setToken: setToken,
     setShowHeader: setShowHeader, 
@@ -61,6 +63,7 @@ function App() {
     setSectorExposures: setSectorExposures,
     setPortfolioDividendYield: setPortfolioDividendYield,
     setTopPrices: setTopPrices,
+    setPortfolioRentability: setPortfolioRentability
   }
 
   function switchDate(date) {
