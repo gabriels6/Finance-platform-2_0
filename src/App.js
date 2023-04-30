@@ -92,16 +92,19 @@ function App() {
     if(initialState.token == "" && cookies.token != null) {
         setUser(cookies.user);
         setToken(cookies.token);
+        return;
     }
     if(initialState.favoriteAssets?.length == 0 && cookies.favoriteAssets?.length > 0) {
       initialState.setFavoriteAssets([
         ...cookies.favoriteAssets
       ])
+      return;
     }
     if(initialState.portfolios?.length == 0 && cookies.token != null) {
       financeDataApi.getAllUserPortfolios({},initialState.integrationToken).then((data) => {
         initialState.setPortfolios([...data])
       })
+      return;
     }
   })
 
