@@ -92,20 +92,13 @@ function App() {
     if(initialState.token == "" && cookies.token != null) {
         setUser(cookies.user);
         setToken(cookies.token);
-        if(initialState.assets.length == 0) {
-          financeDataApi.getAssets(initialState.integrationToken).then((data) => {
-            setAssets([...data]);
-          }).catch(err => {
-            
-          })
-        }
     }
     if(initialState.favoriteAssets?.length == 0 && cookies.favoriteAssets?.length > 0) {
       initialState.setFavoriteAssets([
         ...cookies.favoriteAssets
       ])
     }
-    if(initialState.portfolios?.length == 0) {
+    if(initialState.portfolios?.length == 0 && cookies.token != null) {
       financeDataApi.getAllUserPortfolios({},initialState.integrationToken).then((data) => {
         initialState.setPortfolios([...data])
       })
