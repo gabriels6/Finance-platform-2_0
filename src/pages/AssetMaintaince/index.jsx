@@ -88,6 +88,7 @@ const AssetMaintaince = () => {
         setAssetItem({
             id: selectedAsset.id,
             symbol: selectedAsset.symbol,
+            currency: selectedAsset.currency,
             asset_type: selectedAsset.asset_type.name,
             external_id: selectedAsset.external_id,
             sector: selectedAsset.sector.name,
@@ -120,6 +121,15 @@ const AssetMaintaince = () => {
                         id="inputSymbol"
                         onChange={handleChangeAssetitem}
                         value={assetItem.symbol}
+                    />
+                    <Form.Label htmlFor="inputCurrency">
+                        Currency
+                    </Form.Label>
+                    <Form.Control
+                        type="text"
+                        id="inputCurrency"
+                        onChange={handleChangeAssetitem}
+                        value={assetItem.currency?.name}
                     />
                     <Form.Label htmlFor="inputAsset_Type">
                         Type
@@ -174,6 +184,7 @@ const AssetMaintaince = () => {
                             <tr>
                                 <th>Id</th>
                                 <th>Symbol</th>
+                                <th>Currency</th>
                                 <th>Type</th>
                                 <th>External Id</th>
                                 <th>Sector</th>
@@ -188,6 +199,7 @@ const AssetMaintaince = () => {
                                     <tr key={'asset-item-'+index}>
                                         <td>{asset.id}</td>
                                         <td>{asset.symbol}</td>
+                                        <td>{asset.currency?.symbol}</td>
                                         <td>{asset.asset_type.name}</td>
                                         <td>{asset.external_id}</td>
                                         <td>{asset.sector.name}</td>
