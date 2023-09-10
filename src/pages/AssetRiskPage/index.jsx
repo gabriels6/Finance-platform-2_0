@@ -99,7 +99,7 @@ const AssetRiskPage = () => {
                         <XAxis dataKey="return" type="number" name="Return" unit="%" domain={[-150,150]}>
                             <Label value="Return" offset={0} position="insideBottom"/>
                         </XAxis>
-                        <YAxis dataKey="beta" type="number" name="Beta" unit=" pts">
+                        <YAxis dataKey="beta" type="number" name="Beta" unit=" pts" domain={[-1.5,1.5]}>
                             <Label value="Risk" offset={0} angle={-90} position="insideLeft"/>
                         </YAxis>
                         <Scatter name="A school" data={userContext.favoriteAssets} fill="#8884d8" >
