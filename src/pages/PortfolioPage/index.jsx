@@ -208,7 +208,7 @@ const PortfolioPage = () => {
                 <div className="title">
                     P & L
                 </div>
-                { userContext.portfolioAssets && (
+                { userContext.portfolioAssets?.length > 0 && (
                     <ResponsiveContainer>
                         <BarChart data={userContext.portfolioAssets.sort((a,b) => a?.rentabilityAmount - b?.rentabilityAmount)}>
                             <CartesianGrid strokeDasharray="3 3" />
