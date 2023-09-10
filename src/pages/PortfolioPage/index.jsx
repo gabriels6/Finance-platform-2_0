@@ -29,7 +29,7 @@ const PortfolioPage = () => {
             assetItems.forEach((assetItem) => {
                 assetItem.rentability = ((assetItem?.value/assetItem?.purchase_value - 1.0) * 100.0)?.toFixed(2)
                 assetItem.rentabilityAmount = (assetItem?.value - assetItem?.purchase_value)?.toFixed(2)
-                assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + assetItem.rentability + "%)"
+                assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + assetItem.rentabilityAmount + "%)"
                 symbolsString += assetItem.asset.symbol + ","
                 // promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, '', apiKey))
             })
@@ -61,7 +61,7 @@ const PortfolioPage = () => {
                 assetItem.symbol = assetItem.asset?.symbol
                 assetItem.rentability = ((assetItem?.value/assetItem?.purchase_value - 1.0) * 100.0)?.toFixed(2)
                 assetItem.rentabilityAmount = (assetItem?.value - assetItem?.purchase_value)?.toFixed(2)
-                assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + assetItem.rentability + "%)"
+                assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + assetItem.rentabilityAmount + "%)"
                 // promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, 'BRL',apiKey))
             })
             // Promise.all(promises).then((assets) => {
@@ -214,10 +214,10 @@ const PortfolioPage = () => {
                     <BarChart data={userContext.portfolioAssets}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="rentabilityLabel" />
-                        <YAxis />
+                        <YAxis domain={[-50,50]}/>
                         <Tooltip />
                         <Legend />
-                        <Bar dataKey="rentabilityAmount" unit="$" fill="#bf00ff" />
+                        <Bar dataKey="rentability" unit="$" fill="#bf00ff" />
                     </BarChart>
                 </ResponsiveContainer>
             </div>
