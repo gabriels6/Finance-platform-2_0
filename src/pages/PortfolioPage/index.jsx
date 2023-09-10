@@ -3,7 +3,7 @@ import './styles.css';
 import { InputButton } from '../../components';
 import { scaleOrdinal } from 'd3-scale';
 import UserContext from '../../context/UserContext';
-import { PieChart, Pie, Tooltip, ResponsiveContainer, Cell, LineChart, CartesianGrid, XAxis, YAxis, Brush, Label, Legend, Line, LabelList } from 'recharts'
+import { PieChart, Pie, Tooltip, ResponsiveContainer, Cell, LineChart, CartesianGrid, XAxis, YAxis, Brush, Label, Legend, Line, LabelList, BarChart, Bar } from 'recharts'
 import { schemeCategory10 } from 'd3-scale-chromatic';
 import groupMethods from '../../utils/group-methods';
 import calculateMethods from '../../utils/calculate-methods';
@@ -27,8 +27,11 @@ const PortfolioPage = () => {
             let rentability = data.rentability
             let symbolsString = ""
             assetItems.forEach((assetItem) => {
+                assetItem.rentability = ((assetItem?.value/assetItem?.purchase_value - 1.0) * 100.0)?.toFixed(2)
+                assetItem.rentabilityAmount = (assetItem?.value - assetItem?.purchase_value)?.toFixed(2)
+                assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + assetItem.rentability + "%)"
                 symbolsString += assetItem.asset.symbol + ","
-                promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, '', apiKey))
+                // promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, '', apiKey))
             })
             financeDataApi.getTopPrices({
                 symbols: symbolsString,
@@ -37,9 +40,9 @@ const PortfolioPage = () => {
             }, apiKey).then((data) => {
                 userContext.setTopPrices(data);
             })
-            Promise.all(promises).then((assets) => {
-                userContext.setAssetValueHist([...assets.flat(1)])
-            })
+            // Promise.all(promises).then((assets) => {
+            //     userContext.setAssetValueHist([...assets.flat(1)])
+            // })
             userContext.setPortfolioAssets([...assetItems]);
             userContext.setSectorExposures([...sectorExposures]);
             userContext.setPortfolioDividendYield(data.portfolio_dividend_yield);
@@ -55,11 +58,15 @@ const PortfolioPage = () => {
             let assetItems = data.orders
             let sectorExposures = data.sector_exposure
             assetItems.forEach((assetItem) => {
-                promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, 'BRL',apiKey))
+                assetItem.symbol = assetItem.asset?.symbol
+                assetItem.rentability = ((assetItem?.value/assetItem?.purchase_value - 1.0) * 100.0)?.toFixed(2)
+                assetItem.rentabilityAmount = (assetItem?.value - assetItem?.purchase_value)?.toFixed(2)
+                assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + assetItem.rentability + "%)"
+                // promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, 'BRL',apiKey))
             })
-            Promise.all(promises).then((assets) => {
-                userContext.setAssetValueHist([...assets.flat(1)])
-            })
+            // Promise.all(promises).then((assets) => {
+            //     userContext.setAssetValueHist([...assets.flat(1)])
+            // })
             userContext.setPortfolioAssets([...assetItems]);
             userContext.setSectorExposures([...sectorExposures]);
             userContext.setPortfolioDividendYield(data.portfolio_dividend_yield)
@@ -199,7 +206,22 @@ const PortfolioPage = () => {
                     </ResponsiveContainer>
                 </div>
             </div>
-            <div className="card portfolio-asset-hist vertical-align">
+            <div className='card vertical-align portfolio-asset-hist'>
+                <div className="title">
+                    P & L
+                </div>
+                <ResponsiveContainer>
+                    <BarChart data={userContext.portfolioAssets}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="rentabilityLabel" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="rentabilityAmount" unit="$" fill="#bf00ff" />
+                    </BarChart>
+                </ResponsiveContainer>
+            </div>
+            {/* <div className="card portfolio-asset-hist vertical-align">
                 <div className="title">
                     Asset Value History
                 </div>
@@ -216,7 +238,7 @@ const PortfolioPage = () => {
                         )) }
                     </LineChart>
                 </ResponsiveContainer>
-            </div>
+            </div> */}
             <div className="card vertical-align">
                 <div className="title">
                     Portfolio Asset Data
