@@ -217,7 +217,11 @@ const PortfolioPage = () => {
                         <YAxis domain={[-100,100]}/>
                         <Tooltip />
                         <Legend />
-                        <Bar dataKey="rentability" unit="%" fill="#bf00ff" />
+                        <Bar dataKey="rentability" unit="%" fill="#bf00ff">
+                            {userContext.portfolioAssets.map((assetItem) => (
+                                <Cell fill={assetItem?.rentability > 0.0 ? '#34eb5e' : '#e65545'}/>
+                            ))}
+                        </Bar>
                     </BarChart>
                 </ResponsiveContainer>
             </div>
