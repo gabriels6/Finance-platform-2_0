@@ -1,12 +1,10 @@
 import React, { useContext, useState } from 'react';
 import './styles.css';
-import { InputButton } from '../../components';
 import { scaleOrdinal } from 'd3-scale';
 import UserContext from '../../context/UserContext';
-import { PieChart, Pie, Tooltip, ResponsiveContainer, Cell, LineChart, CartesianGrid, XAxis, YAxis, Brush, Label, Legend, Line, LabelList, BarChart, Bar } from 'recharts'
+import { PieChart, Pie, Tooltip, ResponsiveContainer, Cell, CartesianGrid, XAxis, YAxis, Legend, BarChart, Bar } from 'recharts'
 import { schemeCategory10 } from 'd3-scale-chromatic';
 import groupMethods from '../../utils/group-methods';
-import calculateMethods from '../../utils/calculate-methods';
 import financeDataApi from '../../utils/finance-data-api';
 import { FormSelect } from 'react-bootstrap';
 
@@ -21,17 +19,15 @@ const PortfolioPage = () => {
     function handleGetPortfolio(event) {
         let apiKey = userContext.integrationToken;
         financeDataApi.getPortfolio(event.currentTarget.id, userContext.date, apiKey).then((data) => {
-            let promises = []
+            // let promises = []
             let assetItems = data.orders
             let sectorExposures = data.sector_exposure
             let rentability = data.rentability
             let symbolsString = ""
             assetItems.forEach((assetItem) => {
                 assetItem.rentability = ((assetItem?.value/assetItem?.purchase_value - 1.0) * 100.0)?.toFixed(2)
-                console.log(assetItem?.value)
-                console.log(assetItem?.purchase_value)
                 assetItem.rentabilityAmount = (assetItem?.value - assetItem?.purchase_value)?.toFixed(2)
-                assetItem.rentabilityLabel = assetItem.asset?.symbol + " ($ " + assetItem.rentabilityAmount + ")"
+                assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + assetItem.rentability + "%)"
                 symbolsString += assetItem.asset.symbol + ","
                 // promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, '', apiKey))
             })
@@ -56,16 +52,14 @@ const PortfolioPage = () => {
     function handleGetConsolidatedPortfolio(event) {
         let apiKey = userContext.integrationToken;
         financeDataApi.getConsolidatedPortfolio(userContext.date, apiKey).then((data) => {
-            let promises = []
+            // let promises = []
             let assetItems = data.orders
             let sectorExposures = data.sector_exposure
             assetItems.forEach((assetItem) => {
                 assetItem.symbol = assetItem.asset?.symbol
                 assetItem.rentability = ((assetItem?.value/assetItem?.purchase_value - 1.0) * 100.0)?.toFixed(2)
-                console.log(assetItem?.value)
-                console.log(assetItem?.purchase_value)
                 assetItem.rentabilityAmount = (assetItem?.value - assetItem?.purchase_value)?.toFixed(2)
-                assetItem.rentabilityLabel = assetItem.asset?.symbol + " ($" + assetItem.rentabilityAmount + ")"
+                assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + assetItem.rentability + "%)"
                 // promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, 'BRL',apiKey))
             })
             // Promise.all(promises).then((assets) => {
@@ -214,20 +208,22 @@ const PortfolioPage = () => {
                 <div className="title">
                     P & L
                 </div>
-                <ResponsiveContainer>
-                    <BarChart data={userContext.portfolioAssets}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="rentabilityLabel" />
-                        <YAxis domain={[-100,100]}/>
-                        <Tooltip />
-                        <Legend />
-                        <Bar dataKey="rentability" unit="%" fill="#bf00ff">
-                            {userContext.portfolioAssets.map((assetItem) => (
-                                <Cell fill={assetItem?.rentability > 0.0 ? '#34eb5e' : '#e65545'}/>
-                            ))}
-                        </Bar>
-                    </BarChart>
-                </ResponsiveContainer>
+                { userContext.portfolioAssets && (
+                    <ResponsiveContainer>
+                        <BarChart data={userContext.portfolioAssets.sort((a,b) => a?.rentabilityAmount - b?.rentabilityAmount)}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="rentabilityLabel" />
+                            <YAxis domain={[-100,100]}/>
+                            <Tooltip />
+                            <Legend />
+                            <Bar dataKey="rentabilityAmount" name='Rentability ($)'>
+                                {userContext.portfolioAssets.map((assetItem) => (
+                                    <Cell fill={assetItem?.rentabilityAmount > 0.0 ? '#34eb5e' : '#e65545'}/>
+                                ))}
+                            </Bar>
+                        </BarChart>
+                    </ResponsiveContainer>
+                ) }
             </div>
             {/* <div className="card portfolio-asset-hist vertical-align">
                 <div className="title">
