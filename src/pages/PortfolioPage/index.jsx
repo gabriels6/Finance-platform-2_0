@@ -26,7 +26,7 @@ const PortfolioPage = () => {
             let symbolsString = ""
             assetItems.forEach((assetItem) => {
                 assetItem.rentability = ((assetItem?.value/assetItem?.purchase_value - 1.0) * 100.0)?.toFixed(2)
-                assetItem.rentabilityAmount = (assetItem?.value - assetItem?.purchase_value)?.toFixed(2)
+                assetItem.rentabilityAmount = (assetItem?.converted_value ? (assetItem?.converted_value - assetItem?.converted_purchase_value) : (assetItem?.value - assetItem?.purchase_value))?.toFixed(2)
                 assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + assetItem.rentability + "%)"
                 symbolsString += assetItem.asset.symbol + ","
                 // promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, '', apiKey))
@@ -58,7 +58,7 @@ const PortfolioPage = () => {
             assetItems.forEach((assetItem) => {
                 assetItem.symbol = assetItem.asset?.symbol
                 assetItem.rentability = ((assetItem?.value/assetItem?.purchase_value - 1.0) * 100.0)?.toFixed(2)
-                assetItem.rentabilityAmount = (assetItem?.value - assetItem?.purchase_value)?.toFixed(2)
+                assetItem.rentabilityAmount = (assetItem?.converted_value ? (assetItem?.converted_value - assetItem?.converted_purchase_value) : (assetItem?.value - assetItem?.purchase_value))?.toFixed(2)
                 assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + assetItem.rentability + "%)"
                 // promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, 'BRL',apiKey))
             })
