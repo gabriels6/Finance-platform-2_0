@@ -28,6 +28,8 @@ const PortfolioPage = () => {
             let symbolsString = ""
             assetItems.forEach((assetItem) => {
                 assetItem.rentability = ((assetItem?.value/assetItem?.purchase_value - 1.0) * 100.0)?.toFixed(2)
+                console.log(assetItem?.value)
+                console.log(assetItem?.purchase_value)
                 assetItem.rentabilityAmount = (assetItem?.value - assetItem?.purchase_value)?.toFixed(2)
                 assetItem.rentabilityLabel = assetItem.asset?.symbol + " ($ " + assetItem.rentabilityAmount + ")"
                 symbolsString += assetItem.asset.symbol + ","
@@ -60,6 +62,8 @@ const PortfolioPage = () => {
             assetItems.forEach((assetItem) => {
                 assetItem.symbol = assetItem.asset?.symbol
                 assetItem.rentability = ((assetItem?.value/assetItem?.purchase_value - 1.0) * 100.0)?.toFixed(2)
+                console.log(assetItem?.value)
+                console.log(assetItem?.purchase_value)
                 assetItem.rentabilityAmount = (assetItem?.value - assetItem?.purchase_value)?.toFixed(2)
                 assetItem.rentabilityLabel = assetItem.asset?.symbol + " ($" + assetItem.rentabilityAmount + ")"
                 // promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, 'BRL',apiKey))
