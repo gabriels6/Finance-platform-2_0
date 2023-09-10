@@ -96,10 +96,10 @@ const AssetRiskPage = () => {
                         margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
                     >
                         <CartesianGrid />
-                        <XAxis dataKey="return" type="number" name="Return" unit="%" domain={[-150,150]}>
+                        <XAxis dataKey="return" type="number" name="Return" unit="%" domain={[-100,100]}>
                             <Label value="Return" offset={0} position="insideBottom"/>
                         </XAxis>
-                        <YAxis dataKey="beta" type="number" name="Beta" unit=" pts" domain={[-1.5,1.5]}>
+                        <YAxis dataKey="beta" type="number" name="Beta" unit=" pts" domain={[-50,50]}>
                             <Label value="Risk" offset={0} angle={-90} position="insideLeft"/>
                         </YAxis>
                         <Scatter name="A school" data={userContext.favoriteAssets} fill="#8884d8" >
