@@ -214,7 +214,7 @@ const PortfolioPage = () => {
                     <BarChart data={userContext.portfolioAssets}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="rentabilityLabel" />
-                        <YAxis domain={[-50,50]}/>
+                        <YAxis domain={[-100,100]}/>
                         <Tooltip />
                         <Legend />
                         <Bar dataKey="rentability" unit="$" fill="#bf00ff" />
