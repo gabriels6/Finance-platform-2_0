@@ -213,7 +213,7 @@ const PortfolioPage = () => {
                         <BarChart data={userContext.portfolioAssets.sort((a,b) => a?.rentabilityAmount - b?.rentabilityAmount)}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="rentabilityLabel" />
-                            <YAxis domain={[-100,100]}/>
+                            <YAxis />
                             <Tooltip />
                             <Legend />
                             <Bar dataKey="rentabilityAmount" name='Rentability ($)'>
