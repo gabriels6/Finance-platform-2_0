@@ -18,6 +18,7 @@ import DividendProjection from './DividendProjection';
 import IncomeTaxReport from './IncomeTaxReport';
 import ExchangeRate from './ExchangeRate';
 import AssetComposition from './AssetComposition';
+import PriceProjection from './PriceProjection';
 
 const SwitchControl = () => {
 
@@ -37,6 +38,7 @@ const SwitchControl = () => {
         [<AssetPricesPage/>, "/maintainance/asset-prices"],
         [<DividendProjection/>, "/projection/dividends"],
         [<AssetComposition/>, "/projection/asset-composition"],
+        [<PriceProjection/>, "/projection/prices"],
         [<IncomeTaxReport/>, "/analysis/income-tax-report"],
         [<ExchangeRate/>, "/analysis/exchange-rates"],
         [<CrudPage model='asset_types' fields={{id: 0, name: "", income_tax_identifier: "", created_at: "", updated_at: ""}}/>, "/maintainance/asset-types"],

@@ -155,6 +155,13 @@ const Header = () => {
                                                 </Nav.Link>
                                             </LinkContainer>
                                         </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <LinkContainer to="/projection/prices">
+                                                <Nav.Link>
+                                                    Prices
+                                                </Nav.Link>
+                                            </LinkContainer>
+                                        </NavDropdown.Item>
                                     </NavDropdown>
                                     <NavDropdown title="Maintainance" menuVariant="dark">
                                         <NavDropdown.Item>

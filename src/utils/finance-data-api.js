@@ -156,6 +156,9 @@ export default {
             currency: currency
         }, apiKey);
     },
+    async getProjectedPrice(projectionQuery, apiKey) {
+        return await this.apiGet('/api/projection/projected_price', projectionQuery, apiKey)
+    },
     async saveAsset(assetBody, apiKey) {
         return await this.apiPost('/api/assets', assetBody, apiKey);
     },
