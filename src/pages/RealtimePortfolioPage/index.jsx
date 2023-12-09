@@ -138,7 +138,7 @@ const RealtimePortfolioPage = () => {
                                             <td>{item.asset.investing_external_id}</td>
                                             <td>{item.quantity}</td>
                                             <td>{item.price}</td>
-                                            <td>{item.average_price}</td>
+                                            <td>{(item.average_price * 1.0).toFixed(2)}</td>
                                             <td>{item.value}</td>
                                             <td>{Math.round(item.current_price * 100)/100 || 0.0}</td>
                                             <td>{Math.round(item.current_value * 100)/100 || 0.0}</td>
