@@ -136,7 +136,7 @@ const RealtimePortfolioPage = () => {
                                         <tr key={index}>
                                             <td>{item.asset.symbol}</td>
                                             <td>{item.asset.investing_external_id}</td>
-                                            <td>{item.quantity}</td>
+                                            <td>{(item.quantity * 1.0).toFixed(2)}</td>
                                             <td>{item.price}</td>
                                             <td>{(item.average_price * 1.0).toFixed(2)}</td>
                                             <td>{item.value}</td>
