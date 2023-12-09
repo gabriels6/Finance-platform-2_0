@@ -190,7 +190,7 @@ const OrdersPage = () => {
                 
             </div>
             <div className="card">
-                <table>
+                <table className={ userContext.mobileSize() && "small" }>
                     <thead>
                         <tr>
                             <th>Id</th>

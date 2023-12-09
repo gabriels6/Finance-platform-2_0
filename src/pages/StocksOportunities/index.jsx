@@ -57,7 +57,7 @@ const StocksOportunities = () => {
 
     return (
         <div className="control">
-            <div className="card funds-search-bar">
+            <div className={"card funds-search-bar " + ( userContext.mobileSize() && "value-header" ) }>
                 <div className="title">
                     Stocks List
                 </div>
@@ -88,7 +88,7 @@ const StocksOportunities = () => {
                 </Form>
             </div>
             <div className="card">
-                <table>
+                <table className={ userContext.mobileSize() && "small" }>
                     <thead>
                         <tr>
                             <td selector={"asset"} onClick={orderStocks}>Asset</td>

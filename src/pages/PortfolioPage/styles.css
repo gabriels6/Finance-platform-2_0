@@ -10,7 +10,18 @@
     height: 400px;
 }
 
+.portfolio-graphic-subtitle-small {
+    width: 40%;
+    display:block;
+    height: 200px;
+}
+
 .portfolio-asset-hist {
     height: 720px;
+    width:auto;
+}
+
+.portfolio-asset-hist-small {
+    height: 360px;
     width:auto;
 }

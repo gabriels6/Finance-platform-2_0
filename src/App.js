@@ -25,6 +25,7 @@ function App() {
   const [portfolioDividendYield, setPortfolioDividendYield] = useState(0.0);
   const [topPrices, setTopPrices] = useState([]);
   const [portfolioRentability, setPortfolioRentability] = useState(0.0);
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
 
   const initialState = {
     user: user,
@@ -63,7 +64,16 @@ function App() {
     setSectorExposures: setSectorExposures,
     setPortfolioDividendYield: setPortfolioDividendYield,
     setTopPrices: setTopPrices,
-    setPortfolioRentability: setPortfolioRentability
+    setPortfolioRentability: setPortfolioRentability,
+    mobileSize: mobileSize
+  }
+
+  window.onresize = () => {
+    setInnerWidth(window.innerWidth)
+  }
+
+  function mobileSize() {
+    return innerWidth <= 700
   }
 
   function switchDate(date) {

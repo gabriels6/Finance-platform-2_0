@@ -82,7 +82,7 @@ const PortfolioPage = () => {
             <div className="title">
                 Portfolio
             </div>
-            <div className="card">
+            <div className={"card " + ( userContext.mobileSize() ? "value-header" : "" )}>
                 <div className="value-section">
                     <div className="info-text">
                         Nav
@@ -130,11 +130,11 @@ const PortfolioPage = () => {
                     </div>
                 </div>
             </div>
-            <div className='card horizontal-align'>
-                <div className="title">
-                        Portfolios
+            <div className='card horizontal-align value-header'>
+                <div className={( userContext.mobileSize() ? "small-" : "" ) + "title center"}>
+                    Portfolios
                 </div>
-                <div className='horizontal-align'>
+                <div className='horizontal-align value-header'>
                     {userContext.portfolios.map((item, index) => {
                         return (
                             <div key={index} className='card' id={item.name} onClick={handleGetPortfolio}>
@@ -148,8 +148,8 @@ const PortfolioPage = () => {
                 </div>  
             </div>
             <div className="horizontal-align">
-                <div className="card portfolio-graphic vertical-align">
-                    <div className="title">
+                <div className={"card vertical-align " + ( userContext.mobileSize() ? "portfolio-graphic-subtitle-small" : "portfolio-graphic-subtitle" )}>
+                    <div className={( userContext.mobileSize() ? "small-" : "" ) + "title"}>
                         Portfolio Assets
                     </div>
                     <ResponsiveContainer>
@@ -173,8 +173,8 @@ const PortfolioPage = () => {
                         </PieChart>
                     </ResponsiveContainer>
                 </div>
-                <div className="card vertical-align portfolio-graphic-subtitle">
-                    <div className="title">
+                <div className={"card vertical-align " + ( userContext.mobileSize() ? "portfolio-graphic-subtitle-small" : "portfolio-graphic-subtitle" )}>
+                    <div className={( userContext.mobileSize() ? "small-" : "" ) + "title"}>
                         Portfolio Asset Types
                     </div>
                     <ResponsiveContainer>
@@ -188,8 +188,8 @@ const PortfolioPage = () => {
                         </PieChart>
                     </ResponsiveContainer>
                 </div>
-                <div className="card vertical-align portfolio-graphic-subtitle">
-                    <div className="title">
+                <div className={"card vertical-align " + ( userContext.mobileSize() ? "portfolio-graphic-subtitle-small" : "portfolio-graphic-subtitle" )}>
+                    <div className={( userContext.mobileSize() ? "small-" : "" ) + "title"}>
                         Portfolio Sector Exposure
                     </div>
                     <ResponsiveContainer>
@@ -204,7 +204,7 @@ const PortfolioPage = () => {
                     </ResponsiveContainer>
                 </div>
             </div>
-            <div className='card vertical-align portfolio-asset-hist'>
+            <div className={'card vertical-align ' + ( userContext.mobileSize() ? "portfolio-asset-hist-small" : "portfolio-asset-hist" )}>
                 <div className="title">
                     P & L
                 </div>
@@ -247,7 +247,7 @@ const PortfolioPage = () => {
                 <div className="title">
                     Portfolio Asset Data
                 </div>
-                <table>
+                <table className={ userContext.mobileSize() ? "small" : "" }>
                     <thead>
                         <tr>
                             <td>Asset</td>

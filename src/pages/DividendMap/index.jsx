@@ -57,7 +57,7 @@ const DividendMap = () => {
     return (
         <div className="control">
             <MessageHolder/>
-            <div className="card dividend-form">
+            <div className={"card dividend-form " + ( userContext.mobileSize() && "value-header" )}>
                 <div className="title">Dividends Map</div>
                 <Form className="d-flex">
                     <FormControl
@@ -78,7 +78,7 @@ const DividendMap = () => {
                 Filled Months: {filledDividendMonths.map((value, index) => (<div class="card">{value}</div>))}
             </div>
             <div className="card">
-                <table>
+                <table className={ userContext.mobileSize() && "small" }>
                     <thead>
                         <td>Date</td>
                         <td>Asset</td>

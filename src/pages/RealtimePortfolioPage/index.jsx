@@ -97,8 +97,8 @@ const RealtimePortfolioPage = () => {
                         </div>
                     </div>
                 </div>
-                <div className='card horizontal-align'>
-                    <div className="title">
+                <div className={'card horizontal-align ' + ( userContext.mobileSize() ? "value-header" : "" )}>
+                    <div className={( userContext.mobileSize() ? "small-" : "" ) + "title center"}>
                             Portfolios
                     </div>
                     <div className='horizontal-align'>
@@ -116,7 +116,7 @@ const RealtimePortfolioPage = () => {
                             Positions
                     </div>
                     <div className='horizontal-align'>
-                        <table>
+                        <table className={ userContext.mobileSize() && "small" }>
                             <thead>
                                 <tr>
                                     <td>Asset</td>

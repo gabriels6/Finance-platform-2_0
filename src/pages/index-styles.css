@@ -19,9 +19,22 @@
     font-size: 24px;
 }
 
+.small-title {
+    font-weight: 700;
+    font-size: 16px;
+}
+
 .info-text {
     font-weight: bold;
     font-size: 11px;
+}
+
+.value-header {
+    display: flex;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    height: auto;
+    justify-content: space-between;
 }
 
 .value-section {
@@ -72,4 +85,8 @@ button:hover {
 
 .wrap {
     flex-wrap: wrap;
+}
+
+.small td {
+    font-size: 9px;
 }

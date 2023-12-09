@@ -30,7 +30,7 @@ const Header = () => {
 
 
     return userContext.showHeader ? (
-            <Navbar bg="dark" variant="dark">
+            <Navbar className={ userContext.mobileSize() && "value-header" } bg="dark" variant="dark">
                 <Container>
                     <LinkContainer to="#/home">
                         <Navbar.Brand>
@@ -47,173 +47,338 @@ const Header = () => {
                         userContext.token !== "" ? (
                             <>
                                 <Nav className="me-auto">
-                                    <NavDropdown title="Portfolios" menuVariant="dark">
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/portfolio">
-                                                <Nav.Link>
-                                                Portfolio
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/portfolio/realtime-portfolio">
-                                                <Nav.Link>
-                                                Real-time
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                    </NavDropdown>
+                                    {
+                                        userContext.mobileSize() ? (
+                                            <NavDropdown title="Items" menuVariant="dark">
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/portfolio">
+                                                            <Nav.Link>
+                                                            Portfolio
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/portfolio/realtime-portfolio">
+                                                            <Nav.Link>
+                                                            Real-time
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/analysis/asset-risk">
+                                                            <Nav.Link>
+                                                                Asset Risk
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/analysis/portfolio-risk">
+                                                            <Nav.Link>
+                                                                Portfolio Risk
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/analysis/fundamentalist-data">
+                                                            <Nav.Link>
+                                                                Fundamentalist Data
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/analysis/imobiliary-funds-oportunities">
+                                                            <Nav.Link>
+                                                                Imobiliary Fund Oportunities
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/analysis/stocks-oportunities">
+                                                            <Nav.Link>
+                                                                Stocks Oportunities
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/analysis/dividend-map">
+                                                            <Nav.Link>
+                                                                Dividend Map
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/analysis/income-tax-report">
+                                                            <Nav.Link>
+                                                                Income Tax
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/analysis/exchange-rates">
+                                                            <Nav.Link>
+                                                                Exchange Rates
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/management/asset-selection">
+                                                            <Nav.Link>
+                                                                Asset Selection
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/management/orders">
+                                                            <Nav.Link>
+                                                                Orders
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/projection/dividends">
+                                                            <Nav.Link>
+                                                                Dividends
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/projection/asset-composition">
+                                                            <Nav.Link>
+                                                                Asset Composition
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/projection/prices">
+                                                            <Nav.Link>
+                                                                Prices
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/maintainance/asset">
+                                                            <Nav.Link>
+                                                                Asset
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/maintainance/asset-prices">
+                                                            <Nav.Link>
+                                                                Asset Prices
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/maintainance/asset-types">
+                                                            <Nav.Link>
+                                                                Asset Types
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/maintainance/sectors">
+                                                            <Nav.Link>
+                                                                Sectors
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/maintainance/receivables">
+                                                            <Nav.Link>
+                                                                Receivables
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/maintainance/receivable-types">
+                                                            <Nav.Link>
+                                                                Receivable Types
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/maintainance/currencies">
+                                                            <Nav.Link>
+                                                                Currencies
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                            </NavDropdown>
+                                        ) : (
+                                            <>
+                                                <NavDropdown title="Portfolios" menuVariant="dark">
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/portfolio">
+                                                            <Nav.Link>
+                                                            Portfolio
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/portfolio/realtime-portfolio">
+                                                            <Nav.Link>
+                                                            Real-time
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                </NavDropdown>
 
 
-                                    <NavDropdown title="Analysis" menuVariant="dark">
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/analysis/asset-risk">
-                                                <Nav.Link>
-                                                    Asset Risk
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/analysis/portfolio-risk">
-                                                <Nav.Link>
-                                                    Portfolio Risk
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/analysis/fundamentalist-data">
-                                                <Nav.Link>
-                                                    Fundamentalist Data
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/analysis/imobiliary-funds-oportunities">
-                                                <Nav.Link>
-                                                    Imobiliary Fund Oportunities
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/analysis/stocks-oportunities">
-                                                <Nav.Link>
-                                                    Stocks Oportunities
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/analysis/dividend-map">
-                                                <Nav.Link>
-                                                    Dividend Map
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/analysis/income-tax-report">
-                                                <Nav.Link>
-                                                    Income Tax
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/analysis/exchange-rates">
-                                                <Nav.Link>
-                                                    Exchange Rates
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                    </NavDropdown>
+                                                <NavDropdown title="Analysis" menuVariant="dark">
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/analysis/asset-risk">
+                                                            <Nav.Link>
+                                                                Asset Risk
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/analysis/portfolio-risk">
+                                                            <Nav.Link>
+                                                                Portfolio Risk
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/analysis/fundamentalist-data">
+                                                            <Nav.Link>
+                                                                Fundamentalist Data
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/analysis/imobiliary-funds-oportunities">
+                                                            <Nav.Link>
+                                                                Imobiliary Fund Oportunities
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/analysis/stocks-oportunities">
+                                                            <Nav.Link>
+                                                                Stocks Oportunities
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/analysis/dividend-map">
+                                                            <Nav.Link>
+                                                                Dividend Map
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/analysis/income-tax-report">
+                                                            <Nav.Link>
+                                                                Income Tax
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/analysis/exchange-rates">
+                                                            <Nav.Link>
+                                                                Exchange Rates
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                </NavDropdown>
 
-                                    <NavDropdown title="Management" menuVariant="dark">
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/management/asset-selection">
-                                                <Nav.Link>
-                                                    Asset Selection
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/management/orders">
-                                                <Nav.Link>
-                                                    Orders
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                    </NavDropdown>
-                                    <NavDropdown title="Projection" menuVariant="dark"> 
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/projection/dividends">
-                                                <Nav.Link>
-                                                    Dividends
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/projection/asset-composition">
-                                                <Nav.Link>
-                                                    Asset Composition
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/projection/prices">
-                                                <Nav.Link>
-                                                    Prices
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                    </NavDropdown>
-                                    <NavDropdown title="Maintainance" menuVariant="dark">
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/maintainance/asset">
-                                                <Nav.Link>
-                                                    Asset
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/maintainance/asset-prices">
-                                                <Nav.Link>
-                                                    Asset Prices
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/maintainance/asset-types">
-                                                <Nav.Link>
-                                                    Asset Types
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/maintainance/sectors">
-                                                <Nav.Link>
-                                                    Sectors
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/maintainance/receivables">
-                                                <Nav.Link>
-                                                    Receivables
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/maintainance/receivable-types">
-                                                <Nav.Link>
-                                                    Receivable Types
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                        <NavDropdown.Item>
-                                            <LinkContainer to="/maintainance/currencies">
-                                                <Nav.Link>
-                                                    Currencies
-                                                </Nav.Link>
-                                            </LinkContainer>
-                                        </NavDropdown.Item>
-                                    </NavDropdown>
+                                                <NavDropdown title="Management" menuVariant="dark">
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/management/asset-selection">
+                                                            <Nav.Link>
+                                                                Asset Selection
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/management/orders">
+                                                            <Nav.Link>
+                                                                Orders
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                </NavDropdown>
+                                                <NavDropdown title="Projection" menuVariant="dark"> 
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/projection/dividends">
+                                                            <Nav.Link>
+                                                                Dividends
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/projection/asset-composition">
+                                                            <Nav.Link>
+                                                                Asset Composition
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/projection/prices">
+                                                            <Nav.Link>
+                                                                Prices
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                </NavDropdown>
+                                                <NavDropdown title="Maintainance" menuVariant="dark">
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/maintainance/asset">
+                                                            <Nav.Link>
+                                                                Asset
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/maintainance/asset-prices">
+                                                            <Nav.Link>
+                                                                Asset Prices
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/maintainance/asset-types">
+                                                            <Nav.Link>
+                                                                Asset Types
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/maintainance/sectors">
+                                                            <Nav.Link>
+                                                                Sectors
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/maintainance/receivables">
+                                                            <Nav.Link>
+                                                                Receivables
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/maintainance/receivable-types">
+                                                            <Nav.Link>
+                                                                Receivable Types
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/maintainance/currencies">
+                                                            <Nav.Link>
+                                                                Currencies
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                </NavDropdown>
+                                            </>
+                                        )
+                                    }
                                 </Nav>
                                 <Nav>
                                     <Form className="d-flex">
