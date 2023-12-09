@@ -262,7 +262,7 @@ const PortfolioPage = () => {
                             return(
                                 <tr key={index}>
                                     <td>{item.asset.symbol}</td>
-                                    <td>{item.average_price.toFixed(2)}</td>
+                                    <td>{(item.average_price * 100.0).toFixed(2)}</td>
                                     <td>{item.price_today}</td>
                                     <td>{(item.dividend_yield * 100.0).toFixed(2)}%</td>
                                     <td>{(item.dividend_yield_on_cost * 100.0).toFixed(2)}%</td>
