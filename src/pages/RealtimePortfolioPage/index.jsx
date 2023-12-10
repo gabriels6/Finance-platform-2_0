@@ -122,9 +122,7 @@ const RealtimePortfolioPage = () => {
                                     <tr>
                                         <td>Asset</td>
                                         <td>Quantity</td>
-                                        <td>Average Price</td>
                                         <td>Value</td>
-                                        <td>Current Price</td>
                                         <td>Current Value</td>
                                         <td>Profit</td>
                                     </tr>
@@ -135,9 +133,7 @@ const RealtimePortfolioPage = () => {
                                             <tr key={index}>
                                                 <td>{item.asset.symbol}</td>
                                                 <td>{(item.quantity * 1.0).toFixed(2)}</td>
-                                                <td>{(item.average_price * 1.0).toFixed(2)}</td>
                                                 <td>{item.value}</td>
-                                                <td>{Math.round(item.current_price * 100)/100 || 0.0}</td>
                                                 <td>{Math.round(item.current_value * 100)/100 || 0.0}</td>
                                                 <td className={((item.current_price - item.average_price)/item.average_price || 0.0) >= 0 ? "green" : "red"}>{Math.round((item.current_price - item.average_price)/item.average_price * 10000)/100 || 0.0}%</td>
                                             </tr>
