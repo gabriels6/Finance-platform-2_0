@@ -16,6 +16,8 @@ const DividendsReceived = () => {
         financeDataApi.getReceivedValues({
             portfolio_name: event.currentTarget.id
         }, userContext.integrationToken).then((data) => {
+            console.log(Math.max(dividendsMonths.map((data) => (data.value * 1))))
+            console.log(dividendsMonths.map((data) => (data.value * 1)))
             setDividendsMonths(data)
         })
     }
@@ -50,7 +52,7 @@ const DividendsReceived = () => {
                         <BarChart data={dividendsMonths.map((data) => ({...data, month_year: data.month + "/" + data.year}))}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="month_year" />
-                            <YAxis domain={[0,100]}/>
+                            <YAxis domain={[0,(Math.max(...dividendsMonths.map((data) => ((data.value * 1)?.toFixed(2) * 1))) + 1.0)]}/>
                             <Tooltip />
                             <Legend />
                             <Bar dataKey="value" name='Value ($)'>
