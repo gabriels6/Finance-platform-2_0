@@ -19,6 +19,7 @@ import IncomeTaxReport from './IncomeTaxReport';
 import ExchangeRate from './ExchangeRate';
 import AssetComposition from './AssetComposition';
 import PriceProjection from './PriceProjection';
+import DividendsReceived from './DividendsReceived';
 
 const SwitchControl = () => {
 
@@ -45,7 +46,8 @@ const SwitchControl = () => {
         [<CrudPage model='sectors' fields={{id: 0, name: "", created_at: "", updated_at: ""}}/>, "/maintainance/sectors"],
         [<CrudPage model='receivables' fields={{asset_id: 0, receivable_type_id: 0, value: 0.0, date: "", payment_date: ""}}/>, "/maintainance/receivables"],
         [<CrudPage model='receivable_types' fields={{id: 0, name: "", income_tax_identifier: "", created_at: "", updated_at: ""}}/>, "/maintainance/receivable-types"],
-        [<CrudPage model='currency' fields={{id: 0, symbol: "", name: ""}}/>, "/maintainance/currencies"]
+        [<CrudPage model='currency' fields={{id: 0, symbol: "", name: ""}}/>, "/maintainance/currencies"],
+        [<DividendsReceived/>, "/analysis/dividends-received"]
     ]
 
     return (

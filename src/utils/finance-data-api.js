@@ -222,5 +222,8 @@ export default {
     },
     async getTopPrices(params = {}, apiKey) {
         return await this.apiGet('/api/assets/top_prices', params, apiKey);
+    },
+    async getReceivedValues(params = {}, apiKey) {
+        return await this.apiGet('/api/receivables/received_values', params, apiKey)
     }
 }
