@@ -8,15 +8,16 @@
     height: 100%;
     border-radius: 20px;
     border:none;
-    background:#252525;
-    color: #fff;
-    box-shadow: 0 0 1em #fff;
+    background:#fff;
+    color: #252525;
+    border: solid 1px #252525;
     transition: background .5s;
+    font-size: 14px;
 }
 
 .button-main button:hover {
-    background: #fff;
-    color: #000;
+    background: #aaa;
+    color: #fff;
     box-shadow: none;
     transition: all .5s;
 }

@@ -61,18 +61,25 @@ const LoginPage = () => {
 
     return (
         <div className="main">
-            <div className='login-form'>
-                <img
-                    alt=""
-                    src={logo}
-                    width="334"
-                    height="134"
-                    className="d-inline-block align-top"
-                />{' '}
-                <MessageHolder/>
-                <InputText type="text" label="Username" placeholder="Type your username..." onChange={handleUsername}  marginBottom={58}/>
-                <InputText type="password" label="Password" placeholder="Type your password..." onChange={handlePassword}/>
-                <InputButton label="Sign in" onClick={signIn} marginTop={58}/>
+            <div className={'login-wrapper' + ( userContext.mobileSize() ? "-mobile" : "" )}>
+                <div className='login-img'>
+                    <div>
+                        <img
+                            alt=""
+                            src={logo}
+                            width="334"
+                            height="134"
+                            className="d-inline-block align-top"
+                        />{' '}
+                    </div>
+                </div>
+                <div className='login-form'>
+                    <MessageHolder/>
+                    <InputText type="text" label="Username" placeholder="Type your username..." onChange={handleUsername}  marginBottom={58}/>
+                    <InputText type="password" label="Password" placeholder="Type your password..." onChange={handlePassword}/>
+                    <div className='login-space'/>
+                    <InputButton label="Sign in" onClick={signIn} marginTop={58}/>
+                </div>
             </div>
         </div>
     )
