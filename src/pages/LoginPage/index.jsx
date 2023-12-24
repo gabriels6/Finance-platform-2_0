@@ -67,13 +67,13 @@ const LoginPage = () => {
                         <img
                             alt=""
                             src={logo}
-                            width="334"
-                            height="134"
+                            width={ userContext.mobileSize() ? "167" : "100%" }
+                            height={ userContext.mobileSize() ? "67" : "50%" }
                             className="d-inline-block align-top"
                         />{' '}
                     </div>
                 </div>
-                <div className='login-form'>
+                <div className={'login-form' + ( userContext.mobileSize() ? "-mobile" : "" )}>
                     <MessageHolder/>
                     <InputText type="text" label="Username" placeholder="Type your username..." onChange={handleUsername}  marginBottom={58}/>
                     <InputText type="password" label="Password" placeholder="Type your password..." onChange={handlePassword}/>

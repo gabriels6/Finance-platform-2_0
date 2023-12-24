@@ -18,6 +18,14 @@
     padding: 5%;
 }
 
+.login-form-mobile {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 5%;
+}
+
 .login-img {
     width: 50%;
     background: url("../../login-background.svg");
