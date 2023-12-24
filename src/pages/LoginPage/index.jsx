@@ -62,7 +62,7 @@ const LoginPage = () => {
     return (
         <div className="main">
             <div className={'login-wrapper' + ( userContext.mobileSize() ? "-mobile" : "" )}>
-                <div className='login-img'>
+                <div className={'login-img'+ ( userContext.mobileSize() ? "-mobile" : "" )}>
                     <div>
                         <img
                             alt=""
