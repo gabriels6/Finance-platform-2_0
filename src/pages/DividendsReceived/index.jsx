@@ -11,13 +11,17 @@ const DividendsReceived = () => {
 
     const [dividendsMonths, setDividendsMonths] = useState([])
 
+    const [portfolio, setPortfolio] = useState({})
+
     function handleGetReceivables(event) {
         setDividendsMonths([])
+        setPortfolio({})
+        let portfolioName = event.currentTarget.id
         financeDataApi.getReceivedValues({
-            portfolio_name: event.currentTarget.id
+            portfolio_name: portfolioName
         }, userContext.integrationToken).then((data) => {
-            console.log(Math.max(dividendsMonths.map((data) => (data.value * 1))))
-            console.log(dividendsMonths.map((data) => (data.value * 1)))
+            setPortfolio(userContext.portfolios.find((item) => item.name == portfolioName))
+            console.log(portfolio)
             setDividendsMonths(data)
         })
     }
@@ -33,15 +37,16 @@ const DividendsReceived = () => {
                         Received Dividends
                     </div>
                     <div className="value-text">
-                        {userContext.portfolios.map((item, index) => {
-                            return (
-                                <div key={index} className='card' id={item.name} onClick={handleGetReceivables}>
-                                    {item.name} - ({item.currency?.symbol})
-                                </div>
-                            )
-                        })}
+                        { dividendsMonths.reduce((prevValue, currItem) => (prevValue + (currItem?.value || 0.0) * 1.0),0.0).toFixed(2) } { portfolio?.currency?.symbol || '' }
                     </div>
                 </div>
+                {userContext.portfolios.map((item, index) => {
+                        return (
+                            <div key={index} className='card' id={item.name} onClick={handleGetReceivables}>
+                                {item.name} - ({item.currency?.symbol})
+                            </div>
+                        )
+                    })}
             </div>
             <div className={'card vertical-align ' + ( userContext.mobileSize() ? "portfolio-asset-hist-small" : "portfolio-asset-hist" )}>
                 <div className="title">
