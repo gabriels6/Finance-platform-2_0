@@ -22,7 +22,7 @@ const AssetPricesPage = () => {
     }
 
     function handleRefresh(event) {
-        financeDataApi.getAssetPriceHist(assetPriceQuery?.symbol, assetPriceQuery.startDate, assetPriceQuery.endDate, userContext.integrationToken).then((data) => {
+        financeDataApi.getAssetPriceHist(assetPriceQuery?.symbol, assetPriceQuery.startDate, assetPriceQuery.endDate, null, userContext.integrationToken).then((data) => {
             setAssetPrices([...data]);
         });
     }

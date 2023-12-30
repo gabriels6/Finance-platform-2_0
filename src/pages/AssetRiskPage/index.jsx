@@ -41,7 +41,7 @@ const AssetRiskPage = () => {
         let assetPricePromises = [];
         assets.forEach((asset) => {
             assetPromises.push(financeDataApi.getAssetData(asset, startDate, userContext.date, apiKey));
-            assetPricePromises.push(financeDataApi.getAssetPriceHist(asset, startDate, userContext.date, apiKey));
+            assetPricePromises.push(financeDataApi.getAssetPriceHist(asset, startDate, userContext.date, null, apiKey));
         });
         Promise.all(assetPromises).then((assetData) => {
             let parsedAssetData = assetData.flat().map((assets) => ({
