@@ -213,6 +213,13 @@ const Header = () => {
                                                             </Nav.Link>
                                                         </LinkContainer>
                                                     </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/ai/investments">
+                                                            <Nav.Link>
+                                                                Investments
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
                                             </NavDropdown>
                                         ) : (
                                             <>

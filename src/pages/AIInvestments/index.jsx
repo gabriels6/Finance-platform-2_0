@@ -1,5 +1,5 @@
 import { useSSRSafeId } from "@react-aria/ssr"
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Button, Form, FormControl } from "react-bootstrap"
 import UserContext from "../../context/UserContext"
 import financeDataApi from "../../utils/finance-data-api"
@@ -10,8 +10,13 @@ const AIInvestments = () => {
 
     const [trainQuery, setTrainQuery] = useState({})
     const [resultQuery, setResultQuery] = useState({})
+    const [trainingItems, setTrainingitems] = useState([])
 
     const [result, setResult] = useState(null)
+
+    useEffect(() => {
+        if(trainingItems.length == 0) getTrainingItems()
+    })
 
     function handleTrainQuery(event){
         let currQuery = trainQuery;
@@ -27,13 +32,19 @@ const AIInvestments = () => {
 
     function handleTrain(){
         financeDataApi.trainInvestmentAI(trainQuery, userContext.integrationToken).then((data) => {
-            
+            getTrainingItems()
         })   
     }
 
     function handleResult(){
         financeDataApi.getAIResultData(resultQuery, userContext.integrationToken).then((data) => {
             setResult(data.result)
+        })
+    }
+
+    function getTrainingItems(){
+        financeDataApi.getAITrainingItems({}, userContext.integrationToken).then((data) => {
+            setTrainingitems(data)
         })
     }
 
@@ -93,6 +104,28 @@ const AIInvestments = () => {
                         Train
                     </Button>
                 </div>
+            </div>
+            <div className="card">
+                <table>
+                    <thead>
+                        <th>Asset</th>
+                        <th>Date</th>
+                        <th>CAGR 5 Year Earnings</th>
+                        <th>CAGR 5 Year Profit</th>
+                        <th>Expected Value</th>
+                    </thead>
+                    <tbody>
+                        { trainingItems.length && trainingItems.map((item) => (
+                            <tr>
+                                <td>{item?.asset}</td>
+                                <td>{item?.date}</td>
+                                <td>{item?.cagr5YearEarnings}</td>
+                                <td>{item?.cagr5YearProfit}</td>
+                                <td>{item?.expected?.$numberDecimal}</td>
+                            </tr>
+                        )) }
+                    </tbody>
+                </table>
             </div>
         </div>
     )

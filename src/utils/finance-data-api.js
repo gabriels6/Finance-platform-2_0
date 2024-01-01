@@ -231,5 +231,8 @@ export default {
     },
     async trainInvestmentAI(params = {}, apiKey) {
         return await this.apiGet('/api/intel/investments/train', params, apiKey)
+    },
+    async getAITrainingItems(params = {}, apiKey) {
+        return await this.apiGet('/api/intel/investments/train_items', params, apiKey)
     }
 }
