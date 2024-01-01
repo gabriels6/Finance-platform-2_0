@@ -225,5 +225,11 @@ export default {
     },
     async getReceivedValues(params = {}, apiKey) {
         return await this.apiGet('/api/receivables/received_values', params, apiKey)
+    },
+    async getAIResultData(params = {}, apiKey) {
+        return await this.apiGet('/api/intel/investments/check_asset', params, apiKey)
+    },
+    async trainInvestmentAI(params = {}, apiKey) {
+        return await this.apiGet('/api/intel/investments/train', params, apiKey)
     }
 }
