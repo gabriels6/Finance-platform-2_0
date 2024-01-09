@@ -13,6 +13,8 @@ const DividendsReceived = () => {
 
     const [portfolio, setPortfolio] = useState({})
 
+    const [selectedMonth, setSelectedMonth] = useState(null)
+
     function handleGetReceivables(event) {
         setDividendsMonths([])
         setPortfolio({})
@@ -60,7 +62,7 @@ const DividendsReceived = () => {
                             <YAxis domain={[0,(Math.max(...dividendsMonths.map((data) => ((data.value * 1)?.toFixed(2) * 1))) + 1.0)]}/>
                             <Tooltip />
                             <Legend />
-                            <Bar dataKey="value" name='Value ($)'>
+                            <Bar dataKey="value" name='Value ($)' onClick={(evt) => setSelectedMonth(evt?.payload)}>
                                 {dividendsMonths.map((assetItem) => (
                                     <Cell fill={'#34eb5e'}/>
                                 ))}
@@ -69,6 +71,29 @@ const DividendsReceived = () => {
                     </ResponsiveContainer>
                 ) }
             </div>
+            { selectedMonth && (
+                <div className="card vertical-align">
+                    <div className="title">
+                        { selectedMonth?.month }/{ selectedMonth.year }
+                    </div>
+                    <table>
+                        <thead>
+                            <th>Symbol</th>
+                            <th>Amount</th>
+                            <th>Quantity</th>
+                        </thead>
+                        <tbody>
+                            { selectedMonth.receivables.map((item) => (
+                                <tr>
+                                    <td>{ item?.symbol }</td>
+                                    <td>{ (item?.amount * 1.0).toFixed(2) } { portfolio?.currency?.symbol || '' }</td>
+                                    <td>{ item?.quantity}</td>
+                                </tr>
+                            )) }
+                        </tbody>
+                    </table>
+                </div>
+            ) }
         </div>
     )
 }
