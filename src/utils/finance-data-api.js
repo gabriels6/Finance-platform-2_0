@@ -148,6 +148,12 @@ export default {
 
         return data;
     },
+    async importYahooYearlyQuotes(symbol, apiKey) {
+        return await this.apiPost('/api/integrator/assets/import_yahoo_historical_quotes', { symbol: symbol }, apiKey);
+    },
+    async importYahooHistoricalQuotes(symbol, apiKey) {
+        return await this.apiPost('/api/integrator/assets/import_yahoo_yearly_quotes', { symbol: symbol }, apiKey);
+    },
     async getAssetPriceHist(symbol, startDate, endDate, currency, apiKey) {
         return await this.apiGet('/api/asset_prices',{
             symbol: symbol,

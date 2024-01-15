@@ -15,6 +15,7 @@ const AssetMaintaince = () => {
         symbol: '',
         asset_type: '',
         external_id: '',
+        yahoo_code: '',
         sector: '',
         investing_external_id: '',
     });
@@ -80,6 +81,46 @@ const AssetMaintaince = () => {
                 }
             ]);
         });
+    }
+
+    function handleYearlyQuotes(event) {
+        let assetId = event.target.id
+        let selectedAsset = userContext.assets.find((assetItem, index) => (assetItem.id == assetId));
+        financeDataApi.importYahooYearlyQuotes(selectedAsset?.symbol, userContext.integrationToken).then(() => {
+            userContext.setMessages([
+                {
+                    type:  "success",
+                    value: `Yearly quotes for ${selectedAsset?.symbol} successfully imported!`
+                }
+            ])
+        }).catch((ex) => {
+            userContext.setMessages([
+                {
+                    type:  "error",
+                    value: `Error importing quotes for ${selectedAsset?.symbol}: ${ex.error}`
+                }
+            ])
+        })
+    }
+
+    function handleHistoricalQuotes(event) {
+        let assetId = event.target.id
+        let selectedAsset = userContext.assets.find((assetItem, index) => (assetItem.id == assetId));
+        financeDataApi.importYahooHistoricalQuotes(selectedAsset?.symbol, userContext.integrationToken).then(() => {
+            userContext.setMessages([
+                {
+                    type:  "success",
+                    value: `Historical quotes for ${selectedAsset?.symbol} successfully imported!`
+                }
+            ])
+        }).catch((ex) => {
+            userContext.setMessages([
+                {
+                    type:  "error",
+                    value: `Error importing historical quotes for ${selectedAsset?.symbol}: ${ex.error}`
+                }
+            ])
+        })
     }
 
     function handleEdit(event) {
@@ -149,6 +190,15 @@ const AssetMaintaince = () => {
                         onChange={handleChangeAssetitem}
                         value={assetItem.external_id}
                     />
+                    <Form.Label htmlFor="inputYahoo_Code">
+                        Yahoo Code
+                    </Form.Label>
+                    <Form.Control
+                        type="text"
+                        id="inputYahoo_Code"
+                        onChange={handleChangeAssetitem}
+                        value={assetItem.yahoo_code}
+                    />
                     <Form.Label htmlFor="inputSector">
                         Sector
                     </Form.Label>
@@ -187,8 +237,11 @@ const AssetMaintaince = () => {
                                 <th>Currency</th>
                                 <th>Type</th>
                                 <th>External Id</th>
+                                <th>Yahoo Code</th>
                                 <th>Sector</th>
                                 <th>Investing External Id</th>
+                                <th></th>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -202,8 +255,19 @@ const AssetMaintaince = () => {
                                         <td>{asset.currency?.symbol}</td>
                                         <td>{asset.asset_type.name}</td>
                                         <td>{asset.external_id}</td>
+                                        <td>{asset.yahoo_code}</td>
                                         <td>{asset.sector.name}</td>
                                         <td>{asset.investing_external_id}</td>
+                                        <td>
+                                            <Button variant="outline-primary" id={asset.id} onClick={handleYearlyQuotes}>
+                                                Import Yearly Quotes
+                                            </Button>
+                                        </td>
+                                        <td>
+                                            <Button variant="outline-primary" id={asset.id} onClick={handleHistoricalQuotes}>
+                                                Import Historical Quotes
+                                            </Button>
+                                        </td>
                                         <td>
                                             <Button variant="outline-primary" id={asset.id} onClick={handleEdit}>
                                                 Edit
