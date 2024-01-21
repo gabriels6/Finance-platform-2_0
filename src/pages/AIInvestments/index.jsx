@@ -77,7 +77,7 @@ const AIInvestments = () => {
                         Result
                     </div>
                     <div className="value-text">
-                        {(result * 1.0)?.toFixed(2) }
+                        The stock {resultQuery.symbol} {((result * 1.0)?.toFixed(2) * 1.0) == 1 ? 'is worth' : 'is not worth' }
                     </div>
                 </div>
             </div>
