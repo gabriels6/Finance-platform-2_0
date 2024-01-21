@@ -28,6 +28,7 @@ const AIInvestments = () => {
         let currQuery = resultQuery;
         currQuery[event.target.name] = event.target.value;
         setResultQuery({...currQuery});
+        if(result != null) setResult(null) 
     }
 
     function handleTrain(){
@@ -77,7 +78,7 @@ const AIInvestments = () => {
                         Result
                     </div>
                     <div className="value-text">
-                        The stock {resultQuery.symbol} {((result * 1.0)?.toFixed(2) * 1.0) == 1 ? 'is worth' : 'is not worth' }
+                        The stock {resultQuery.symbol} {result && (((result * 1.0)?.toFixed(2) * 1.0) == 1 ? 'is worth' : 'is not worth') }
                     </div>
                 </div>
             </div>
