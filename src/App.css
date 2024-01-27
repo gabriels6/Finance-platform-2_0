@@ -1,3 +1,13 @@
+* {
+  font-family: "Inter", sans-serif !important;
+}
+
+@font-face {
+  font-family: "Inter";   /*Can be any text*/
+  src: local("Inter-VariableFont_slnt"),
+    url("./fonts/Inter-VariableFont_slnt\,wght.ttf") format("truetype");
+}
+
 .App {
   text-align: center;
 }
@@ -14,15 +24,40 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  min-height: 64px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.navbar-custom {
+  background-color: #050F33 !important;
+}
+
+.dropdown-menu-dark, .dropdown-menu-dark .dropdown-item, .dropdown-item a {
+  background-color: #050F33 !important;
+  color: #ddd !important;
+}
+
+.dropdown-menu {
+  border: solid 1px rgb(165, 165, 165) !important;
+}
+
+/* .dropdown-item:hover {
+  background-color: rgb(213, 213, 213) !important;
+  transition: all .5s;
+} */
+
+.dropdown-item a {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.dropdown-item a:hover {
+  color: #F1D302 !important;
+}
+
 
 .App-link {
   color: #61dafb;
@@ -43,7 +78,7 @@ table {
 }
 
 table thead {
-  background:#212529;
+  background:#050F33;
   color: white;
 }
 

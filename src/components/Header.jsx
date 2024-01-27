@@ -30,7 +30,7 @@ const Header = () => {
 
 
     return userContext.showHeader ? (
-            <Navbar className={ userContext.mobileSize() && "value-header" } bg="dark" variant="dark">
+            <Navbar className={ (userContext.mobileSize() && "value-header") + " navbar-custom"} variant='dark'>
                 <Container>
                     <LinkContainer to="#/home">
                         <Navbar.Brand>
