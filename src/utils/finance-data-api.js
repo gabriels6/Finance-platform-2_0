@@ -106,6 +106,20 @@ export default {
 
         return data;
     },
+    async internalSearchAsset(symbol, startDate, apiKey) {
+
+        const {data} = await api.get('/api/assets/search', {
+            params: {
+                symbol: symbol,
+                start_date: startDate
+            },
+            headers: {
+                'x_api_key': apiKey
+            }
+        });
+
+        return data;
+    },
     async getAssetData(symbol, startDate, endDate, apiKey) {
 
         const {data} = await api.get('/api/assets', {

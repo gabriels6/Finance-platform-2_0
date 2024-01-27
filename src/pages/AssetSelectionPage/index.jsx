@@ -20,7 +20,7 @@ const AssetSelectionPage = () => {
         let asset = foundAssets.find((value) => {
             return value.symbol == selectedSymbol;
         });
-        financeDataApi.getAssetData(asset.symbol, '', '', API_KEY).then((data) => {
+        financeDataApi.getAssetData(asset.external_id || asset.symbol, '', '', API_KEY).then((data) => {
             let assetData = data[0]
             let newFavoriteAssetArray = [...userContext.favoriteAssets, {
                 ...asset,
@@ -48,6 +48,14 @@ const AssetSelectionPage = () => {
 
     function searchAssets(event) {
         financeDataApi.searchAsset(keyword,'', API_KEY).then((data) => {
+            setFoundAssets(parseMethods.parseJSONWithNumbers(data));
+        }).catch((err) => {
+            userContext.handleError(err)
+        });
+    }
+
+    function internalSearchAssets(event) {
+        financeDataApi.internalSearchAsset(keyword,'', API_KEY).then((data) => {
             setFoundAssets(parseMethods.parseJSONWithNumbers(data));
         }).catch((err) => {
             userContext.handleError(err)
@@ -95,6 +103,7 @@ const AssetSelectionPage = () => {
                     onChange={handleKeyword}
                     />
                     <Button variant="outline-success" onClick={searchAssets}>Search</Button>
+                    <Button variant="outline-success" onClick={internalSearchAssets}>Internal Search</Button>
                 </Form>
             </div>
             <div className="card asset-search-result">
