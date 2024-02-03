@@ -9,14 +9,14 @@ export default {
         assetTypes = assetTypes.map((item) => {
             return {
                 type: item,
-                quantity: 0,
+                value: 0,
             };
         });
 
         assets.forEach((asset) => {
             assetTypes.forEach((item) => {
                 if (asset.type === item.type) {
-                    item.quantity += asset.quantity;
+                    item.value += asset.converted_value || asset.value;
                 }
             });
         });
