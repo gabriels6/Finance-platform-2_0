@@ -163,6 +163,15 @@ const AssetMaintaince = () => {
                         onChange={handleChangeAssetitem}
                         value={assetItem.symbol}
                     />
+                    <Form.Label htmlFor="inputCountry">
+                        Country
+                    </Form.Label>
+                    <Form.Control
+                        type="text"
+                        id="inputCountry"
+                        onChange={handleChangeAssetitem}
+                        value={assetItem.country?.name}
+                    />
                     <Form.Label htmlFor="inputCurrency">
                         Currency
                     </Form.Label>
@@ -234,6 +243,7 @@ const AssetMaintaince = () => {
                             <tr>
                                 <th>Id</th>
                                 <th>Symbol</th>
+                                <th>Country</th>
                                 <th>Currency</th>
                                 <th>Type</th>
                                 <th>External Id</th>
@@ -252,6 +262,7 @@ const AssetMaintaince = () => {
                                     <tr key={'asset-item-'+index}>
                                         <td>{asset.id}</td>
                                         <td>{asset.symbol}</td>
+                                        <td>{asset.country?.name}</td>
                                         <td>{asset.currency?.symbol}</td>
                                         <td>{asset.asset_type.name}</td>
                                         <td>{asset.external_id}</td>
