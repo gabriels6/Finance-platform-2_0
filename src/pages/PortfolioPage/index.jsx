@@ -25,6 +25,8 @@ const PortfolioPage = () => {
             let rentability = data.rentability
             let symbolsString = ""
             assetItems.forEach((assetItem) => {
+                if(assetItem.converted_value) assetItem.converted_value = +(+assetItem.converted_value)?.toFixed(2)
+                if(assetItem.value) assetItem.value = +(+assetItem.value)?.toFixed(2)
                 assetItem.rentability = ((assetItem?.value/assetItem?.purchase_value - 1.0) * 100.0)?.toFixed(2)
                 assetItem.rentabilityAmount = (assetItem?.converted_value ? (assetItem?.converted_value - assetItem?.converted_purchase_value) : (assetItem?.value - assetItem?.purchase_value))?.toFixed(2)
                 assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + assetItem.rentability + "%)"
@@ -56,6 +58,8 @@ const PortfolioPage = () => {
             let assetItems = data.orders
             let sectorExposures = data.sector_exposure
             assetItems.forEach((assetItem) => {
+                if(assetItem.converted_value) assetItem.converted_value = +(+assetItem.converted_value)?.toFixed(2)
+                if(assetItem.value) assetItem.value = +(+assetItem.value)?.toFixed(2)
                 assetItem.symbol = assetItem.asset?.symbol
                 assetItem.rentability = ((assetItem?.value/assetItem?.purchase_value - 1.0) * 100.0)?.toFixed(2)
                 assetItem.rentabilityAmount = (assetItem?.converted_value ? (assetItem?.converted_value - assetItem?.converted_purchase_value) : (assetItem?.value - assetItem?.purchase_value))?.toFixed(2)
