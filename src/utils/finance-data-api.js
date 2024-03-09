@@ -185,11 +185,20 @@ export default {
     async deleteAsset(params, apiKey) {
         return await this.apiDelete('/api/assets', params, apiKey);
     },
+    async deleteInvestmentDivision(params, apiKey) {
+        return await this.apiDelete('/api/investment_division', params, apiKey);
+    },
     async importFundamentalistData(body = {symbol: "", type: ""}, apiKey) {
         return await this.apiPost('/api/integrator/assets/import_overview', body, apiKey)
     },
     async importDividends(body = {symbol: ""}, apiKey) {
         return await this.apiPost('/api/integrator/assets/import_stock_dividends', body, apiKey)
+    },
+    async createInvestmentDivision(body = { asset: "", value: 0.0 }, apiKey) {
+        return await this.apiPost('/api/investment_division', body, apiKey)
+    },
+    async getInvestmentDivisions(params = {}, apiKey) {
+        return await this.apiGet('/api/investment_division', params, apiKey)
     },
     async getFundamentalistData(params = {symbol: "", date:null}, apiKey) {
         return await this.apiGet('/api/fundamentalist_data', params, apiKey);
@@ -254,5 +263,6 @@ export default {
     },
     async getAITrainingItems(params = {}, apiKey) {
         return await this.apiGet('/api/intel/investments/train_items', params, apiKey)
-    }
+    },
+
 }

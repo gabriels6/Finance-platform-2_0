@@ -64,6 +64,13 @@ const Header = () => {
                                                             </Nav.Link>
                                                         </LinkContainer>
                                                     </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/portfolio/investment-division">
+                                                            <Nav.Link>
+                                                            Investment Division
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
 
                                                     <NavDropdown.Item>
                                                         <LinkContainer to="/analysis/asset-risk">
@@ -235,6 +242,13 @@ const Header = () => {
                                                         <LinkContainer to="/portfolio/realtime-portfolio">
                                                             <Nav.Link>
                                                             Real-time
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/portfolio/investment-division">
+                                                            <Nav.Link>
+                                                            Investment Division
                                                             </Nav.Link>
                                                         </LinkContainer>
                                                     </NavDropdown.Item>
