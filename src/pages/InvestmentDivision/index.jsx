@@ -87,7 +87,7 @@ const InvestmentDivision = () => {
         let dividends = divisions.reduce((prevNav, item) => {
             return prevNav + item.dividend
         }, 0.0)
-        setDividendYield((dividends/amount) || 0.0)
+        setDividendYield((dividends/amount * 100) || 0.0)
         setPortfolioAmount(amount)
         setInvestmentDivisions([...divisions])
     }
