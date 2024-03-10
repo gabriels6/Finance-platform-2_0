@@ -176,7 +176,7 @@ const InvestmentDivision = () => {
                                 <td>{division.converted_top_price}</td>
                                 <td>{division.converted_top_amount}</td>
                                 <td>{division.dividend?.toFixed(2)}</td>
-                                <td>{division.portfolio_percentage * 100}%</td>
+                                <td>{(division.portfolio_percentage * 100)?.toFixed(2)}%</td>
                                 <td>
                                     <Button variant="outline-primary" id={division.id} onClick={handleEdit}>
                                         Edit
