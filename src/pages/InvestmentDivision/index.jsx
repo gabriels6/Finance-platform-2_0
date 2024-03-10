@@ -12,6 +12,8 @@ const InvestmentDivision = () => {
 
     const [portfolioAmount, setPortfolioAmount] = useState(0.0)
 
+    const [dividendYield, setDividendYield] = useState(0.0)
+
     const [refresh, setRefresh] = useState(true)
 
     const userContext = useContext(UserContext)
@@ -79,9 +81,14 @@ const InvestmentDivision = () => {
 
     async function loadDivisions() {
         let divisions = await financeDataApi.getInvestmentDivisions({}, userContext.integrationToken)
-        setPortfolioAmount(divisions.reduce((prevNav, item) => {
+        let amount = divisions.reduce((prevNav, item) => {
             return prevNav + (item.converted_top_amount || item.converted_value)
-        }, 0.0))
+        }, 0.0)
+        let dividends = divisions.reduce((prevNav, item) => {
+            return prevNav + item.dividend
+        }, 0.0)
+        setDividendYield((dividends/amount) || 0.0)
+        setPortfolioAmount(amount)
         setInvestmentDivisions([...divisions])
     }
 
@@ -101,8 +108,21 @@ const InvestmentDivision = () => {
                 <div className='title'>
                     Investment Division
                 </div>
-                <div>
-                    R$ { portfolioAmount.toFixed(2) }
+                <div className="value-section">
+                    <div className="info-text">
+                        Dividend yield
+                    </div>
+                    <div className="value-text">
+                        { dividendYield.toFixed(2) }%
+                    </div>
+                </div>
+                <div className="value-section">
+                    <div className="info-text">
+                        Portfolio Amount
+                    </div>
+                    <div className="value-text">
+                        R$ { portfolioAmount.toFixed(2) }
+                    </div>
                 </div>
             </div>
             <div className='card horizontal-align'>
