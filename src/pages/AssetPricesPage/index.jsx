@@ -72,8 +72,8 @@ const AssetPricesPage = () => {
                     </Button>
                 </div>
             </div>
-            { assetPrices && (
-                <div className="card vertical-align" style={{height: "200px"}}>
+            { assetPrices?.length > 0 && (
+                <div className="card vertical-align" style={{height: "400px"}}>
                     <div className="title">
                         Asset Prices
                     </div>
