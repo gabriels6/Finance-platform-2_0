@@ -72,24 +72,27 @@ const AssetPricesPage = () => {
                     </Button>
                 </div>
             </div>
-            { assetPrices?.length > 0 && (
-                <div className="card vertical-align" style={{height: "400px"}}>
-                    <div className="title">
-                        Asset Prices
+            { assetPrices?.length > 0 && (() => {
+                let onlyPrices = assetPrices.map((item) => item?.price).filter((price) => price)
+                return (
+                    <div className="card vertical-align" style={{height: "400px"}}>
+                        <div className="title">
+                            Asset Prices
+                        </div>
+                        <ResponsiveContainer>
+                            <LineChart data={assetPrices}
+                                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="date"/>
+                                <YAxis domain={[Math.min(...onlyPrices) - 1,Math.max(...onlyPrices) + 1]} />
+                                <Legend/>
+                                <Tooltip />
+                                <Line type="monotone" dataKey="price" name="price" stroke={colors[1 % 10]} />
+                            </LineChart>
+                        </ResponsiveContainer>
                     </div>
-                    <ResponsiveContainer>
-                        <LineChart data={assetPrices}
-                            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="date"/>
-                            <YAxis />
-                            <Legend/>
-                            <Tooltip />
-                            <Line type="monotone" dataKey="price" name="price" stroke={colors[1 % 10]} />
-                        </LineChart>
-                    </ResponsiveContainer>
-                </div>
-            ) }
+                )
+            })() }
             <div className='card vertical-align'>
                 <table>
                     <thead>
