@@ -5,6 +5,7 @@ import UserContext from '../../context/UserContext';
 import financeDataApi from '../../utils/finance-data-api';
 import { schemeCategory10 } from 'd3-scale-chromatic';
 import { scaleOrdinal } from 'd3-scale';
+import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 const AssetPricesPage = () => {
 
@@ -27,7 +28,7 @@ const AssetPricesPage = () => {
 
     function handleRefresh(event) {
         financeDataApi.getAssetPriceHist(assetPriceQuery?.symbol, assetPriceQuery.startDate, assetPriceQuery.endDate, null, userContext.integrationToken).then((data) => {
-            setAssetPrices([...data]);
+            setAssetPrices([...data?.sort((a,b) => a?.price - b?.price)]);
         });
     }
 
@@ -76,7 +77,7 @@ const AssetPricesPage = () => {
                     Asset Prices
                 </div>
                 <ResponsiveContainer>
-                    <LineChart data={navs}
+                    <LineChart data={assetPrices}
                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="date"/>
