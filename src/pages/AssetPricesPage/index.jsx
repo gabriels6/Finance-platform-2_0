@@ -72,22 +72,24 @@ const AssetPricesPage = () => {
                     </Button>
                 </div>
             </div>
-            <div className="card vertical-align">
-                <div className="title">
-                    Asset Prices
+            { assetPrices && (
+                <div className="card vertical-align" style={{height: "200px"}}>
+                    <div className="title">
+                        Asset Prices
+                    </div>
+                    <ResponsiveContainer>
+                        <LineChart data={assetPrices}
+                            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="date"/>
+                            <YAxis />
+                            <Legend/>
+                            <Tooltip />
+                            <Line type="monotone" dataKey="price" name="price" stroke={colors[1 % 10]} />
+                        </LineChart>
+                    </ResponsiveContainer>
                 </div>
-                <ResponsiveContainer>
-                    <LineChart data={assetPrices}
-                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="date"/>
-                        <YAxis />
-                        <Legend/>
-                        <Tooltip />
-                        <Line type="monotone" dataKey="price" name="price" stroke={colors[1 % 10]} />
-                    </LineChart>
-                </ResponsiveContainer>
-            </div>
+            ) }
             <div className='card vertical-align'>
                 <table>
                     <thead>
