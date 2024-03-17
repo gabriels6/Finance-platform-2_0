@@ -3,8 +3,12 @@ import { useState } from 'react';
 import { Button, Form, FormControl } from 'react-bootstrap';
 import UserContext from '../../context/UserContext';
 import financeDataApi from '../../utils/finance-data-api';
+import { schemeCategory10 } from 'd3-scale-chromatic';
+import { scaleOrdinal } from 'd3-scale';
 
 const AssetPricesPage = () => {
+
+    const colors = scaleOrdinal(schemeCategory10).range();
 
     const userContext = useContext(UserContext);
     const [assetPriceQuery, setAssetPriceQuery] = useState({
@@ -66,6 +70,22 @@ const AssetPricesPage = () => {
                         Refresh Values
                     </Button>
                 </div>
+            </div>
+            <div className="card vertical-align">
+                <div className="title">
+                    Asset Prices
+                </div>
+                <ResponsiveContainer>
+                    <LineChart data={navs}
+                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="date"/>
+                        <YAxis />
+                        <Legend/>
+                        <Tooltip />
+                        <Line type="monotone" dataKey="price" name="price" stroke={colors[1 % 10]} />
+                    </LineChart>
+                </ResponsiveContainer>
             </div>
             <div className='card vertical-align'>
                 <table>
