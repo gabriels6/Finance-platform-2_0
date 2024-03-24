@@ -25,11 +25,12 @@ const PortfolioPage = () => {
             let rentability = data.rentability
             let symbolsString = ""
             assetItems.forEach((assetItem) => {
+                let currency = assetItem.financial_portfolio.currency.symbol
                 if(assetItem.converted_value) assetItem.converted_value = +(+assetItem.converted_value)?.toFixed(2)
                 if(assetItem.value) assetItem.value = +(+assetItem.value)?.toFixed(2)
                 assetItem.rentability = ((assetItem?.value/assetItem?.purchase_value - 1.0) * 100.0)?.toFixed(2)
                 assetItem.rentabilityAmount = (assetItem?.converted_value ? (assetItem?.converted_value - assetItem?.converted_purchase_value) : (assetItem?.value - assetItem?.purchase_value))?.toFixed(2)
-                assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + assetItem.rentability + "%)"
+                assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + (+assetItem.rentability)?.format({ decimalPlaces: 2}) + "%)"
                 symbolsString += assetItem.asset.symbol + ","
                 // promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, '', apiKey))
             })
@@ -63,7 +64,7 @@ const PortfolioPage = () => {
                 assetItem.symbol = assetItem.asset?.symbol
                 assetItem.rentability = ((assetItem?.value/assetItem?.purchase_value - 1.0) * 100.0)?.toFixed(2)
                 assetItem.rentabilityAmount = (assetItem?.converted_value ? (assetItem?.converted_value - assetItem?.converted_purchase_value) : (assetItem?.value - assetItem?.purchase_value))?.toFixed(2)
-                assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + assetItem.rentability + "%)"
+                assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + (+assetItem.rentability)?.format({decimalPlaces: 2}) + "%)"
                 // promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, 'BRL',apiKey))
             })
             // Promise.all(promises).then((assets) => {
@@ -92,9 +93,9 @@ const PortfolioPage = () => {
                         Nav
                     </div>
                     <div className="value-text">
-                        ${userContext.portfolioAssets.reduce((prevNav, item) => {
+                        {userContext.portfolioAssets.reduce((prevNav, item) => {
                             return prevNav + (item.converted_value || item.value)
-                        }, 0.0).toFixed(2) }
+                        }, 0.0).format({ decimalPlaces: 2, currency: userContext.portfolioAssets[0]?.financial_portfolio?.currency?.symbol}) }
                     </div>
                 </div>
                 <div className="value-section">
@@ -102,9 +103,9 @@ const PortfolioPage = () => {
                         Invested Amount
                     </div>
                     <div className="value-text">
-                        ${userContext.portfolioAssets.reduce((prevNav, item) => {
+                        {userContext.portfolioAssets.reduce((prevNav, item) => {
                             return prevNav + (item.converted_purchase_value || item.purchase_value)
-                        }, 0.0).toFixed(2) }
+                        }, 0.0).format({ decimalPlaces: 2, currency: userContext.portfolioAssets[0]?.financial_portfolio?.currency?.symbol}) }
                     </div>
                 </div>
                 <div className="value-section">
@@ -114,7 +115,7 @@ const PortfolioPage = () => {
                     <div className="value-text">
                         { userContext.portfolioAssets.reduce((prevNav, item) => {
                             return prevNav + item.quantity
-                        }, 0.0).toFixed(2) }
+                        }, 0.0).format({ decimalPlaces: 2}) }
                     </div>
                 </div>
                 <div className="value-section">
@@ -122,7 +123,7 @@ const PortfolioPage = () => {
                         Portfolio Rentability
                     </div>
                     <div className="value-text">
-                        { (userContext.portfolioRentability * 100)?.toFixed(2) }%
+                        { (userContext.portfolioRentability * 100)?.format({ decimalPlaces: 2}) }%
                     </div>
                 </div>
                 <div className="value-section">
@@ -130,7 +131,7 @@ const PortfolioPage = () => {
                         Portfolio Yield
                     </div>
                     <div className="value-text">
-                        { (userContext.portfolioDividendYield * 100)?.toFixed(2) }%
+                        { (userContext.portfolioDividendYield * 100)?.format({ decimalPlaces: 2}) }%
                     </div>
                 </div>
             </div>
@@ -141,7 +142,7 @@ const PortfolioPage = () => {
                 <div className='horizontal-align value-header'>
                     {userContext.portfolios.map((item, index) => {
                         return (
-                            <div key={index} className='card' id={item.name} onClick={handleGetPortfolio}>
+                            <div key={index} className='card' id={item.name} currency={item.currency?.symbol} onClick={handleGetPortfolio}>
                                 {item.name} - ({item.currency?.symbol})
                             </div>
                         )
@@ -266,10 +267,10 @@ const PortfolioPage = () => {
                             return(
                                 <tr key={index}>
                                     <td>{item.asset.symbol}</td>
-                                    <td>{(item.average_price * 1.0).toFixed(2)}</td>
-                                    <td>{item.price_today}</td>
-                                    <td>{(item.dividend_yield * 100.0).toFixed(2)}%</td>
-                                    <td>{(item.dividend_yield_on_cost * 100.0).toFixed(2)}%</td>
+                                    <td>{(item.average_price * 1.0)?.format({ currency: item.financial_portfolio.currency.symbol })}</td>
+                                    <td>{item.price_today?.format({ currency: item.financial_portfolio.currency.symbol })}</td>
+                                    <td>{(item.dividend_yield * 100.0).format({decimalPlaces: 2})}%</td>
+                                    <td>{(item.dividend_yield_on_cost * 100.0).format({decimalPlaces: 2})}%</td>
                                 </tr>
                             )
                         })}
@@ -300,7 +301,7 @@ const PortfolioPage = () => {
                             return(
                                 <tr key={index}>
                                     <td>{item.symbol}</td>
-                                    <td>{item.top_price.toFixed(2)}</td>
+                                    <td>{item.top_price.format({decimalPlaces: 2})}</td>
                                 </tr>
                             )
                         })}

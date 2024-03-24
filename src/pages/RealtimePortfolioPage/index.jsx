@@ -162,13 +162,13 @@ const RealtimePortfolioPage = () => {
                                             <tr key={index}>
                                                 <td>{item.asset.symbol}</td>
                                                 <td>{item.asset.investing_external_id}</td>
-                                                <td>{(item.quantity * 1.0).toFixed(2)}</td>
-                                                <td>{item.price}</td>
-                                                <td>{(item.average_price * 1.0).toFixed(2)}</td>
-                                                <td>{item.value}</td>
-                                                <td>{Math.round(item.current_price * 100)/100 || 0.0}</td>
-                                                <td>{Math.round(item.current_value * 100)/100 || 0.0}</td>
-                                                <td className={((item.current_price - item.average_price)/item.average_price || 0.0) >= 0 ? "green" : "red"}>{Math.round((item.current_price - item.average_price)/item.average_price * 10000)/100 || 0.0}%</td>
+                                                <td>{(item.quantity * 1.0).format({ decimalPlaces: 2 })}</td>
+                                                <td>{(+item.price).format({ decimalPlaces: 2 })}</td>
+                                                <td>{(item.average_price * 1.0).format({ decimalPlaces: 2 })}</td>
+                                                <td>{(+item.value).format({ decimalPlaces: 2 })}</td>
+                                                <td>{(Math.round(item.current_price * 100)/100 || 0.0)?.format({ decimalPlaces: 2, currency: item.financial_portfolio.currency.symbol })}</td>
+                                                <td>{(Math.round(item.current_value * 100)/100 || 0.0)?.format({ decimalPlaces: 2, currency: item.financial_portfolio.currency.symbol })}</td>
+                                                <td className={((item.current_price - item.average_price)/item.average_price || 0.0) >= 0 ? "green" : "red"}>{(Math.round((item.current_price - item.average_price)/item.average_price * 10000)/100 || 0.0)?.format({ decimalPlaces: 2 })}%</td>
                                             </tr>
                                         )
                                     })}

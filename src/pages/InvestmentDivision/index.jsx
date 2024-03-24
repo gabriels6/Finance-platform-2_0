@@ -189,14 +189,14 @@ const InvestmentDivision = () => {
                                 <td>{division.asset?.symbol}</td>
                                 <td>{division.asset?.currency?.symbol}</td>
                                 <td>{division.current_quantity}</td>
-                                <td>{division.quantity}</td>
-                                <td>{division.value}</td>
-                                <td>{division.converted_value}</td>
-                                <td>{division.top_price}</td>
-                                <td>{division.converted_top_price}</td>
-                                <td>{division.converted_top_amount}</td>
-                                <td>{division.dividend?.toFixed(2)}</td>
-                                <td>{(division.portfolio_percentage * 100)?.toFixed(2)}%</td>
+                                <td>{(+division.quantity).format({ decimalPlaces: 2 })}</td>
+                                <td>{division.value.format({ decimalPlaces: 2, currency: division.asset?.currency?.symbol })}</td>
+                                <td>{division.converted_value.format({ decimalPlaces: 2, currency: division.asset?.currency?.symbol })}</td>
+                                <td>{(+division.top_price).format({ decimalPlaces: 2, currency: division.asset?.currency?.symbol })}</td>
+                                <td>{(+division.converted_top_price).format({ decimalPlaces: 2, currency: division.asset?.currency?.symbol })}</td>
+                                <td>{(+division.converted_top_amount).format({ decimalPlaces: 2, currency: division.asset?.currency?.symbol })}</td>
+                                <td>{(+division.dividend).format({ decimalPlaces: 2, currency: division.asset?.currency?.symbol })}</td>
+                                <td>{(division.portfolio_percentage * 100).format({decimalPlaces: 2})}%</td>
                                 <td>
                                     <Button variant="outline-primary" id={division.id} onClick={handleEdit}>
                                         Edit

@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import configureNumbers from './primitives/number';
+import numberConfig from './primitives/number';
 
-configureNumbers();
+numberConfig()
 
 ReactDOM.render(
   <React.StrictMode>
