@@ -81,9 +81,9 @@ const RealtimePortfolioPage = () => {
                             Nav
                         </div>
                         <div className="value-text">
-                            ${realtimePortfolio.assets.reduce((prevNav, item) => {
+                            {realtimePortfolio.assets.reduce((prevNav, item) => {
                                 return prevNav + (item.quantity * (item.current_price || item.price))
-                            }, 0.0).toFixed(2) }
+                            }, 0.0).format({ decimalPlaces: 2, currency: realtimePortfolio.assets[0]?.financial_portfolio?.currency?.symbol }) }
                         </div>
                     </div>
                     <div className="value-section">
@@ -93,7 +93,7 @@ const RealtimePortfolioPage = () => {
                         <div className="value-text">
                             { realtimePortfolio.assets.reduce((prevNav, item) => {
                                 return prevNav + item.quantity
-                            }, 0.0).toFixed(2) }
+                            }, 0.0).format({ decimalPlaces: 2 }) }
                         </div>
                     </div>
                 </div>
