@@ -4,8 +4,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useContext } from "react";
-import { Tooltip } from "react-bootstrap";
-import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, XAxis, YAxis, Bar, BarChart, Cell, Tooltip } from "recharts";
 import UserContext from "../../context/UserContext";
 import financeDataApi from "../../utils/finance-data-api";
 import "./styles.css";
@@ -39,6 +38,8 @@ const RealtimePortfolioPage = () => {
                         if(currentAssetIndex >= 0) {
                             newAssets[currentAssetIndex].current_price = item.price
                             newAssets[currentAssetIndex].current_value = Math.round(item.price * newAssets[currentAssetIndex].quantity * 100 || 0.0)/100
+                            newAssets[currentAssetIndex].rentability = (Math.round((newAssets[currentAssetIndex].current_price - newAssets[currentAssetIndex].average_price)/newAssets[currentAssetIndex].average_price * 10000)/100 || 0.0)
+                            newAssets[currentAssetIndex].rentabilityLabel = newAssets[currentAssetIndex].asset?.symbol + " (" + (+newAssets[currentAssetIndex].rentability)?.format({ decimalPlaces: 2}) + "%)"
                             setRealtimePortfolio({...realtimePortfolio, assets: [...newAssets]})
                             currentNav += newAssets[currentAssetIndex].current_value
                         }
@@ -61,6 +62,10 @@ const RealtimePortfolioPage = () => {
             let promises = []
             let assetItems = data.orders
             let sectorExposures = data.sector_exposure
+            assetItems.forEach((assetItem) => {
+                assetItem.rentability = (Math.round((assetItem.price - assetItem.average_price)/assetItem.average_price * 10000)/100 || 0.0)
+                assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + (+assetItem.rentability)?.format({ decimalPlaces: 2}) + "%)"
+            })
             setRealtimePortfolio({
                 assets: [...assetItems],
                 sectorExposures: [...sectorExposures]
@@ -175,7 +180,28 @@ const RealtimePortfolioPage = () => {
                                 </tbody>
                             </table>
                         )}
-                    </div>  
+                    </div>
+                    <div className={'card vertical-align ' + ( userContext.mobileSize() ? "portfolio-asset-hist-small" : "portfolio-asset-hist" )}>
+                        <div className="title">
+                            P & L
+                        </div>
+                        { realtimePortfolio.assets?.length > 0 && (
+                            <ResponsiveContainer>
+                                <BarChart data={realtimePortfolio.assets.sort((a,b) => a?.rentability - b?.rentability)}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="rentabilityLabel" />
+                                    <YAxis domain={[-400,400]}/>
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="rentability" name='Rentability (%)'>
+                                        {realtimePortfolio.assets.map((assetItem) => (
+                                            <Cell fill={assetItem?.rentability > 0.0 ? '#34eb5e' : '#e65545'}/>
+                                        ))}
+                                    </Bar>
+                                </BarChart>
+                            </ResponsiveContainer>
+                        ) }
+                    </div> 
                     <div className="card portfolio-history vertical-align">
                         <div className="title">
                             Portfolio History
