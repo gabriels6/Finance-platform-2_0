@@ -191,11 +191,11 @@ const InvestmentDivision = () => {
                                 <td>{division.current_quantity}</td>
                                 <td>{(+division.quantity).format({ decimalPlaces: 2 })}</td>
                                 <td>{division.value.format({ decimalPlaces: 2, currency: division.asset?.currency?.symbol })}</td>
-                                <td>{division.converted_value.format({ decimalPlaces: 2, currency: division.asset?.currency?.symbol })}</td>
+                                <td>{division.converted_value.format({ decimalPlaces: 2, currency: "BRL" })}</td>
                                 <td>{(+division.top_price).format({ decimalPlaces: 2, currency: division.asset?.currency?.symbol })}</td>
-                                <td>{(+division.converted_top_price).format({ decimalPlaces: 2, currency: division.asset?.currency?.symbol })}</td>
-                                <td>{(+division.converted_top_amount).format({ decimalPlaces: 2, currency: division.asset?.currency?.symbol })}</td>
-                                <td>{(+division.dividend).format({ decimalPlaces: 2, currency: division.asset?.currency?.symbol })}</td>
+                                <td>{(+division.converted_top_price).format({ decimalPlaces: 2, currency: "BRL" })}</td>
+                                <td>{(+division.converted_top_amount).format({ decimalPlaces: 2, currency: "BRL" })}</td>
+                                <td>{(+division.dividend).format({ decimalPlaces: 2, currency: "BRL" })}</td>
                                 <td>{(division.portfolio_percentage * 100).format({decimalPlaces: 2})}%</td>
                                 <td>
                                     <Button variant="outline-primary" id={division.id} onClick={handleEdit}>
