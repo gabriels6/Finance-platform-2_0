@@ -39,6 +39,7 @@ const RealtimePortfolioPage = () => {
                             newAssets[currentAssetIndex].current_price = item.price
                             newAssets[currentAssetIndex].current_value = Math.round(item.price * newAssets[currentAssetIndex].quantity * 100 || 0.0)/100
                             newAssets[currentAssetIndex].rentability = (Math.round((newAssets[currentAssetIndex].current_price - newAssets[currentAssetIndex].average_price)/newAssets[currentAssetIndex].average_price * 10000)/100 || 0.0)
+                            newAssets[currentAssetIndex].rentabilityAmount = newAssets[currentAssetIndex].rentability/100.0 * newAssets[currentAssetIndex].purchase_value
                             newAssets[currentAssetIndex].rentabilityLabel = newAssets[currentAssetIndex].asset?.symbol + " (" + (+newAssets[currentAssetIndex].rentability)?.format({ decimalPlaces: 2}) + "%)"
                             setRealtimePortfolio({...realtimePortfolio, assets: [...newAssets]})
                             currentNav += newAssets[currentAssetIndex].current_value
@@ -64,6 +65,7 @@ const RealtimePortfolioPage = () => {
             let sectorExposures = data.sector_exposure
             assetItems.forEach((assetItem) => {
                 assetItem.rentability = (Math.round((assetItem.price - assetItem.average_price)/assetItem.average_price * 10000)/100 || 0.0)
+                assetItem.rentabilityAmount = assetItem.rentability/100.0 * assetItem.purchase_value
                 assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + (+assetItem.rentability)?.format({ decimalPlaces: 2}) + "%)"
             })
             setRealtimePortfolio({
@@ -193,7 +195,7 @@ const RealtimePortfolioPage = () => {
                                     <YAxis domain={[-400,400]}/>
                                     <Tooltip />
                                     <Legend />
-                                    <Bar dataKey="rentability" name='Rentability (%)'>
+                                    <Bar dataKey="rentabilityAmount" name='Rentability ($)'>
                                         {realtimePortfolio.assets.map((assetItem) => (
                                             <Cell fill={assetItem?.rentability > 0.0 ? '#34eb5e' : '#e65545'}/>
                                         ))}
