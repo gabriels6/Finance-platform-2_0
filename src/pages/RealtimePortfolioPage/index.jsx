@@ -34,7 +34,7 @@ const RealtimePortfolioPage = () => {
                     let currentNav = 0.0;
                     let nowDate = new Date(Date.now());
                     data.forEach((item) => {
-                        let currentAssetIndex = realtimePortfolio.assets.findIndex((portfolioItem, index) => (portfolioItem.asset.investing_external_id == item.asset));
+                        let currentAssetIndex = realtimePortfolio.assets.findIndex((portfolioItem, index) => item.asset != "" && portfolioItem.asset.investing_external_id == item.asset);
                         let newAssets = realtimePortfolio.assets;
                         if(currentAssetIndex >= 0) {
                             newAssets[currentAssetIndex].current_price = item.price
