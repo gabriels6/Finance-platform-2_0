@@ -189,7 +189,7 @@ const RealtimePortfolioPage = () => {
                         </div>
                         { realtimePortfolio.assets?.length > 0 && (
                             <ResponsiveContainer>
-                                <BarChart data={realtimePortfolio.assets.sort((a,b) => a?.rentability - b?.rentability)}>
+                                <BarChart data={realtimePortfolio.assets.sort((a,b) => a?.rentabilityAmount - b?.rentabilityAmount)}>
                                     <CartesianGrid strokeDasharray="3 3" />
                                     <XAxis dataKey="rentabilityLabel" />
                                     <YAxis domain={[-400,400]}/>
