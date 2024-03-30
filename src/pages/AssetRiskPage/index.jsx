@@ -25,6 +25,13 @@ const AssetRiskPage = () => {
         amount: ""
     });
 
+    const labels = {
+        initial_date: "Initial Date (yyyy-mm-dd)",
+        final_date: "Final Date (yyyy-mm-dd)",
+        reliability: "Reliability (%)",
+        expected_return: "Expected Return (%)"
+    }
+
     const [assetVarResult, setAssetVarResult] = useState(0.0)
     const [startDate, setStartDate] = useState('');
 
@@ -67,7 +74,11 @@ const AssetRiskPage = () => {
     }
 
     function calculateAssetVar(){
-        financeDataApi.calculateVar(assetDataForVar, API_KEY).then((data) => {
+        financeDataApi.calculateVar({
+            ...assetDataForVar,
+            expected_return: +assetDataForVar.expected_return/100.0,
+            reliability: +assetDataForVar.reliability/100.0
+        }, API_KEY).then((data) => {
             setAssetVarResult(data?.var)
         });
     }
@@ -150,7 +161,7 @@ const AssetRiskPage = () => {
                     {Object.entries(assetDataForVar).map((value, index) => (
                         <div>
                             <FormLabel>
-                                {value[0]}
+                                {labels[value[0]] || value[0]}
                             </FormLabel>
                             <FormControl
                                 key={index}
