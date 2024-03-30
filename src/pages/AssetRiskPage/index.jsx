@@ -18,8 +18,7 @@ const AssetRiskPage = () => {
 
     const [assetDataForVar, setAssetDataForVar] = useState({
         symbol: "",
-        reliability: 95.0,
-        expected_return: 0.0,
+        expected_return: 5,
         initial_date: "",
         final_date: "",
         amount: ""
@@ -73,14 +72,28 @@ const AssetRiskPage = () => {
         setStartDate(event.target.value);
     }
 
+    function setVarResult(result) {
+        setAssetVarResult(Object.entries(result).map(item => ({ confidence: item[0], value: item[1] })))
+        console.log(assetVarResult)
+    }
+
     function calculateAssetVar(){
         financeDataApi.calculateVar({
             ...assetDataForVar,
-            expected_return: +assetDataForVar.expected_return/100.0,
-            reliability: +assetDataForVar.reliability/100.0
+            expected_return: assetDataForVar.expected_return/100.0
         }, API_KEY).then((data) => {
-            setAssetVarResult(data?.var)
+            setVarResult(data?.var)
         });
+    }
+
+    function calculateHistoricalVar() {
+        financeDataApi.calculateHistoricalVar({
+            symbol: assetDataForVar.symbol,
+            date: assetDataForVar.final_date || assetDataForVar.initial_date,
+            amount: assetDataForVar.amount
+        }, API_KEY).then((data) => {
+            setVarResult(data?.var)
+        })
     }
 
     return (
@@ -175,12 +188,24 @@ const AssetRiskPage = () => {
                     ))}
                     <div>
                     <Button variant="outline-success" onClick={calculateAssetVar}>Calculate</Button>
+                    <Button variant="outline-success" onClick={calculateHistoricalVar}>Calculate Historical VaR</Button>
                     </div>
                 </Form>
-                <div className="subtitle">
-                    Result: {assetVarResult}
-                </div>
             </div>
+            <div className="card asset-risk-return-chart">
+                    { assetVarResult.length && (
+                        <ResponsiveContainer>
+                            <BarChart data={assetVarResult}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="confidence" />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                <Bar dataKey="value" fill="#bf00ff" />
+                            </BarChart>
+                        </ResponsiveContainer>
+                    ) }
+                </div>
         </div>
     )
 }

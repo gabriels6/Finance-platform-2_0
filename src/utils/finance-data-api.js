@@ -213,6 +213,13 @@ export default {
     }, apiKey) {
         return await this.apiGet('/api/risk/var/calculate_asset', params, apiKey);
     },
+    async calculateHistoricalVar(params = {
+        symbol: "",
+        date: "",
+        amount: 0
+    }, apiKey) {
+        return await this.apiGet('/api/risk/var/calculate_historical_asset', params, apiKey)
+    },
     async getImobiliaryFundsdata(params = {}, apiKey) {
         return await this.apiGet('/api/integrator/assets/all_imobiliary_funds_data', params, apiKey);
     },
