@@ -213,6 +213,13 @@ export default {
     }, apiKey) {
         return await this.apiGet('/api/risk/var/calculate_asset', params, apiKey);
     },
+    async calculatePortfolioVar(params = {
+        portfolio_name:"",
+        date:"",
+
+    }, apiKey) {
+        return await this.apiGet('/api/risk/var/calculate_portfolio', params, apiKey);
+    },
     async calculateHistoricalVar(params = {
         symbol: "",
         date: "",

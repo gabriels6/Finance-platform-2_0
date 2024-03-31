@@ -22,6 +22,7 @@ import PriceProjection from './PriceProjection';
 import DividendsReceived from './DividendsReceived';
 import AIInvestments from './AIInvestments';
 import InvestmentDivision from './InvestmentDivision';
+import PortfolioRiskPage from './PortfolioRiskPage';
 
 const SwitchControl = () => {
 
@@ -31,6 +32,7 @@ const SwitchControl = () => {
         [<PortfolioPage/>, "/portfolio"],
         [<AssetSelectionPage/>, "/management/asset-selection"],
         [<AssetRiskPage/>, "/analysis/asset-risk"],
+        [<PortfolioRiskPage/>, "/analysis/portfolio-risk"],
         [<OrdersPage/>, "/management/orders"],
         [<AssetMaintaince/>, "/maintainance/asset"],
         [<FundamentalistDataPage/>, "/analysis/fundamentalist-data"],
