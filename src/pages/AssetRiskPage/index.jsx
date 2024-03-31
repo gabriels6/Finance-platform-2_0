@@ -88,9 +88,7 @@ const AssetRiskPage = () => {
 
     function calculateHistoricalVar() {
         financeDataApi.calculateHistoricalVar({
-            symbol: assetDataForVar.symbol,
-            date: assetDataForVar.final_date || assetDataForVar.initial_date,
-            amount: assetDataForVar.amount
+            ...assetDataForVar
         }, API_KEY).then((data) => {
             setVarResult(data?.var)
         })
@@ -187,13 +185,13 @@ const AssetRiskPage = () => {
                         </div>
                     ))}
                     <div>
-                    <Button variant="outline-success" onClick={calculateAssetVar}>Calculate</Button>
-                    <Button variant="outline-success" onClick={calculateHistoricalVar}>Calculate Historical VaR</Button>
+                        <Button variant="outline-success" onClick={calculateAssetVar}>Calculate</Button>
+                        <Button variant="outline-success" onClick={calculateHistoricalVar}>Calculate Historical VaR</Button>
                     </div>
                 </Form>
             </div>
-            <div className="card asset-risk-return-chart">
-                    { assetVarResult.length && (
+            { assetVarResult.length && (
+                <div className="card asset-risk-return-chart">
                         <ResponsiveContainer>
                             <BarChart data={assetVarResult}>
                                 <CartesianGrid strokeDasharray="3 3" />
@@ -204,8 +202,8 @@ const AssetRiskPage = () => {
                                 <Bar dataKey="value" fill="#bf00ff" />
                             </BarChart>
                         </ResponsiveContainer>
-                    ) }
                 </div>
+            ) }
         </div>
     )
 }
