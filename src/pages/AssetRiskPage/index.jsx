@@ -88,7 +88,9 @@ const AssetRiskPage = () => {
 
     function calculateHistoricalVar() {
         financeDataApi.calculateHistoricalVar({
-            ...assetDataForVar
+            symbol: assetDataForVar.symbol,
+            date: assetDataForVar.final_date || assetDataForVar.initial_date,
+            amount: assetDataForVar.amount
         }, API_KEY).then((data) => {
             setVarResult(data?.var)
         })
