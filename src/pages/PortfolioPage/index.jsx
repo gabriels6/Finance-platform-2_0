@@ -16,6 +16,8 @@ const PortfolioPage = () => {
 
     const [topPriceMethod, setTopPriceMethod] = useState('min_prices')
 
+    const [currency, setCurrency] = useState("")
+
     function handleGetPortfolio(event) {
         let apiKey = userContext.integrationToken;
         financeDataApi.getPortfolio(event.currentTarget.id, userContext.date, apiKey).then((data) => {
@@ -24,8 +26,9 @@ const PortfolioPage = () => {
             let sectorExposures = data.sector_exposure
             let rentability = data.rentability
             let symbolsString = ""
+            let currentCurrency = ""
             assetItems.forEach((assetItem) => {
-                let currency = assetItem.financial_portfolio.currency.symbol
+                currentCurrency = assetItem.financial_portfolio.currency.symbol
                 if(assetItem.converted_value) assetItem.converted_value = +(+assetItem.converted_value)?.toFixed(2)
                 if(assetItem.value) assetItem.value = +(+assetItem.value)?.toFixed(2)
                 assetItem.rentability = ((assetItem?.value/assetItem?.purchase_value - 1.0) * 100.0)?.toFixed(2)
@@ -34,6 +37,7 @@ const PortfolioPage = () => {
                 symbolsString += assetItem.asset.symbol + ","
                 // promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, '', apiKey))
             })
+            setCurrency(currentCurrency)
             financeDataApi.getTopPrices({
                 symbols: symbolsString,
                 date: userContext.date,
@@ -67,6 +71,7 @@ const PortfolioPage = () => {
                 assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + (+assetItem.rentability)?.format({decimalPlaces: 2}) + "%)"
                 // promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, 'BRL',apiKey))
             })
+            setCurrency("BRL")
             // Promise.all(promises).then((assets) => {
             //     userContext.setAssetValueHist([...assets.flat(1)])
             // })
@@ -95,7 +100,7 @@ const PortfolioPage = () => {
                     <div className="value-text">
                         {userContext.portfolioAssets.reduce((prevNav, item) => {
                             return prevNav + (item.converted_value || item.value)
-                        }, 0.0).format({ decimalPlaces: 2, currency: userContext.portfolioAssets[0]?.financial_portfolio?.currency?.symbol}) }
+                        }, 0.0).format({ decimalPlaces: 2, currency: currency}) }
                     </div>
                 </div>
                 <div className="value-section">
@@ -105,7 +110,7 @@ const PortfolioPage = () => {
                     <div className="value-text">
                         {userContext.portfolioAssets.reduce((prevNav, item) => {
                             return prevNav + (item.converted_purchase_value || item.purchase_value)
-                        }, 0.0).format({ decimalPlaces: 2, currency: userContext.portfolioAssets[0]?.financial_portfolio?.currency?.symbol}) }
+                        }, 0.0).format({ decimalPlaces: 2, currency: currency}) }
                     </div>
                 </div>
                 <div className="value-section">
