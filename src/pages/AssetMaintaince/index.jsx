@@ -60,6 +60,26 @@ const AssetMaintaince = () => {
         })
     }
 
+    function handleImportQuotes(){
+        financeDataApi.importAllDailyQuotes({}, userContext.integrationToken).then((data) => {
+            userContext.setMessages([
+                ...userContext.messages,
+                {
+                    type: 'success',
+                    value: 'Daily quotes imported successfully!'
+                }
+            ])
+        }).catch((err) => {
+            userContext.setMessages([
+                ...userContext.messages,
+                {
+                    type: 'error',
+                    value: err.error
+                }
+            ])
+        })
+    }
+
     function handleDeleteAsset(event) {
         let id = event.target.id;
         financeDataApi.deleteAsset({
@@ -232,6 +252,9 @@ const AssetMaintaince = () => {
                         </Button>
                         <Button variant='outline-primary' onClick={() => { setReloaded(false); }}>
                             Reload
+                        </Button>
+                        <Button variant='outline-primary' onClick={handleImportQuotes}>
+                            Import all Daily Quotes
                         </Button>
                     </div>
                 </div>
