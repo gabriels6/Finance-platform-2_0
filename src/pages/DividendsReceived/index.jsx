@@ -28,6 +28,23 @@ const DividendsReceived = () => {
         })
     }
 
+    function handleConsolidatedPortfolio(event) {
+        setDividendsMonths([])
+        setPortfolio({})
+        financeDataApi.getReceivedValues({
+            portfolio_name: "Consolidated",
+            currency: "BRL"
+        }, userContext.integrationToken).then((data) => {
+            setPortfolio({
+                name: "Consolidated",
+                currency: {
+                    symbol: "BRL"
+                }
+            })
+            setDividendsMonths(data)
+        })
+    }
+
     return (
         <div className="control">
             <div className="title">
@@ -49,6 +66,9 @@ const DividendsReceived = () => {
                             </div>
                         )
                     })}
+                <div className="card" id="Consolidated" onClick={handleConsolidatedPortfolio}>
+                    Consolidated - (BRL)
+                </div>
             </div>
             <div className={'card vertical-align ' + ( userContext.mobileSize() ? "portfolio-asset-hist-small" : "portfolio-asset-hist" )}>
                 <div className="title">
