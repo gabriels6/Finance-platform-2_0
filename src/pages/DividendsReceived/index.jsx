@@ -79,7 +79,7 @@ const DividendsReceived = () => {
                         <BarChart data={dividendsMonths.map((data) => ({...data, month_year: data.month + "/" + data.year}))}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="month_year" />
-                            <YAxis domain={[0,(Math.max(...dividendsMonths.map((data) => ((data.value * 1)?.toFixed(2) * 1))) + 1.0)]}/>
+                            <YAxis domain={[0,Math.ceil(Math.max(...dividendsMonths.map((data) => ((data.value * 1)?.toFixed(2) * 1)))/100.0)*100.0]}/>
                             <Tooltip />
                             <Legend />
                             <Bar dataKey="value" name='Value ($)' onClick={(evt) => setSelectedMonth(evt?.payload)}>
