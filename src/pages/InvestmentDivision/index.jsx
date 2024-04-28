@@ -89,7 +89,7 @@ const InvestmentDivision = () => {
         }, 0.0)
         setDividendYield((dividends/amount * 100) || 0.0)
         setPortfolioAmount(amount)
-        setInvestmentDivisions([...divisions])
+        setInvestmentDivisions([...divisions.sort((a,b) => (a?.quantity * 1.0 - a?.current_quantity * 1.0) - (b?.quantity * 1.0 - b?.current_quantity * 1.0))])
     }
 
     
