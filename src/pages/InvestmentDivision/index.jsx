@@ -89,7 +89,7 @@ const InvestmentDivision = () => {
         }, 0.0)
         setDividendYield((dividends/amount * 100) || 0.0)
         setPortfolioAmount(amount)
-        setInvestmentDivisions([...divisions.sort((a,b) => (a?.quantity * 1.0 - a?.current_quantity * 1.0) - (b?.quantity * 1.0 - b?.current_quantity * 1.0))])
+        setInvestmentDivisions([...divisions.sort((a,b) => b?.discount - a?.discount )])
     }
 
     
@@ -168,35 +168,33 @@ const InvestmentDivision = () => {
             <div className='card horizontal-align'>
                 <table>
                     <thead>
-                        <th>ID</th>
+                        <th>Portfolio Percentage</th>
                         <th>Asset</th>
                         <th>Currency</th>
                         <th>Current Quantity</th>
                         <th>Quantity</th>
                         <th>Value</th>
-                        <th>Converted Value</th>
-                        <th>Top Price</th>
-                        <th>Converted Top Price</th>
                         <th>Amount (Top price)</th>
                         <th>Dividend (Year)</th>
-                        <th>Portfolio Percentage</th>
+                        <th>Price</th>
+                        <th>Top Price</th>
+                        <th>Discount</th>
                         <th></th>
                     </thead>
                     <tbody>
                         {investmentDivisions.map((division) => (
                             <tr>
-                                <td>{division.id}</td>
+                                <td>{(division.portfolio_percentage * 100).format({decimalPlaces: 2})}%</td>
                                 <td>{division.asset?.symbol}</td>
                                 <td>{division.asset?.currency?.symbol}</td>
                                 <td>{division.current_quantity}</td>
                                 <td>{(+division.quantity).format({ decimalPlaces: 2 })}</td>
                                 <td>{division.value.format({ decimalPlaces: 2, currency: division.asset?.currency?.symbol })}</td>
-                                <td>{division.converted_value.format({ decimalPlaces: 2, currency: "BRL" })}</td>
-                                <td>{(+division.top_price).format({ decimalPlaces: 2, currency: division.asset?.currency?.symbol })}</td>
-                                <td>{(+division.converted_top_price).format({ decimalPlaces: 2, currency: "BRL" })}</td>
                                 <td>{(+division.converted_top_amount).format({ decimalPlaces: 2, currency: "BRL" })}</td>
                                 <td>{(+division.dividend).format({ decimalPlaces: 2, currency: "BRL" })}</td>
-                                <td>{(division.portfolio_percentage * 100).format({decimalPlaces: 2})}%</td>
+                                <td>{(+division.price).format({ decimalPlaces: 2, currency: division.asset?.currency?.symbol })}</td>
+                                <td>{(+division.top_price).format({ decimalPlaces: 2, currency: division.asset?.currency?.symbol })}</td>
+                                <td>{(+division.discount * 100).format({ decimalPlaces: 2 })}%</td>
                                 <td>
                                     <Button variant="outline-primary" id={division.id} onClick={handleEdit}>
                                         Edit
