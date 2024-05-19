@@ -281,5 +281,8 @@ export default {
     async getAITrainingItems(params = {}, apiKey) {
         return await this.apiGet('/api/intel/investments/train_items', params, apiKey)
     },
+    async getProjectedPortfolioDividendsGrowth(params = {}, apiKey) {
+        return await this.apiGet('/api/projection/projected_dividends_growth', params, apiKey)
+    }
 
 }

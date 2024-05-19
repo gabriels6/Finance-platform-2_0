@@ -359,6 +359,13 @@ const Header = () => {
                                                             </Nav.Link>
                                                         </LinkContainer>
                                                     </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/projection/portfolio-dividend-growth">
+                                                            <Nav.Link>
+                                                                Portfolio Dividend Growth
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
                                                 </NavDropdown>
                                                 <NavDropdown title="Maintainance" menuVariant="dark">
                                                     <NavDropdown.Item>

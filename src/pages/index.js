@@ -23,6 +23,7 @@ import DividendsReceived from './DividendsReceived';
 import AIInvestments from './AIInvestments';
 import InvestmentDivision from './InvestmentDivision';
 import PortfolioRiskPage from './PortfolioRiskPage';
+import ProjectedPortfolioDividends from './ProjectedPortfolioDividends';
 
 const SwitchControl = () => {
 
@@ -53,7 +54,8 @@ const SwitchControl = () => {
         [<CrudPage model='currency' fields={{id: 0, symbol: "", name: ""}}/>, "/maintainance/currencies"],
         [<DividendsReceived/>, "/analysis/dividends-received"],
         [<AIInvestments/>, "/ai/investments"],
-        [<InvestmentDivision/>, "/portfolio/investment-division"]
+        [<InvestmentDivision/>, "/portfolio/investment-division"],
+        [<ProjectedPortfolioDividends/>, "/projection/portfolio-dividend-growth"]
     ]
 
     return (
