@@ -137,6 +137,13 @@ const ProjectedPortfolioDividends = () => {
                                         <td>{(item.projected_dividends_asset.reduce((prev, curr) => prev + curr.dividend_yield * 100, 0.0)).format({  decimalPlaces: 2})}%</td>
                                     </tr>
                                     <tr>
+                                        <td>Quantity</td>
+                                        {
+                                            item.projected_dividends_asset.map((projected_dividend_item) => (<td>{(projected_dividend_item.quantity).format({ decimalPlaces: 2})}</td>))
+                                        }
+                                        <td></td>
+                                    </tr>
+                                    <tr>
                                         <td>Price Today</td>
                                         {
                                             item.projected_dividends_asset.map((projected_dividend_item) => (<td>{(projected_dividend_item.price_today).format({ currency: currency, decimalPlaces: 2})}</td>))
