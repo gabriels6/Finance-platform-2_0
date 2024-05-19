@@ -115,7 +115,7 @@ const ProjectedPortfolioDividends = () => {
                             projectedPortfolioDividends.map((item) => (
                                 <>
                                     <tr>
-                                        <td rowSpan={4}>{item.asset.symbol}</td>
+                                        <td rowSpan={5}>{item.asset.symbol}</td>
                                         <td>Unit dividend</td>
                                         {
                                             item.projected_dividends_asset.map((projected_dividend_item) => (<td>{projected_dividend_item.dividends.format({ currency: currency, decimalPlaces: 2})}</td>))
