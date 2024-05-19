@@ -13,11 +13,13 @@ const ProjectedPortfolioDividends = () => {
     const [years, setYears] = useState([])
 
     const [maxYears, setMaxYears] = useState(5)
+    const [reinvestDividends, setReinvestDividends] = useState(false)
+    const [priceIncreaseYearly, setPriceIncreaseYearly] = useState(10.0)
 
     function handleGetProjectedDividends(event) {
         setProjectedPortfolioDividends([])
         setCurrency(event.currentTarget.getAttribute('currency'))
-        financeDataApi.getProjectedPortfolioDividendsGrowth({ portfolio_name: event.currentTarget.id, max_years: maxYears }, userContext.integrationToken).then((data) => {
+        financeDataApi.getProjectedPortfolioDividendsGrowth({ portfolio_name: event.currentTarget.id, max_years: maxYears, reinvest_dividends: reinvestDividends, price_increase_yearly: priceIncreaseYearly }, userContext.integrationToken).then((data) => {
             setProjectedPortfolioDividends(data)
             setYears(data[0]?.projected_dividends_asset?.map((item) => item.year))
         })
@@ -57,7 +59,32 @@ const ProjectedPortfolioDividends = () => {
                         }, 0.0) * 100 || 0.0).format({ decimalPlaces: 2}) }%
                     </div>
                 </div>
-                <InputText type={"number"} value={maxYears} onChange={(event) => { setMaxYears(event.currentTarget.value) }}/>
+                <div className="value-section">
+                        <div className="info-text">
+                            Max Years
+                        </div>
+                        <div className="value-text">
+                            <InputText type={"number"} placeholder={"Years to calculate"} value={maxYears} onChange={(event) => { setMaxYears(event.currentTarget.value) }}/>
+                        </div>
+                </div>
+
+                <div className="value-section">
+                        <div className="info-text">
+                            Price Increase (Yearly %)
+                        </div>
+                        <div className="value-text">
+                            <InputText type={"number"} value={priceIncreaseYearly} onChange={(event) => { setPriceIncreaseYearly(event.currentTarget.value) }}/>
+                        </div>
+                </div>
+                
+                <div className="value-section">
+                        <div className="info-text">
+                            Reinvest Dividends?
+                        </div>
+                        <div className="value-text">
+                            <InputText type={"checkbox"} placeholder={"Reinvest Dividends?"} value={reinvestDividends} onChange={(event) => { setReinvestDividends(event.currentTarget.checked) }}/> 
+                        </div>
+                </div>
                 <div className='horizontal-align value-header'>
                     {userContext.portfolios.map((item, index) => {
                         return (
@@ -76,6 +103,7 @@ const ProjectedPortfolioDividends = () => {
                     <thead>
                         <tr>
                             <th>Asset</th>
+                            <th></th>
                             { years.map((years) => (
                                 <td>{years}</td>
                             )) }
@@ -87,26 +115,36 @@ const ProjectedPortfolioDividends = () => {
                             projectedPortfolioDividends.map((item) => (
                                 <>
                                     <tr>
-                                        <td rowSpan={3}>{item.asset.symbol}</td>
+                                        <td rowSpan={4}>{item.asset.symbol}</td>
+                                        <td>Unit dividend</td>
                                         {
                                             item.projected_dividends_asset.map((projected_dividend_item) => (<td>{projected_dividend_item.dividends.format({ currency: currency, decimalPlaces: 2})}</td>))
                                         }
                                         <td>{item.projected_dividends_asset.reduce((prev, curr) => prev + curr.dividends, 0.0).format({ currency: currency, decimalPlaces: 2})}</td>
                                     </tr>
                                     <tr>
+                                        <td>Dividend on quantity</td>
                                         {
                                             item.projected_dividends_asset.map((projected_dividend_item) => (<td>{projected_dividend_item.total_dividends.format({ currency: currency, decimalPlaces: 2})}</td>))
                                         }
                                         <td>{item.projected_dividends_asset.reduce((prev, curr) => prev + curr.total_dividends, 0.0).format({ currency: currency, decimalPlaces: 2})}</td>
                                     </tr>
                                     <tr>
+                                    <td>Yield</td>
                                         {
                                             item.projected_dividends_asset.map((projected_dividend_item) => (<td>{(projected_dividend_item.dividend_yield * 100).format({ decimalPlaces: 2})}%</td>))
                                         }
                                         <td>{(item.projected_dividends_asset.reduce((prev, curr) => prev + curr.dividend_yield * 100, 0.0)).format({  decimalPlaces: 2})}%</td>
                                     </tr>
                                     <tr>
-                                        <td colSpan={2 + years.length}></td>
+                                        <td>Price Today</td>
+                                        {
+                                            item.projected_dividends_asset.map((projected_dividend_item) => (<td>{(projected_dividend_item.price_today).format({ currency: currency, decimalPlaces: 2})}</td>))
+                                        }
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colSpan={3 + years.length}></td>
                                     </tr>
                                 </>
                             ))
