@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import UserContext from "../../context/UserContext";
 import financeDataApi from "../../utils/finance-data-api";
-import { MessageHolder } from "../../components";
+import { InputText, MessageHolder } from "../../components";
 
 const ProjectedPortfolioDividends = () => {
 
@@ -12,10 +12,12 @@ const ProjectedPortfolioDividends = () => {
     const [currency, setCurrency] = useState("BRL")
     const [years, setYears] = useState([])
 
+    const [maxYears, setMaxYears] = useState(5)
+
     function handleGetProjectedDividends(event) {
         setProjectedPortfolioDividends([])
         setCurrency(event.currentTarget.getAttribute('currency'))
-        financeDataApi.getProjectedPortfolioDividendsGrowth({ portfolio_name: event.currentTarget.id }, userContext.integrationToken).then((data) => {
+        financeDataApi.getProjectedPortfolioDividendsGrowth({ portfolio_name: event.currentTarget.id, max_years: maxYears }, userContext.integrationToken).then((data) => {
             setProjectedPortfolioDividends(data)
             setYears(data[0]?.projected_dividends_asset?.map((item) => item.year))
         })
@@ -55,6 +57,7 @@ const ProjectedPortfolioDividends = () => {
                         }, 0.0) * 100 || 0.0).format({ decimalPlaces: 2}) }%
                     </div>
                 </div>
+                <InputText type={"number"} value={maxYears} onChange={(event) => { setMaxYears(event.currentTarget.value) }}/>
                 <div className='horizontal-align value-header'>
                     {userContext.portfolios.map((item, index) => {
                         return (
@@ -85,31 +88,25 @@ const ProjectedPortfolioDividends = () => {
                                 <>
                                     <tr>
                                         <td rowSpan={3}>{item.asset.symbol}</td>
-                                        <td>{item.projected_dividends_asset[0].dividends.format({ currency: currency, decimalPlaces: 2})}</td>
-                                        <td>{item.projected_dividends_asset[1].dividends.format({ currency: currency, decimalPlaces: 2})}</td>
-                                        <td>{item.projected_dividends_asset[2].dividends.format({ currency: currency, decimalPlaces: 2})}</td>
-                                        <td>{item.projected_dividends_asset[3].dividends.format({ currency: currency, decimalPlaces: 2})}</td>
-                                        <td>{item.projected_dividends_asset[4].dividends.format({ currency: currency, decimalPlaces: 2})}</td>
+                                        {
+                                            item.projected_dividends_asset.map((projected_dividend_item) => (<td>{projected_dividend_item.dividends.format({ currency: currency, decimalPlaces: 2})}</td>))
+                                        }
                                         <td>{item.projected_dividends_asset.reduce((prev, curr) => prev + curr.dividends, 0.0).format({ currency: currency, decimalPlaces: 2})}</td>
                                     </tr>
                                     <tr>
-                                        <td>{item.projected_dividends_asset[0].total_dividends.format({ currency: currency, decimalPlaces: 2})}</td>
-                                        <td>{item.projected_dividends_asset[1].total_dividends.format({ currency: currency, decimalPlaces: 2})}</td>
-                                        <td>{item.projected_dividends_asset[2].total_dividends.format({ currency: currency, decimalPlaces: 2})}</td>
-                                        <td>{item.projected_dividends_asset[3].total_dividends.format({ currency: currency, decimalPlaces: 2})}</td>
-                                        <td>{item.projected_dividends_asset[4].total_dividends.format({ currency: currency, decimalPlaces: 2})}</td>
+                                        {
+                                            item.projected_dividends_asset.map((projected_dividend_item) => (<td>{projected_dividend_item.total_dividends.format({ currency: currency, decimalPlaces: 2})}</td>))
+                                        }
                                         <td>{item.projected_dividends_asset.reduce((prev, curr) => prev + curr.total_dividends, 0.0).format({ currency: currency, decimalPlaces: 2})}</td>
                                     </tr>
                                     <tr>
-                                        <td>{(item.projected_dividends_asset[0].dividend_yield * 100).format({ decimalPlaces: 2})}%</td>
-                                        <td>{(item.projected_dividends_asset[1].dividend_yield * 100).format({ decimalPlaces: 2})}%</td>
-                                        <td>{(item.projected_dividends_asset[2].dividend_yield * 100).format({ decimalPlaces: 2})}%</td>
-                                        <td>{(item.projected_dividends_asset[3].dividend_yield * 100).format({ decimalPlaces: 2})}%</td>
-                                        <td>{(item.projected_dividends_asset[4].dividend_yield * 100).format({ decimalPlaces: 2})}%</td>
+                                        {
+                                            item.projected_dividends_asset.map((projected_dividend_item) => (<td>{(projected_dividend_item.dividend_yield * 100).format({ decimalPlaces: 2})}%</td>))
+                                        }
                                         <td>{(item.projected_dividends_asset.reduce((prev, curr) => prev + curr.dividend_yield * 100, 0.0)).format({  decimalPlaces: 2})}%</td>
                                     </tr>
                                     <tr>
-                                        <td colSpan={7}></td>
+                                        <td colSpan={2 + years.length}></td>
                                     </tr>
                                 </>
                             ))
