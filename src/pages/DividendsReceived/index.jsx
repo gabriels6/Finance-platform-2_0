@@ -56,7 +56,7 @@ const DividendsReceived = () => {
                         Received Dividends
                     </div>
                     <div className="value-text">
-                        { dividendsMonths.reduce((prevValue, currItem) => (prevValue + (currItem?.value || 0.0) * 1.0),0.0).toFixed(2) } { portfolio?.currency?.symbol || '' }
+                        { dividendsMonths.reduce((prevValue, currItem) => (prevValue + (currItem?.value || 0.0) * 1.0),0.0).format({ decimalPlaces: 2, currency: portfolio?.currency?.symbol }) }
                     </div>
                 </div>
                 {userContext.portfolios.map((item, index) => {
@@ -106,8 +106,8 @@ const DividendsReceived = () => {
                             { selectedMonth.receivables.map((item) => (
                                 <tr>
                                     <td>{ item?.symbol }</td>
-                                    <td>{ (item?.amount * 1.0).toFixed(2) } { portfolio?.currency?.symbol || '' }</td>
-                                    <td>{ item?.quantity}</td>
+                                    <td>{ (item?.amount * 1.0).format({ decimalPlaces: 2, currency: portfolio?.currency?.symbol }) }</td>
+                                    <td>{ (item?.quantity * 1.0).format({ decimalPlaces: 2 })}</td>
                                 </tr>
                             )) }
                         </tbody>
