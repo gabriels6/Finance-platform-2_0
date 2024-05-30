@@ -18,7 +18,17 @@ const PortfolioPage = () => {
 
     const [currency, setCurrency] = useState("")
 
+    function clearPortfolio(){
+        setCurrency("")
+        userContext.setTopPrices([])
+        userContext.setPortfolioAssets([]);
+        userContext.setSectorExposures([]);
+        userContext.setPortfolioDividendYield(0.0);
+        userContext.setPortfolioRentability(0.0);
+    }
+
     function handleGetPortfolio(event) {
+        clearPortfolio()
         let apiKey = userContext.integrationToken;
         financeDataApi.getPortfolio(event.currentTarget.id, userContext.date, apiKey).then((data) => {
             // let promises = []
@@ -57,6 +67,7 @@ const PortfolioPage = () => {
     }
 
     function handleGetConsolidatedPortfolio(event) {
+        clearPortfolio()
         let apiKey = userContext.integrationToken;
         financeDataApi.getConsolidatedPortfolio(userContext.date, apiKey).then((data) => {
             // let promises = []
