@@ -234,7 +234,7 @@ const PortfolioPage = () => {
                         <BarChart data={userContext.portfolioAssets.sort((a,b) => a?.rentabilityAmount - b?.rentabilityAmount)}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="rentabilityLabel" />
-                            <YAxis domain={[-400,400]}/>
+                            <YAxis domain={[Math.floor(Math.min(...userContext.portfolioAssets.map((data) => ((data.rentabilityAmount * 1)?.toFixed(2) * 1)))/100.0)*100.0 - 50,Math.ceil(Math.max(...userContext.portfolioAssets.map((data) => ((data.rentabilityAmount * 1)?.toFixed(2) * 1)))/100.0)*100.0 + 50]}/>
                             <Tooltip />
                             <Legend />
                             <Bar dataKey="rentabilityAmount" name='Rentability ($)'>
