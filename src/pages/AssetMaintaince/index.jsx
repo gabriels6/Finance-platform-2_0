@@ -149,9 +149,11 @@ const AssetMaintaince = () => {
         setAssetItem({
             id: selectedAsset.id,
             symbol: selectedAsset.symbol,
-            currency: selectedAsset.currency,
+            currency: selectedAsset.currency.symbol,
             asset_type: selectedAsset.asset_type.name,
             external_id: selectedAsset.external_id,
+            country: selectedAsset.country.name,
+            yahoo_code: selectedAsset.yahoo_code,
             sector: selectedAsset.sector.name,
             investing_external_id: selectedAsset.investing_external_id
         })
