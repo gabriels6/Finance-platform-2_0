@@ -192,7 +192,7 @@ const AssetMaintaince = () => {
                         type="text"
                         id="inputCountry"
                         onChange={handleChangeAssetitem}
-                        value={assetItem.country?.name}
+                        value={assetItem.country}
                     />
                     <Form.Label htmlFor="inputCurrency">
                         Currency
@@ -201,7 +201,7 @@ const AssetMaintaince = () => {
                         type="text"
                         id="inputCurrency"
                         onChange={handleChangeAssetitem}
-                        value={assetItem.currency?.name}
+                        value={assetItem.currency}
                     />
                     <Form.Label htmlFor="inputAsset_Type">
                         Type
