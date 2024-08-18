@@ -283,6 +283,24 @@ export default {
     },
     async getProjectedPortfolioDividendsGrowth(params = {}, apiKey) {
         return await this.apiGet('/api/projection/projected_dividends_growth', params, apiKey)
-    }
+    },
+    async getEconomicIndexes(params = {}, apiKey) {
+        return await this.apiGet('/api/economic_indexes',{}, apiKey)
+    },
+    async saveEconomicIndex(body = {}, apiKey) {
+        return await this.apiPost('/api/economic_indexes', body, apiKey)
+    },
+    async importEconomicIndexSeries(body = {}, apiKey) {
+        return await this.apiPost('/api/integrator/indexes/import_series', body, apiKey)
+    },
+    async importBrazilianQuotes(token, apiKey) {
+        const {data} = await api.post('api/finance_open/import_quotes', {}, {
+            headers: {
+                'x_api_key': apiKey,
+                'token': token
 
+            }
+        });
+        return data;
+    }
 }

@@ -24,6 +24,7 @@ import AIInvestments from './AIInvestments';
 import InvestmentDivision from './InvestmentDivision';
 import PortfolioRiskPage from './PortfolioRiskPage';
 import ProjectedPortfolioDividends from './ProjectedPortfolioDividends';
+import EconomicIndexesMaintainance from './EconomicIndexesMaintainance';
 
 const SwitchControl = () => {
 
@@ -36,6 +37,7 @@ const SwitchControl = () => {
         [<PortfolioRiskPage/>, "/analysis/portfolio-risk"],
         [<OrdersPage/>, "/management/orders"],
         [<AssetMaintaince/>, "/maintainance/asset"],
+        [<EconomicIndexesMaintainance/>, "/maintainance/economic-index"],
         [<FundamentalistDataPage/>, "/analysis/fundamentalist-data"],
         [<ImobiliaryFundsOportunities/>, "/analysis/imobiliary-funds-oportunities"],
         [<StocksOportunities/>, "/analysis/stocks-oportunities"],

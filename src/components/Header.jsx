@@ -179,6 +179,13 @@ const Header = () => {
                                                         </LinkContainer>
                                                     </NavDropdown.Item>
                                                     <NavDropdown.Item>
+                                                        <LinkContainer to="/maintainance/economic-index">
+                                                            <Nav.Link>
+                                                                Economic Indexes
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
                                                         <LinkContainer to="/maintainance/asset-prices">
                                                             <Nav.Link>
                                                                 Asset Prices
@@ -379,6 +386,13 @@ const Header = () => {
                                                         <LinkContainer to="/maintainance/asset-prices">
                                                             <Nav.Link>
                                                                 Asset Prices
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/maintainance/economic-index">
+                                                            <Nav.Link>
+                                                                Economic Indexes
                                                             </Nav.Link>
                                                         </LinkContainer>
                                                     </NavDropdown.Item>
