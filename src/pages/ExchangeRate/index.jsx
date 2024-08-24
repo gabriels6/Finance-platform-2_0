@@ -24,7 +24,10 @@ const ExchangeRate = () => {
 
     function handleImportRates(event) {
         financeDataApi
-            .importExchangeRates(queryValues, userContext.integrationToken)
+            .importExchangeRates({
+                ...queryValues,
+                date: userContext.date
+            }, userContext.integrationToken)
             .then(() => {
                 getRates();
             });
