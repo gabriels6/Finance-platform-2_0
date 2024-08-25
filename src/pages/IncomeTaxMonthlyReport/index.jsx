@@ -45,8 +45,8 @@ const IncomeTaxMonthlyReport = () => {
                                 <tr>
                                     <td>{monthReport?.month}/{monthReport?.year}</td>
                                     <td>{monthReport.ptax}</td>
-                                    <td>{monthReport.value}</td>
-                                    <td>{monthReport.paid_tax}</td>
+                                    <td>{(monthReport.value * 1.0).format({decimalPrices: 2})}</td>
+                                    <td>{(monthReport.paid_tax * 1.0).format({decimalPrices: 2})}</td>
                                 </tr>
                             )
                         }) }
