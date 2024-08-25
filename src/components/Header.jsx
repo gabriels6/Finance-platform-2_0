@@ -441,6 +441,32 @@ const Header = () => {
                                                         </LinkContainer>
                                                     </NavDropdown.Item>
                                                 </NavDropdown>
+
+                                                <NavDropdown title="Income Tax" menuVariant="dark">
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/income-tax/earnings">
+                                                            <Nav.Link>
+                                                                Earnings
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/income-tax/ptax">
+                                                            <Nav.Link>
+                                                                Ptax
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/income-tax/monthly-report">
+                                                            <Nav.Link>
+                                                                Monthly Report
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>                                                    
+                                                </NavDropdown>
                                             </>
                                         )
                                     }

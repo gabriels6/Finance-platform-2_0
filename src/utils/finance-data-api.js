@@ -1,3 +1,4 @@
+import { wait } from '@testing-library/user-event/dist/utils';
 import axios from 'axios';
 
 const financeDataUrl = process.env.REACT_APP_FINANCE_DATA_API_URL
@@ -302,5 +303,34 @@ export default {
             }
         });
         return data;
+    },
+    async saveEarnings(body, apiKey) {
+        return await this.apiPost('/api/income_tax/earnings', body, apiKey);
+    },
+    async getEarnings(apiKey) {
+        return await this.apiGet('/api/income_tax/earnings',{}, apiKey);
+    },
+    async deleteEarning(date, asset_symbol, apiKey) {
+        return await this.apiDelete('/api/income_tax/earnings', {
+            date: date,
+            asset_symbol: asset_symbol
+        }, apiKey)
+    },
+    async savePtax(body, apiKey) {
+        return await this.apiPost('/api/income_tax/ptax', body, apiKey);
+    },
+    async getPtax(year, apiKey) {
+        return await this.apiGet('/api/income_tax/ptax',{}, apiKey);
+    },
+    async deletePtax(month, year, apiKey) {
+        return await this.apiDelete('/api/income_tax/ptax', {
+            month: month,
+            year: year
+        }, apiKey)
+    },
+    async getEarningMonthlyReport(date, apiKey) {
+        return await this.apiGet('/api/income_tax/earnings/report', {
+            date: date
+        }, apiKey)
     }
 }

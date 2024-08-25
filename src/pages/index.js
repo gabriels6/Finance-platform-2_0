@@ -25,6 +25,9 @@ import InvestmentDivision from './InvestmentDivision';
 import PortfolioRiskPage from './PortfolioRiskPage';
 import ProjectedPortfolioDividends from './ProjectedPortfolioDividends';
 import EconomicIndexesMaintainance from './EconomicIndexesMaintainance';
+import IncomeTaxEarnings from './IncomeTaxEarnings';
+import IncomeTaxPtax from './IncomeTaxPtax';
+import IncomeTaxMonthlyReport from './IncomeTaxMonthlyReport';
 
 const SwitchControl = () => {
 
@@ -57,7 +60,10 @@ const SwitchControl = () => {
         [<DividendsReceived/>, "/analysis/dividends-received"],
         [<AIInvestments/>, "/ai/investments"],
         [<InvestmentDivision/>, "/portfolio/investment-division"],
-        [<ProjectedPortfolioDividends/>, "/projection/portfolio-dividend-growth"]
+        [<ProjectedPortfolioDividends/>, "/projection/portfolio-dividend-growth"],
+        [<IncomeTaxEarnings/>,"/income-tax/earnings"],
+        [<IncomeTaxPtax/>,"/income-tax/ptax"],
+        [<IncomeTaxMonthlyReport/>, "/income-tax/monthly-report"]
     ]
 
     return (
