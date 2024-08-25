@@ -37,6 +37,8 @@ const IncomeTaxMonthlyReport = () => {
                             <th>Ptax</th>
                             <th>Value</th>
                             <th>Paid Taxes</th>
+                            <th>Converted Value</th>
+                            <th>Converted Paid Taxes</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,6 +49,8 @@ const IncomeTaxMonthlyReport = () => {
                                     <td>{monthReport.ptax}</td>
                                     <td>{(monthReport.value * 1.0).format({decimalPrices: 2})}</td>
                                     <td>{(monthReport.paid_tax * 1.0).format({decimalPrices: 2})}</td>
+                                    <td>{(monthReport.converted_value * 1.0).format({decimalPrices: 2})}</td>
+                                    <td>{(monthReport.converted_paid_tax * 1.0).format({decimalPrices: 2})}</td>
                                 </tr>
                             )
                         }) }
