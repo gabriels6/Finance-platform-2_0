@@ -255,6 +255,9 @@ export default {
     async importAllDailyQuotes(params = {}, apiKey) {
         return await this.apiGet('/api/integrator/quotes/import_daily_quotes', params, apiKey);
     },
+    async importDailyQuote(symbol, apiKey) {
+        return await this.apiGet('/api/integrator/quotes/import', { symbol: symbol }, apiKey);
+    },
     async getExchangeRates(params = {}, apiKey) {
         return await this.apiGet('/api/exchange_rates/',params, apiKey);
     },

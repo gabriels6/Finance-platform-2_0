@@ -123,6 +123,26 @@ const AssetMaintaince = () => {
         });
     }
 
+    function handleDailyQuote(event) {
+        let assetId = event.target.id
+        let selectedAsset = userContext.assets.find((assetItem, index) => (assetItem.id == assetId));
+        financeDataApi.importDailyQuote(selectedAsset?.symbol, userContext.integrationToken).then(() => {
+            userContext.setMessages([
+                {
+                    type:  "success",
+                    value: `Daily quote for ${selectedAsset?.symbol} successfully imported!`
+                }
+            ])
+        }).catch((ex) => {
+            userContext.setMessages([
+                {
+                    type:  "error",
+                    value: `Error importing quote for ${selectedAsset?.symbol}: ${ex.error}`
+                }
+            ])
+        })
+    }
+
     function handleYearlyQuotes(event) {
         let assetId = event.target.id
         let selectedAsset = userContext.assets.find((assetItem, index) => (assetItem.id == assetId));
@@ -302,6 +322,7 @@ const AssetMaintaince = () => {
                                 <th></th>
                                 <th></th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -317,6 +338,11 @@ const AssetMaintaince = () => {
                                         <td>{asset.yahoo_code}</td>
                                         <td>{asset.sector.name}</td>
                                         <td>{asset.investing_external_id}</td>
+                                        <td>
+                                            <Button variant="outline-primary" id={asset.id} onClick={handleDailyQuote}>
+                                                Import Daily Quote
+                                            </Button>
+                                        </td>
                                         <td>
                                             <Button variant="outline-primary" id={asset.id} onClick={handleYearlyQuotes}>
                                                 Import Yearly Quotes
