@@ -321,8 +321,6 @@ const AssetMaintaince = () => {
                                 <th></th>
                                 <th></th>
                                 <th></th>
-                                <th></th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -339,19 +337,17 @@ const AssetMaintaince = () => {
                                         <td>{asset.sector.name}</td>
                                         <td>{asset.investing_external_id}</td>
                                         <td>
-                                            <Button variant="outline-primary" id={asset.id} onClick={handleDailyQuote}>
-                                                Import Daily Quote
-                                            </Button>
-                                        </td>
-                                        <td>
-                                            <Button variant="outline-primary" id={asset.id} onClick={handleYearlyQuotes}>
-                                                Import Yearly Quotes
-                                            </Button>
-                                        </td>
-                                        <td>
-                                            <Button variant="outline-primary" id={asset.id} onClick={handleHistoricalQuotes}>
-                                                Import Historical Quotes
-                                            </Button>
+                                            <div className='vertical-align' style={{ width: "14vw"}}>
+                                                <Button variant="outline-primary" id={asset.id} onClick={handleDailyQuote}>
+                                                    Import Daily Quote
+                                                </Button>
+                                                <Button variant="outline-primary" id={asset.id} onClick={handleYearlyQuotes}>
+                                                    Import Yearly Quotes
+                                                </Button>
+                                                <Button variant="outline-primary" id={asset.id} onClick={handleHistoricalQuotes}>
+                                                    Import Historical Quotes
+                                                </Button>
+                                            </div>
                                         </td>
                                         <td>
                                             <Button variant="outline-primary" id={asset.id} onClick={handleEdit}>
