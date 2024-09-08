@@ -335,5 +335,17 @@ export default {
         return await this.apiGet('/api/income_tax/earnings/report', {
             date: date
         }, apiKey)
+    },
+    async getStockPricesByDay(date, apiKey) {
+        return await this.apiGet('/api/asset_prices/stocks_prices_by_day', {
+            date: date
+        }, apiKey)
+    },
+    async editStockPrice(symbol, date, price, apiKey) {
+        return await this.apiPost('/api/asset_prices/edit_stock_price', {
+            symbol,
+            date,
+            price
+        }, apiKey)
     }
 }

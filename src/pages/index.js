@@ -28,6 +28,7 @@ import EconomicIndexesMaintainance from './EconomicIndexesMaintainance';
 import IncomeTaxEarnings from './IncomeTaxEarnings';
 import IncomeTaxPtax from './IncomeTaxPtax';
 import IncomeTaxMonthlyReport from './IncomeTaxMonthlyReport';
+import DailyStockPrices from './DailyStockPrices';
 
 const SwitchControl = () => {
 
@@ -63,7 +64,8 @@ const SwitchControl = () => {
         [<ProjectedPortfolioDividends/>, "/projection/portfolio-dividend-growth"],
         [<IncomeTaxEarnings/>,"/income-tax/earnings"],
         [<IncomeTaxPtax/>,"/income-tax/ptax"],
-        [<IncomeTaxMonthlyReport/>, "/income-tax/monthly-report"]
+        [<IncomeTaxMonthlyReport/>, "/income-tax/monthly-report"],
+        [<DailyStockPrices/>, "/maintainance/daily-stock-prices"]
     ]
 
     return (
