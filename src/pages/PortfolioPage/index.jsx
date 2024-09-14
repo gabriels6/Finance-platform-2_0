@@ -41,7 +41,7 @@ const PortfolioPage = () => {
             assetItems.forEach((assetItem) => {
                 assetItem.percentage = 0.0
                 if(nav != 0.0)
-                    assetItem.percentage = (assetItem.value || assetItem.converted_value)/nav;
+                    assetItem.percentage = (assetItem.converted_value || assetItem.value)/nav;
                 currentCurrency = assetItem.financial_portfolio.currency.symbol
                 if(assetItem.converted_value) assetItem.converted_value = +(+assetItem.converted_value)?.toFixed(2)
                 if(assetItem.value) assetItem.value = +(+assetItem.value)?.toFixed(2)
@@ -75,9 +75,12 @@ const PortfolioPage = () => {
         let apiKey = userContext.integrationToken;
         financeDataApi.getConsolidatedPortfolio(userContext.date, apiKey).then((data) => {
             // let promises = []
+            let nav = data.amount || 0.0
             let assetItems = data.orders
             let sectorExposures = data.sector_exposure
             assetItems.forEach((assetItem) => {
+                if(nav != 0.0)
+                    assetItem.percentage = (assetItem.converted_value || assetItem.value)/nav;
                 if(assetItem.converted_value) assetItem.converted_value = +(+assetItem.converted_value)?.toFixed(2)
                 if(assetItem.value) assetItem.value = +(+assetItem.value)?.toFixed(2)
                 assetItem.symbol = assetItem.asset?.symbol
