@@ -32,12 +32,16 @@ const PortfolioPage = () => {
         let apiKey = userContext.integrationToken;
         financeDataApi.getPortfolio(event.currentTarget.id, userContext.date, apiKey).then((data) => {
             // let promises = []
+            let nav = data.amount || 0.0
             let assetItems = data.orders
             let sectorExposures = data.sector_exposure
             let rentability = data.rentability
             let symbolsString = ""
             let currentCurrency = ""
             assetItems.forEach((assetItem) => {
+                assetItem.percentage = 0.0
+                if(nav != 0.0)
+                    assetItem.percentage = (assetItem.value || assetItem.converted_value)/nav;
                 currentCurrency = assetItem.financial_portfolio.currency.symbol
                 if(assetItem.converted_value) assetItem.converted_value = +(+assetItem.converted_value)?.toFixed(2)
                 if(assetItem.value) assetItem.value = +(+assetItem.value)?.toFixed(2)
@@ -175,7 +179,7 @@ const PortfolioPage = () => {
                     </div>
                     <ResponsiveContainer>
                         <PieChart>
-                            <Pie data={userContext.portfolioAssets.map((item) => ({...item, name: item.asset.symbol + "-" + item.type}))} nameKey="name" dataKey={userContext.portfolioAssets[0]?.converted_value ? "converted_value" : "value"} innerRadius="45%" outerRadius="80%" label>
+                            <Pie data={userContext.portfolioAssets.map((item) => ({...item, name: item.asset.symbol + "-" + item.type + " (" + (item.percentage * 100).format({ decimalPlaces: 2 }) + "%)"}))} nameKey="name" dataKey={userContext.portfolioAssets[0]?.converted_value ? "converted_value" : "value"} innerRadius="45%" outerRadius="80%" label>
                                 { userContext.portfolioAssets.map((asset, index) => (
                                     <Cell key={`slice-${index}`} fill={colors[index % 10]}/>
                                 ))}
