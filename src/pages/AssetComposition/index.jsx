@@ -14,6 +14,14 @@ const AssetComposition = () => {
 
     const [composition, setComposition] = useState({})
 
+    function handleGetConsolidatedPortfolio() {
+        financeDataApi.getConsolidatedPortfolio(userContext.date, API_KEY).then((data) => {
+            setQueryValues([
+                ...(data.orders || []).map((item) => ({ symbol: item.asset?.symbol, quantity: item?.quantity }))
+            ])
+        })
+    }
+
     function handleGetComposition() {
         financeDataApi
             .getAssetComposition({
@@ -76,6 +84,7 @@ const AssetComposition = () => {
                         formElements.quantity.value = 0.0
                     }}>Add Asset</Button>
                     <Button variant="outline-success" onClick={handleGetComposition}>Get Composition</Button>
+                    <Button variant="outline-success" onClick={handleGetConsolidatedPortfolio}>Get Consolidated Portfolio</Button>
                 </Form>
             </div>
             <div className="card">
