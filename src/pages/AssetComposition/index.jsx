@@ -116,7 +116,7 @@ const AssetComposition = () => {
                             Amount
                         </div>
                         <div className="value-text">
-                            ${composition.total_amount?.toFixed(2) }
+                            R$ {composition.total_amount?.toFixed(2) }
                         </div>
                     </div>
                     <div className="value-section">
@@ -132,7 +132,7 @@ const AssetComposition = () => {
                             Received Dividends
                         </div>
                         <div className="value-text">
-                            $ { composition?.asset_data?.reduce((prevValue, currentValue) => (prevValue + currentValue.received_dividends), 0.0)?.toFixed(2) }
+                            R$ { composition?.asset_data?.reduce((prevValue, currentValue) => (prevValue + currentValue.received_dividends), 0.0)?.toFixed(2) }
                         </div>
                     </div>
                 </div>
@@ -151,10 +151,10 @@ const AssetComposition = () => {
                             <tr>
                                 <td>{item.asset.symbol}</td>
                                 <td>{item.quantity}</td>
-                                <td>{item.amount?.toFixed(2)}</td>
-                                <td>{item.received_dividends?.toFixed(2)}</td>
+                                <td>R$ {item.amount?.toFixed(2)}</td>
+                                <td>R$ {item.received_dividends?.toFixed(2)}</td>
                                 <td>{(item.dividend_yield * 100)?.toFixed(2)}%</td>
-                                <td>{(item.amount/composition.total_amount * 100)?.toFixed(2)}</td>
+                                <td>{(item.amount/composition.total_amount * 100)?.toFixed(2)}%</td>
                             </tr>
                         ))}
                     </tbody>
