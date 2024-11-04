@@ -62,7 +62,7 @@ const PortfolioPage = () => {
             // Promise.all(promises).then((assets) => {
             //     userContext.setAssetValueHist([...assets.flat(1)])
             // })
-            userContext.setPortfolioAssets([...assetItems]);
+            userContext.setPortfolioAssets([...assetItems.sort((a,b) => a?.value - b?.value) ]);
             userContext.setSectorExposures([...sectorExposures]);
             userContext.setPortfolioDividendYield(data.portfolio_dividend_yield);
             userContext.setPortfolioRentability(rentability);
@@ -93,7 +93,7 @@ const PortfolioPage = () => {
             // Promise.all(promises).then((assets) => {
             //     userContext.setAssetValueHist([...assets.flat(1)])
             // })
-            userContext.setPortfolioAssets([...assetItems]);
+            userContext.setPortfolioAssets([...assetItems.sort((a,b) => a?.converted_value - b?.converted_value)]);
             userContext.setSectorExposures([...sectorExposures]);
             userContext.setPortfolioDividendYield(data.portfolio_dividend_yield)
             userContext.setPortfolioRentability(data.rentability);
@@ -238,14 +238,14 @@ const PortfolioPage = () => {
                 </div>
                 { userContext.portfolioAssets?.length > 0 && (
                     <ResponsiveContainer>
-                        <BarChart data={userContext.portfolioAssets.sort((a,b) => a?.rentabilityAmount - b?.rentabilityAmount)}>
+                        <BarChart data={userContext.portfolioAssets.toSorted((a,b) => a?.rentabilityAmount - b?.rentabilityAmount)}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="rentabilityLabel" />
                             <YAxis domain={[Math.floor(Math.min(...userContext.portfolioAssets.map((data) => ((data.rentabilityAmount * 1)?.toFixed(2) * 1)))/100.0)*100.0 - 50,Math.ceil(Math.max(...userContext.portfolioAssets.map((data) => ((data.rentabilityAmount * 1)?.toFixed(2) * 1)))/100.0)*100.0 + 50]}/>
                             <Tooltip />
                             <Legend />
                             <Bar dataKey="rentabilityAmount" name='Rentability ($)'>
-                                {userContext.portfolioAssets.map((assetItem) => (
+                                {userContext.portfolioAssets.toSorted((a,b) => a?.rentabilityAmount - b?.rentabilityAmount).map((assetItem) => (
                                     <Cell fill={assetItem?.rentabilityAmount > 0.0 ? '#34eb5e' : '#e65545'}/>
                                 ))}
                             </Bar>
