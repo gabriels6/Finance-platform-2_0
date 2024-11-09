@@ -26,6 +26,7 @@ function App() {
   const [topPrices, setTopPrices] = useState([]);
   const [portfolioRentability, setPortfolioRentability] = useState(0.0);
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+  const [searchingPortfolios, setSearchingPortfolios] = useState(false);
 
   const initialState = {
     user: user,
@@ -42,6 +43,7 @@ function App() {
     integrationToken: cookies.integrationToken,
     orders: orders,
     portfolios: portfolios,
+    searchingPortfolios: searchingPortfolios,
     sectorExposures: sectorExposures,
     portfolioDividendYield: portfolioDividendYield,
     topPrices: topPrices,
@@ -59,6 +61,7 @@ function App() {
     switchDate: switchDate,
     setOrders: setOrders,
     setPortfolios: setPortfolios,
+    setSearchingPortfolios: setSearchingPortfolios,
     handleError: handleError,
     handleSuccess: handleSuccess,
     setSectorExposures: setSectorExposures,
@@ -110,9 +113,14 @@ function App() {
       ])
       return;
     }
-    if(initialState.portfolios?.length == 0 && cookies.token != null) {
+    if(!initialState.searchingPortfolios && initialState.portfolios?.length == 0 && cookies.token != null) {
+      initialState.setSearchingPortfolios(true);
       financeDataApi.getAllUserPortfolios({},initialState.integrationToken).then((data) => {
         initialState.setPortfolios([...data])
+      }).finally(() => {
+        setTimeout(() => {
+          initialState.setSearchingPortfolios(false);
+        },10000);
       })
       return;
     }
