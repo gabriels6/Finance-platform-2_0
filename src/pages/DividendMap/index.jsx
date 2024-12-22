@@ -42,6 +42,24 @@ const DividendMap = () => {
         });
     }
 
+    function handleGetDividendsInternal() {
+        financeDataApi.getStocksDividends(queryValues, API_KEY).then((data) => {
+            let dividendArray = [...dividendList,...data]
+            dividendArray = dividendArray.sort((a,b) => {
+                let firstDate = new Date(a?.payment_date.split("/").reverse().join("/"))
+                let secondDate = new Date(b?.payment_date.split("/").reverse().join("/"))
+                return firstDate > secondDate ? -1 : 1
+            })
+            setDividendList([...dividendArray])
+            let lastYearDividends = dividendArray.filter((value) => value?.payment_date?.split("-")[0] == '2024')
+            let newDividendMonths = lastYearDividends.map((value) => value?.payment_date?.split("-")[1])
+            setFilledDividendMonths([...newDividendMonths.filter((value, index,array) => array.indexOf(value) === index)])
+            setScreenData({
+                dividendMoney: lastYearDividends.reduce(((prevValue, nextValue) => prevValue += nextValue?.value * 1),0.0)
+            })
+        });
+    }
+
     function handleImportDividends() {
         financeDataApi.importDividends(queryValues, API_KEY).then((data) => {
             userContext.setMessages([
@@ -68,6 +86,7 @@ const DividendMap = () => {
                     onChange={(event) => { setQueryValues({...queryValues, symbol: event.target.value}) }}
                     />
                     <Button variant="outline-success" onClick={handleGetDividends}>Get Dividends</Button>
+                    <Button variant="outline-success" onClick={handleGetDividendsInternal}>Get Dividends (Internal)</Button>
                     <Button variant="outline-success" onClick={handleImportDividends}>Import Dividends</Button>
                 </Form>
             </div>
@@ -90,10 +109,10 @@ const DividendMap = () => {
                         {dividendList.map((item, index) => {
                             return(
                                 <tr key={index}>
-                                    <td>{item?.assetName}</td>
-                                    <td>{item?.type}</td>
-                                    <td>{item.comDate}</td>
-                                    <td>{item.paymentDate}</td>
+                                    <td>{item?.assetName || item.asset?.symbol}</td>
+                                    <td>{item?.type || item.receivable_type?.name }</td>
+                                    <td>{item.comDate || item.date}</td>
+                                    <td>{item.paymentDate || item.payment_date}</td>
                                     <td>{item.value}</td>
                                 </tr>
                             )

@@ -291,6 +291,9 @@ export default {
     async getEconomicIndexes(params = {}, apiKey) {
         return await this.apiGet('/api/economic_indexes',{}, apiKey)
     },
+    async getStocksDividends(params = {}, apiKey) {
+        return await this.apiGet('/api/receivables/stock_dividends', params, apiKey)
+    },
     async saveEconomicIndex(body = {}, apiKey) {
         return await this.apiPost('/api/economic_indexes', body, apiKey)
     },
