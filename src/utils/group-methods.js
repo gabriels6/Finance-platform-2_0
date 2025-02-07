@@ -10,6 +10,7 @@ export default {
             return {
                 type: item,
                 value: 0,
+                percentage: 0,
             };
         });
 
@@ -17,6 +18,7 @@ export default {
             assetTypes.forEach((item) => {
                 if (asset.type === item.type) {
                     item.value += asset.converted_value || asset.value;
+                    item.percentage += asset.percentage || 0.0;
                 }
             });
         });

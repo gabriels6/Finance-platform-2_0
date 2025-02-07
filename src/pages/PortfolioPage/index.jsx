@@ -207,7 +207,7 @@ const PortfolioPage = () => {
                     </div>
                     <ResponsiveContainer>
                         <PieChart>
-                            <Pie data={groupMethods.groupAssetsByType(userContext.portfolioAssets)} nameKey="type" dataKey="value" innerRadius="35%" outerRadius="65%" label>
+                            <Pie data={groupMethods.groupAssetsByType(userContext.portfolioAssets).map((value) => ({ ...value, type: value.type + ` (${Math.round(value.percentage * 10000,2)/100}%)` }))} nameKey="type" dataKey="value" innerRadius="35%" outerRadius="65%" label>
                                 {groupMethods.groupAssetsByType(userContext.portfolioAssets).map((asset, index) => (
                                     <Cell key={`part-${index}`} fill={colors[index % 10]}/>
                                 ))}
