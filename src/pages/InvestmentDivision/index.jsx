@@ -222,16 +222,16 @@ const InvestmentDivision = () => {
                     <tbody>
                         {groupMethods
                             .groupAssetsByType(
-                                investmentDivisions.map((division) => ({...division, percentage: division.portfolio_percentage * 100, current_value: (division?.converted_value || division?.value || 0.0), value: (division.converted_top_amount || 0.0), type: (division.asset?.asset_type?.name || "none")})),
-                                ["current_value"]
+                                investmentDivisions.map((division) => ({...division, percentage: division.portfolio_percentage * 100, current_value: (division?.converted_value || division?.value || 0.0), converted_top_amount: (division.converted_top_amount || 0.0), type: (division.asset?.asset_type?.name || "none")})),
+                                ["current_value","converted_top_amount"]
                             )
                             .map((groupedDivision) => {
                                 return (
                                     <tr>
                                         <td>{groupedDivision.type}</td>
                                         <td>{groupedDivision.current_value.format({ currency: "BRL" })}</td>
-                                        <td>{groupedDivision.value.format({ currency: "BRL" })}</td>
-                                        <td>{(groupedDivision.value - groupedDivision.current_value).format({ currency: "BRL" })}</td>
+                                        <td>{groupedDivision.converted_top_amount.format({ currency: "BRL" })}</td>
+                                        <td>{(groupedDivision.converted_top_amount - groupedDivision.current_value).format({ currency: "BRL" })}</td>
                                         <td>{groupedDivision.percentage}%</td>
                                     </tr>
                                 )
@@ -253,15 +253,15 @@ const InvestmentDivision = () => {
                         {groupMethods
                             .groupAssetsByType(
                                 investmentDivisions.map((division) => ({...division, current_value: (division?.converted_value || division?.value || 0.0) , percentage: division?.portfolio_percentage * 100,  value: (division.converted_top_amount || 0.0), type: (division.asset?.sector?.name || "none")})),
-                                ["current_value"]
+                                ["current_value","converted_top_amount"]
                             )
                             .map((groupedDivision) => {
                                 return (
                                     <tr>
                                         <td>{groupedDivision.type}</td>
                                         <td>{groupedDivision.current_value.format({ currency: "BRL" })}</td>
-                                        <td>{groupedDivision.value.format({ currency: "BRL" })}</td>
-                                        <td>{(groupedDivision.value - groupedDivision.current_value).format({ currency: "BRL" })}</td>
+                                        <td>{groupedDivision.converted_top_amount.format({ currency: "BRL" })}</td>
+                                        <td>{(groupedDivision.converted_top_amount - groupedDivision.current_value).format({ currency: "BRL" })}</td>
                                         <td>{groupedDivision.percentage}%</td>
                                     </tr>
                                 )
