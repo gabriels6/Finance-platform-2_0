@@ -1,5 +1,5 @@
 export default {
-    groupAssetsByType(assets){
+    groupAssetsByType(assets, aditional_data = []){
         // Create an array of types with quantity
         let assetTypes = assets.reduce((prevValue, item, index) => {
             if (prevValue.includes(item.type)) return prevValue
@@ -11,6 +11,8 @@ export default {
                 type: item,
                 value: 0,
                 percentage: 0,
+                expected_percentage: 0,
+                ...Object.fromEntries(aditional_data.map((data) => [data, 0]))
             };
         });
 
@@ -19,6 +21,9 @@ export default {
                 if (asset.type === item.type) {
                     item.value += asset.converted_value || asset.value;
                     item.percentage += asset.percentage || 0.0;
+                    aditional_data.forEach((data) => {
+                        item[data] += asset[data] || 0.0;
+                    });
                 }
             });
         });

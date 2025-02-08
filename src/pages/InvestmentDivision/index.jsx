@@ -5,6 +5,7 @@ import { Button, Form, FormControl } from 'react-bootstrap';
 import financeDataApi from '../../utils/finance-data-api';
 import UserContext from '../../context/UserContext';
 import { MessageHolder } from '../../components';
+import groupMethods from '../../utils/group-methods';
 
 const InvestmentDivision = () => {
 
@@ -205,6 +206,66 @@ const InvestmentDivision = () => {
                                 </td>
                             </tr>
                         ))}
+                    </tbody>
+                </table>
+            </div>
+            <div className='card horizontal-align'>
+                <table>
+                    <thead>
+                        <th>Asset Type</th>
+                        <th>Portfolio Value</th>
+                        <th>Expected Value</th>
+                        <th>Remaining Value/Excess</th>
+                        <th>Portfolio Percentage</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {groupMethods
+                            .groupAssetsByType(
+                                investmentDivisions.map((division) => ({...division, percentage: division.portfolio_percentage * 100, current_value: (division?.converted_value || division?.value || 0.0), value: (division.converted_top_amount || 0.0), type: (division.asset?.asset_type?.name || "none")})),
+                                ["current_value"]
+                            )
+                            .map((groupedDivision) => {
+                                return (
+                                    <tr>
+                                        <td>{groupedDivision.type}</td>
+                                        <td>{groupedDivision.current_value.format({ currency: "BRL" })}</td>
+                                        <td>{groupedDivision.value.format({ currency: "BRL" })}</td>
+                                        <td>{(groupedDivision.value - groupedDivision.current_value).format({ currency: "BRL" })}</td>
+                                        <td>{groupedDivision.percentage}%</td>
+                                    </tr>
+                                )
+                            })}
+                    </tbody>
+                </table>
+            </div>
+            <div className='card horizontal-align'>
+                <table>
+                    <thead>
+                        <th>Sector</th>
+                        <th>Portfolio Value</th>
+                        <th>Expected Value</th>
+                        <th>Remaining Value/Excess</th>
+                        <th>Portfolio Percentage</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {groupMethods
+                            .groupAssetsByType(
+                                investmentDivisions.map((division) => ({...division, current_value: (division?.converted_value || division?.value || 0.0) , percentage: division?.portfolio_percentage * 100,  value: (division.converted_top_amount || 0.0), type: (division.asset?.sector?.name || "none")})),
+                                ["current_value"]
+                            )
+                            .map((groupedDivision) => {
+                                return (
+                                    <tr>
+                                        <td>{groupedDivision.type}</td>
+                                        <td>{groupedDivision.current_value.format({ currency: "BRL" })}</td>
+                                        <td>{groupedDivision.value.format({ currency: "BRL" })}</td>
+                                        <td>{(groupedDivision.value - groupedDivision.current_value).format({ currency: "BRL" })}</td>
+                                        <td>{groupedDivision.percentage}%</td>
+                                    </tr>
+                                )
+                            })}
                     </tbody>
                 </table>
             </div>
