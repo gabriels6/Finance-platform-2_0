@@ -269,6 +269,36 @@ const InvestmentDivision = () => {
                     </tbody>
                 </table>
             </div>
+            <div className='card horizontal-align'>
+                <table>
+                    <thead>
+                        <th>Country</th>
+                        <th>Portfolio Value</th>
+                        <th>Expected Value</th>
+                        <th>Remaining Value/Excess</th>
+                        <th>Portfolio Percentage</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {groupMethods
+                            .groupAssetsByType(
+                                investmentDivisions.map((division) => ({...division, current_value: (division?.converted_value || division?.value || 0.0) , percentage: division?.portfolio_percentage * 100,  value: (division.converted_top_amount || 0.0), type: (division.asset?.country?.name || "none")})),
+                                ["current_value","converted_top_amount"]
+                            )
+                            .map((groupedDivision) => {
+                                return (
+                                    <tr>
+                                        <td>{groupedDivision.type}</td>
+                                        <td>{groupedDivision.current_value.format({ currency: "BRL" })}</td>
+                                        <td>{groupedDivision.converted_top_amount.format({ currency: "BRL" })}</td>
+                                        <td>{(groupedDivision.converted_top_amount - groupedDivision.current_value).format({ currency: "BRL" })}</td>
+                                        <td>{groupedDivision.percentage}%</td>
+                                    </tr>
+                                )
+                            })}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }
