@@ -216,6 +216,7 @@ const InvestmentDivision = () => {
                         <th>Portfolio Value</th>
                         <th>Expected Value</th>
                         <th>Remaining Value/Excess</th>
+                        <th>Expected Dividends</th>
                         <th>Portfolio Percentage</th>
                         <th></th>
                     </thead>
@@ -223,7 +224,7 @@ const InvestmentDivision = () => {
                         {groupMethods
                             .groupAssetsByType(
                                 investmentDivisions.map((division) => ({...division, percentage: division.portfolio_percentage * 100, current_value: (division?.converted_value || division?.value || 0.0), converted_top_amount: (division.converted_top_amount || 0.0), type: (division.asset?.asset_type?.name || "none")})),
-                                ["current_value","converted_top_amount"]
+                                ["current_value","converted_top_amount","dividend"]
                             )
                             .map((groupedDivision) => {
                                 return (
@@ -232,6 +233,7 @@ const InvestmentDivision = () => {
                                         <td>{groupedDivision.current_value.format({ currency: "BRL" })}</td>
                                         <td>{groupedDivision.converted_top_amount.format({ currency: "BRL" })}</td>
                                         <td>{(groupedDivision.converted_top_amount - groupedDivision.current_value).format({ currency: "BRL" })}</td>
+                                        <td>{groupedDivision.dividend.format({ currency: "BRL" })}</td>
                                         <td>{groupedDivision.percentage}%</td>
                                     </tr>
                                 )
@@ -246,6 +248,7 @@ const InvestmentDivision = () => {
                         <th>Portfolio Value</th>
                         <th>Expected Value</th>
                         <th>Remaining Value/Excess</th>
+                        <th>Expected Dividends</th>
                         <th>Portfolio Percentage</th>
                         <th></th>
                     </thead>
@@ -262,6 +265,7 @@ const InvestmentDivision = () => {
                                         <td>{groupedDivision.current_value.format({ currency: "BRL" })}</td>
                                         <td>{groupedDivision.converted_top_amount.format({ currency: "BRL" })}</td>
                                         <td>{(groupedDivision.converted_top_amount - groupedDivision.current_value).format({ currency: "BRL" })}</td>
+                                        <td>{groupedDivision.dividend.format({ currency: "BRL" })}</td>
                                         <td>{groupedDivision.percentage}%</td>
                                     </tr>
                                 )
@@ -276,6 +280,7 @@ const InvestmentDivision = () => {
                         <th>Portfolio Value</th>
                         <th>Expected Value</th>
                         <th>Remaining Value/Excess</th>
+                        <th>Expected Dividends</th>
                         <th>Portfolio Percentage</th>
                         <th></th>
                     </thead>
@@ -292,6 +297,7 @@ const InvestmentDivision = () => {
                                         <td>{groupedDivision.current_value.format({ currency: "BRL" })}</td>
                                         <td>{groupedDivision.converted_top_amount.format({ currency: "BRL" })}</td>
                                         <td>{(groupedDivision.converted_top_amount - groupedDivision.current_value).format({ currency: "BRL" })}</td>
+                                        <td>{groupedDivision.dividend.format({ currency: "BRL" })}</td>
                                         <td>{groupedDivision.percentage}%</td>
                                     </tr>
                                 )
