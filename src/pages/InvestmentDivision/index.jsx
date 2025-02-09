@@ -256,7 +256,7 @@ const InvestmentDivision = () => {
                         {groupMethods
                             .groupAssetsByType(
                                 investmentDivisions.map((division) => ({...division, current_value: (division?.converted_value || division?.value || 0.0) , percentage: division?.portfolio_percentage * 100,  value: (division.converted_top_amount || 0.0), type: (division.asset?.sector?.name || "none")})),
-                                ["current_value","converted_top_amount"]
+                                ["current_value","converted_top_amount", "dividend"]
                             )
                             .map((groupedDivision) => {
                                 return (
@@ -288,7 +288,7 @@ const InvestmentDivision = () => {
                         {groupMethods
                             .groupAssetsByType(
                                 investmentDivisions.map((division) => ({...division, current_value: (division?.converted_value || division?.value || 0.0) , percentage: division?.portfolio_percentage * 100,  value: (division.converted_top_amount || 0.0), type: (division.asset?.country?.name || "none")})),
-                                ["current_value","converted_top_amount"]
+                                ["current_value","converted_top_amount","dividend"]
                             )
                             .map((groupedDivision) => {
                                 return (
