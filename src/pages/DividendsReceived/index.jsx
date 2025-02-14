@@ -33,7 +33,8 @@ const DividendsReceived = () => {
         setPortfolio({})
         financeDataApi.getReceivedValues({
             portfolio_name: "Consolidated",
-            currency: "BRL"
+            currency: "BRL",
+            end_date: userContext.date
         }, userContext.integrationToken).then((data) => {
             setPortfolio({
                 name: "Consolidated",
