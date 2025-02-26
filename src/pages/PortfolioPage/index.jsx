@@ -51,7 +51,7 @@ const PortfolioPage = () => {
                 assetItem.rentabilityAmount = (assetItem?.converted_value ? (assetItem?.converted_value - assetItem?.converted_purchase_value) : (assetItem?.value - assetItem?.purchase_value))?.toFixed(2)
                 assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + (+assetItem.rentability)?.format({ decimalPlaces: 2}) + "%)"
                 symbolsString += assetItem.asset.symbol + ","
-                assetItem.convertedDividend = (assetItem.value||assetItem.converted_value) * (assetItem.dividend_yield||0.0)
+                assetItem.convertedDividend = (assetItem.converted_value||assetItem.value) * (assetItem.dividend_yield||0.0)
                 // promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, '', apiKey))
             })
             setCurrency(currentCurrency)
@@ -90,7 +90,7 @@ const PortfolioPage = () => {
                 assetItem.rentability = ((assetItem?.value/assetItem?.purchase_value - 1.0) * 100.0)?.toFixed(2)
                 assetItem.rentabilityAmount = (assetItem?.converted_value ? (assetItem?.converted_value - assetItem?.converted_purchase_value) : (assetItem?.value - assetItem?.purchase_value))?.toFixed(2)
                 assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + (+assetItem.rentability)?.format({decimalPlaces: 2}) + "%)"
-                assetItem.convertedDividend = (assetItem.value||assetItem.converted_value) * (assetItem.dividend_yield||0.0)
+                assetItem.convertedDividend = (assetItem.converted_value||assetItem.value) * (assetItem.dividend_yield||0.0)
                 // promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, 'BRL',apiKey))
             })
             setCurrency("BRL")
