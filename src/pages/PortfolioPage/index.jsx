@@ -18,6 +18,8 @@ const PortfolioPage = () => {
 
     const [currency, setCurrency] = useState("")
 
+    const [plWithDividends, setPlWithDividends] = useState(false);
+
     function clearPortfolio(){
         setCurrency("")
         userContext.setTopPrices([])
@@ -49,6 +51,7 @@ const PortfolioPage = () => {
                 assetItem.rentabilityAmount = (assetItem?.converted_value ? (assetItem?.converted_value - assetItem?.converted_purchase_value) : (assetItem?.value - assetItem?.purchase_value))?.toFixed(2)
                 assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + (+assetItem.rentability)?.format({ decimalPlaces: 2}) + "%)"
                 symbolsString += assetItem.asset.symbol + ","
+                assetItem.convertedDividend = (assetItem.value||assetItem.converted_value) * (assetItem.dividend_yield||0.0)
                 // promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, '', apiKey))
             })
             setCurrency(currentCurrency)
@@ -87,6 +90,7 @@ const PortfolioPage = () => {
                 assetItem.rentability = ((assetItem?.value/assetItem?.purchase_value - 1.0) * 100.0)?.toFixed(2)
                 assetItem.rentabilityAmount = (assetItem?.converted_value ? (assetItem?.converted_value - assetItem?.converted_purchase_value) : (assetItem?.value - assetItem?.purchase_value))?.toFixed(2)
                 assetItem.rentabilityLabel = assetItem.asset?.symbol + " (" + (+assetItem.rentability)?.format({decimalPlaces: 2}) + "%)"
+                assetItem.convertedDividend = (assetItem.value||assetItem.converted_value) * (assetItem.dividend_yield||0.0)
                 // promises.push(financeDataApi.getAssetPriceHist(assetItem.asset.symbol,'',userContext.date, 'BRL',apiKey))
             })
             setCurrency("BRL")
@@ -233,25 +237,60 @@ const PortfolioPage = () => {
                 </div>
             </div>
             <div className={'card vertical-align ' + ( userContext.mobileSize() ? "portfolio-asset-hist-small" : "portfolio-asset-hist" )}>
-                <div className="title">
-                    P & L
+                <div className='value-section'>
+                    <div className="title">
+                        P & L
+                    </div>
+                    <div className='info-text'>
+                        <input type='checkbox' value={plWithDividends} onChange={() => {setPlWithDividends(!plWithDividends)}}/> With Dividends
+                    </div>
                 </div>
-                { userContext.portfolioAssets?.length > 0 && (
-                    <ResponsiveContainer>
-                        <BarChart data={userContext.portfolioAssets.toSorted((a,b) => a?.rentabilityAmount - b?.rentabilityAmount)}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="rentabilityLabel" />
-                            <YAxis domain={[Math.floor(Math.min(...userContext.portfolioAssets.map((data) => ((data.rentabilityAmount * 1)?.toFixed(2) * 1)))/100.0)*100.0 - 50,Math.ceil(Math.max(...userContext.portfolioAssets.map((data) => ((data.rentabilityAmount * 1)?.toFixed(2) * 1)))/100.0)*100.0 + 50]}/>
-                            <Tooltip />
-                            <Legend />
-                            <Bar dataKey="rentabilityAmount" name='Rentability ($)'>
-                                {userContext.portfolioAssets.toSorted((a,b) => a?.rentabilityAmount - b?.rentabilityAmount).map((assetItem) => (
-                                    <Cell fill={assetItem?.rentabilityAmount > 0.0 ? '#34eb5e' : '#e65545'}/>
-                                ))}
-                            </Bar>
-                        </BarChart>
-                    </ResponsiveContainer>
-                ) }
+                {
+                    plWithDividends ? (
+                        <>
+                            { userContext.portfolioAssets?.length > 0 && (
+                                <ResponsiveContainer>
+                                    <BarChart data={userContext.portfolioAssets.toSorted((a,b) => (+a?.rentabilityAmount + a?.convertedDividend) - (+b?.rentabilityAmount + b?.convertedDividend))}>
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="rentabilityLabel" />
+                                        <YAxis domain={[Math.floor(Math.min(...userContext.portfolioAssets.map((data) => (((+data.rentabilityAmount + data.convertedDividend) * 1)?.toFixed(2) * 1)))/100.0)*100.0 - 50,Math.ceil(Math.max(...userContext.portfolioAssets.map((data) => (((+data.rentabilityAmount + data.convertedDividend) * 1)?.toFixed(2) * 1)))/100.0)*100.0 + 50]}/>
+                                        <Tooltip />
+                                        <Legend />
+                                        <Bar dataKey="rentabilityAmount" name='Rentability ($)' stackId={'a'}> 
+                                            {userContext.portfolioAssets.toSorted((a,b) => (+a?.rentabilityAmount + a?.convertedDividend) - (+b?.rentabilityAmount + b?.convertedDividend)).map((assetItem) => (
+                                                <Cell fill={assetItem?.rentabilityAmount > 0.0 ? '#34eb5e' : '#e65545'}/>
+                                            ))}
+                                        </Bar>
+                                        <Bar dataKey="convertedDividend" name='Dividends ($)' stackId={'a'}>
+                                            {userContext.portfolioAssets.toSorted((a,b) => (+a?.rentabilityAmount + a?.convertedDividend) - (+b?.rentabilityAmount + b?.convertedDividend)).map((assetItem) => (
+                                                <Cell fill='#3474eb'/>
+                                            ))}
+                                        </Bar>
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            ) }
+                        </>
+                    ) : (
+                        <>
+                            { userContext.portfolioAssets?.length > 0 && (
+                                <ResponsiveContainer>
+                                    <BarChart data={userContext.portfolioAssets.toSorted((a,b) => a?.rentabilityAmount - b?.rentabilityAmount)}>
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="rentabilityLabel" />
+                                        <YAxis domain={[Math.floor(Math.min(...userContext.portfolioAssets.map((data) => ((data.rentabilityAmount * 1)?.toFixed(2) * 1)))/100.0)*100.0 - 50,Math.ceil(Math.max(...userContext.portfolioAssets.map((data) => ((data.rentabilityAmount * 1)?.toFixed(2) * 1)))/100.0)*100.0 + 50]}/>
+                                        <Tooltip />
+                                        <Legend />
+                                        <Bar dataKey="rentabilityAmount" name='Rentability ($)'>
+                                            {userContext.portfolioAssets.toSorted((a,b) => a?.rentabilityAmount - b?.rentabilityAmount).map((assetItem) => (
+                                                <Cell fill={assetItem?.rentabilityAmount > 0.0 ? '#34eb5e' : '#e65545'}/>
+                                            ))}
+                                        </Bar>
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            ) }
+                        </>
+                    )
+                }
             </div>
             {/* <div className="card portfolio-asset-hist vertical-align">
                 <div className="title">
