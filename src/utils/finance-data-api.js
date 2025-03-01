@@ -136,6 +136,18 @@ export default {
 
         return data;
     },
+    async getProfitsLosses(date, apiKey) {
+        const {data} = await api.get('/api/portfolio/profits_losses_from_sales', {
+            params: {
+                date: date,
+            },
+            headers: {
+                'x_api_key': apiKey
+            }
+        });
+
+        return data;
+    },
     async importAsset(symbol, apiKey) {
 
         const {data} = await api.get('/api/integrator/assets/import', {

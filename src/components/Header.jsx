@@ -71,6 +71,13 @@ const Header = () => {
                                                             </Nav.Link>
                                                         </LinkContainer>
                                                     </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/portfolio/profits-losses">
+                                                            <Nav.Link>
+                                                            Profits & Losses
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
 
                                                     <NavDropdown.Item>
                                                         <LinkContainer to="/analysis/asset-risk">
@@ -263,6 +270,13 @@ const Header = () => {
                                                         <LinkContainer to="/portfolio/investment-division">
                                                             <Nav.Link>
                                                             Investment Division
+                                                            </Nav.Link>
+                                                        </LinkContainer>
+                                                    </NavDropdown.Item>
+                                                    <NavDropdown.Item>
+                                                        <LinkContainer to="/portfolio/profits-losses">
+                                                            <Nav.Link>
+                                                            Profits & Losses
                                                             </Nav.Link>
                                                         </LinkContainer>
                                                     </NavDropdown.Item>
