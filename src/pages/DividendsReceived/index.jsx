@@ -15,12 +15,16 @@ const DividendsReceived = () => {
 
     const [selectedMonth, setSelectedMonth] = useState(null)
 
+    const [historical, setHistorical] = useState(false);
+
     function handleGetReceivables(event) {
         setDividendsMonths([])
         setPortfolio({})
         let portfolioName = event.currentTarget.id
         financeDataApi.getReceivedValues({
-            portfolio_name: portfolioName
+            portfolio_name: portfolioName,
+            start_date: (historical ? '2010-01-01' : null),
+            end_date: userContext.date
         }, userContext.integrationToken).then((data) => {
             setPortfolio(userContext.portfolios.find((item) => item.name == portfolioName))
             console.log(portfolio)
@@ -34,6 +38,7 @@ const DividendsReceived = () => {
         financeDataApi.getReceivedValues({
             portfolio_name: "Consolidated",
             currency: "BRL",
+            start_date: (historical ? '2010-01-01' : null),
             end_date: userContext.date
         }, userContext.integrationToken).then((data) => {
             setPortfolio({
@@ -58,6 +63,11 @@ const DividendsReceived = () => {
                     </div>
                     <div className="value-text">
                         { dividendsMonths.reduce((prevValue, currItem) => (prevValue + (currItem?.value || 0.0) * 1.0),0.0).format({ decimalPlaces: 2, currency: portfolio?.currency?.symbol }) }
+                    </div>
+                </div>
+                <div className="value-section">
+                    <div className='info-text'>
+                        <input type='checkbox' value={historical} onChange={() => {setHistorical(!historical)}}/> Historical
                     </div>
                 </div>
                 {userContext.portfolios.map((item, index) => {
