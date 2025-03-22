@@ -14,6 +14,7 @@ const AssetPricesPage = () => {
     const userContext = useContext(UserContext);
     const [assetPriceQuery, setAssetPriceQuery] = useState({
         symbol: "",
+        currency: "BRL",
         startDate: userContext.date,
         endDate: userContext.date
     });
@@ -27,7 +28,7 @@ const AssetPricesPage = () => {
     }
 
     function handleRefresh(event) {
-        financeDataApi.getAssetPriceHist(assetPriceQuery?.symbol, assetPriceQuery.startDate, assetPriceQuery.endDate, null, userContext.integrationToken).then((data) => {
+        financeDataApi.getAssetPriceHist(assetPriceQuery?.symbol, assetPriceQuery.startDate, assetPriceQuery.endDate, assetPriceQuery.currency, userContext.integrationToken).then((data) => {
             setAssetPrices([...data?.sort((a,b) => new Date(a?.date) - new Date(b?.date))]);
         });
     }
@@ -52,6 +53,12 @@ const AssetPricesPage = () => {
                             Symbol
                         </div>
                         <FormControl className="me-2" name="symbol" type="text" value={assetPriceQuery.symbol} onChange={handleAssetQuery} />
+                    </div>
+                    <div className='center'>
+                        <div className='w-50'>
+                            Currency
+                        </div>
+                        <FormControl className="me-2" name="currency" type="text" value={assetPriceQuery.currency} onChange={handleAssetQuery} />
                     </div>
                     <div className='center'>
                         <div className='w-50'>
