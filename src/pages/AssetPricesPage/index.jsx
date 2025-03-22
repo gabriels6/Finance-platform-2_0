@@ -113,12 +113,12 @@ const AssetPricesPage = () => {
                     <tbody>
                         {assetPrices.map((value, index) => (
                             <tr key={index}>
-                                <td>{value.id?.$oid}</td>
-                                <td>{value.asset?.symbol}</td>
-                                <td>{value.date}</td>
-                                <td>{value.currency?.symbol}</td>
-                                <td>{value.price}</td>
-                                <td>{Math.round((value.rentability || 0) * 10000)/100}%</td>
+                                <td>{value?.id?.$oid}</td>
+                                <td>{value?.asset?.symbol}</td>
+                                <td>{value?.date}</td>
+                                <td>{value?.currency?.symbol}</td>
+                                <td>{value?.price}</td>
+                                <td>{Math.round((value?.rentability || 0) * 10000)/100}%</td>
                             </tr>
                         ))}
                     </tbody>
