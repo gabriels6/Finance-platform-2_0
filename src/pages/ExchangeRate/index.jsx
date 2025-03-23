@@ -33,6 +33,17 @@ const ExchangeRate = () => {
             });
     }
 
+    function handleImportHistoricalRates(event) {
+        financeDataApi
+            .importExchangeRatesHistorical({
+                ...queryValues,
+                end_date: userContext.date
+            }, userContext.integrationToken)
+            .then(() => {
+                getRates();
+            });
+    }
+
     return (
         <div className="control">
             <MessageHolder/>
@@ -55,6 +66,7 @@ const ExchangeRate = () => {
                     />
                     <Button variant="outline-success" onClick={handleGetRates}>Get Rates</Button>
                     <Button variant="outline-success" onClick={handleImportRates}>Import Rates</Button>
+                    <Button variant="outline-success" onClick={handleImportHistoricalRates}>Import Historical</Button>
                 </Form>
             </div>
             <div className="card">

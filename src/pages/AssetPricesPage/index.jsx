@@ -28,6 +28,7 @@ const AssetPricesPage = () => {
     }
 
     function handleRefresh(event) {
+        setAssetPrices([])
         financeDataApi.getAssetPriceHist(assetPriceQuery?.symbol, assetPriceQuery.startDate, assetPriceQuery.endDate, assetPriceQuery.currency, userContext.integrationToken).then((data) => {
             setAssetPrices([...data?.sort((a,b) => new Date(a?.date) - new Date(b?.date))]);
         });
