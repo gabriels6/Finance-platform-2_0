@@ -33,16 +33,65 @@
 }
 
 .navbar-custom {
-  background-color: #050F33 !important;
+  background-color: #FDFDFD !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.navbar-custom .container {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.navbar-custom .navbar-brand {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.navbar-custom .nav-link {
+  color: #000 !important;
+}
+
+.subnavbar-custom .nav-link {
+  color: #FFF !important;
+  font-weight: 200;
+}
+
+.subnavbar-custom .nav-item {
+  margin: 0px 16px;
+}
+
+.subnavbar-custom {
+  height: 38px;
+  background-color: #3F3F3F !important;
+}
+
+.logo {
+  background-color: #000;
+  width: 217px;
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subnav-custom {
+  width: 100%;
+  justify-content: end;
+  margin-right: 40px;
 }
 
 .dropdown-menu-dark, .dropdown-menu-dark .dropdown-item, .dropdown-item a {
-  background-color: #050F33 !important;
+  background-color: #3F3F3F !important;
   color: #ddd !important;
 }
 
 .dropdown-menu {
   border: solid 1px rgb(165, 165, 165) !important;
+}
+
+.main-date-control {
+  border: solid 1px #000 !important;
 }
 
 /* .dropdown-item:hover {
@@ -55,7 +104,7 @@
 }
 
 .dropdown-item a:hover {
-  color: #F1D302 !important;
+  color: #000000 !important;
 }
 
 
@@ -78,7 +127,7 @@ table {
 }
 
 table thead {
-  background:#050F33;
+  background:#3F3F3F;
   color: white;
 }
 

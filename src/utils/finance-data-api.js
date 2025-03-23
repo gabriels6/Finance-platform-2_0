@@ -264,6 +264,9 @@ export default {
     async importExchangeRates(params = {}, apiKey) {
         return await this.apiPost('/api/integrator/exchange_rates/import', params, apiKey);
     },
+    async importExchangeRatesHistorical(params = {}, apiKey) {
+        return await this.apiPost('/api/integrator/exchange_rates/import_historical', params, apiKey);
+    },
     async importAllDailyQuotes(params = {}, apiKey) {
         return await this.apiGet('/api/integrator/quotes/import_daily_quotes', params, apiKey);
     },
