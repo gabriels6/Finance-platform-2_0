@@ -3,6 +3,7 @@ import { MessageHolder } from "../../components";
 import UserContext from "../../context/UserContext";
 import financeDataApi from "../../utils/finance-data-api";
 import { Button } from "react-bootstrap";
+import { scaleSequentialSymlog } from "d3-scale";
 
 const DailyStockPrices = () => {
 
@@ -10,6 +11,7 @@ const DailyStockPrices = () => {
 
     const [date, setDate] = useState("")
     const [stockPrices, setStockPrices] = useState([])
+    const [symbolsToImport, setSymbolsToImport] = useState([])
 
     useEffect(() => {
         if(date != userContext.date) {
@@ -45,8 +47,54 @@ const DailyStockPrices = () => {
             })
     }
 
+    function handleAddAutoImport(event) {
+        let symbol = `${event.target.id}`.split("-")[2];
+        let newSymbolsToImport
+        if(symbolsToImport.includes(symbol))
+            newSymbolsToImport = symbolsToImport.filter((symbolToImport) => symbolToImport != symbol)
+        else
+            newSymbolsToImport = [...symbolsToImport, symbol];
+        setSymbolsToImport([...newSymbolsToImport])
+    }
+
+    function handleImportSelectedPrices() {
+        financeDataApi.importTwelveDataEodPrices(symbolsToImport, userContext.integrationToken)
+            .then(() => {
+                userContext.setMessages([
+                    {
+                        type:  "success",
+                        value: `Prices for ${symbolsToImport.join(",")} successfully imported`
+                    }
+                ])
+                setDate("")
+            })
+            .catch((ex) => {
+                userContext.setMessages([
+                    {
+                        type:  "error",
+                        value: `Error importing prices for ${symbolsToImport.join(",")}: ${ex.error}`
+                    }
+                ])
+            })
+    }
+
     return (
         <div className='control'>
+            <div className="card">
+                <div className='value-section'>
+                    <div className="info-text">
+                        Prices to Auto Import
+                    </div>
+                    <div className='value-text'>
+                        {symbolsToImport.length}
+                    </div>
+                </div>
+                <div className='value-section'>
+                    <Button variant="outline-primary" onClick={handleImportSelectedPrices}>
+                        Import selected Prices
+                    </Button>
+                </div>
+            </div>
             <MessageHolder />
             <div className="card">
                 <table>
@@ -70,6 +118,10 @@ const DailyStockPrices = () => {
                                     <td>
                                         <Button variant="outline-primary" id={index} onClick={handleEditStockPrice}>
                                             Edit
+                                        </Button>
+                                        <Button id={"auto-import-"+assetPrice.symbol} variant={symbolsToImport.includes(assetPrice.symbol) ? "outline-danger" : "outline-primary"}
+                                            onClick={handleAddAutoImport}>
+                                            { symbolsToImport.includes(assetPrice.symbol) ? "Remove from Auto Import" : "Add to Auto Import" }
                                         </Button>
                                     </td>
                                 </tr>
