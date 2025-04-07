@@ -325,6 +325,33 @@ export default {
         });
         return data;
     },
+    async financeOpenSearchAsset(keyword, token, apiKey) {
+        const {data} = await api.get('api/finance_open/search_assets', {
+            params: {
+                keyword
+            },
+            headers: {
+                'x_api_key': apiKey,
+                'token': token
+
+            }
+        });
+        return data;
+    },
+    async financeOpenImportAsset(symbol, country, token, apiKey) {
+        const {data} = await api.get('api/finance_open/import_asset', {
+            params: {
+                symbol,
+                country
+            },
+            headers: {
+                'x_api_key': apiKey,
+                'token': token
+
+            }
+        });
+        return data;
+    },
     async importTwelveDataEodPrices(symbols, apiKey) {
         return await this.apiGet('/api/integrator/quotes/import_twelve_data_eof_prices', { symbols }, apiKey)
     },

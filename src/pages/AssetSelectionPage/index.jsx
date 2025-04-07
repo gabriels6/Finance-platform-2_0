@@ -47,7 +47,7 @@ const AssetSelectionPage = () => {
     }
 
     function searchAssets(event) {
-        financeDataApi.searchAsset(keyword,'', API_KEY).then((data) => {
+        financeDataApi.financeOpenSearchAsset(keyword,userContext.token, API_KEY).then((data) => {
             setFoundAssets(parseMethods.parseJSONWithNumbers(data));
         }).catch((err) => {
             userContext.handleError(err)
@@ -64,7 +64,8 @@ const AssetSelectionPage = () => {
 
     function handleImportAsset(event) {
         let selectedSymbol = event.target.id.split("-")[1];
-        importAsset(selectedSymbol);
+        let selectedCountry = event.target.id.split("-")[2];
+        importAsset(selectedSymbol, selectedCountry);
     }
 
     function handleImportAllAssets(event) {
@@ -73,17 +74,24 @@ const AssetSelectionPage = () => {
         })
     }
 
-    function importAsset(symbol) {
-        financeDataApi.importAsset(symbol, API_KEY).then((data) => {
-            financeDataApi.importAssetSeries(symbol, '2017-01-01',API_KEY).then((data) => {
-                userContext.setMessages([
-                    ...userContext.messages,
-                    {
-                        type: 'success',
-                        value: "Asset Data imported sucessfully!"
-                    }
-                ]);
-            }).catch((err) => { userContext.handleError(err); });
+    function importAsset(symbol, country = "") {
+        financeDataApi.financeOpenImportAsset(symbol, country, userContext.token, API_KEY).then((data) => {
+            // financeDataApi.importAssetSeries(symbol, '2017-01-01',API_KEY).then((data) => {
+            //     userContext.setMessages([
+            //         ...userContext.messages,
+            //         {
+            //             type: 'success',
+            //             value: "Asset Data imported sucessfully!"
+            //         }
+            //     ]);
+            // }).catch((err) => { userContext.handleError(err); });
+            userContext.setMessages([
+                ...userContext.messages,
+                {
+                    type: 'success',
+                    value: "Asset Data imported sucessfully!"
+                }
+            ]);
         }).catch((err) => { userContext.handleError(err); });
     }
 
@@ -129,21 +137,21 @@ const AssetSelectionPage = () => {
                         <tbody>
                             {foundAssets.map((asset, index) => (
                                 <tr key={'search-item-'+index}>                                    
-                                    <td>{asset.symbol}</td>
-                                    <td>{asset.name}</td>
-                                    <td>{asset.type}</td>
-                                    <td>{asset.region}</td>
+                                    <td>{asset.symbol || asset.Symbol}</td>
+                                    <td>{asset.name || asset.Name}</td>
+                                    <td>{asset.type || asset.Type}</td>
+                                    <td>{asset.region || asset.Country}</td>
                                     <td>{asset.marketOpen}</td>
                                     <td>{asset.marketClose}</td>
                                     <td>{asset.timezone}</td>
-                                    <td>{asset.currency}</td>
+                                    <td>{asset.currency || asset.Currency}</td>
                                     <td>
-                                        <Button variant="outline-primary" id={'searchAsset-'+asset.symbol} onClick={handleFavoritesAdd}>
+                                        <Button variant="outline-primary" id={'searchAsset-'+(asset.symbol || asset.Symbol)+'-'+(asset.region || asset.Country)} onClick={handleFavoritesAdd}>
                                             Add to Favorites
                                         </Button>
                                     </td>
                                     <td>
-                                        <Button variant="outline-primary" id={'favoriteAsset-'+asset.symbol} onClick={handleImportAsset}>
+                                        <Button variant="outline-primary" id={'favoriteAsset-'+(asset.symbol || asset.Symbol)+'-'+(asset.region || asset.Country)} onClick={handleImportAsset}>
                                             Import Asset
                                         </Button>
                                     </td>
