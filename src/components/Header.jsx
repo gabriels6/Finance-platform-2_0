@@ -389,6 +389,13 @@ const Header = () => {
                                                                 </Nav.Link>
                                                             </LinkContainer>
                                                         </NavDropdown.Item>
+                                                        <NavDropdown.Item>
+                                                            <LinkContainer to="/calculation/beta">
+                                                                <Nav.Link>
+                                                                    Beta
+                                                                </Nav.Link>
+                                                            </LinkContainer>
+                                                        </NavDropdown.Item>
                                                     </NavDropdown>
 
                                                     <NavDropdown title="Management" menuVariant="dark">

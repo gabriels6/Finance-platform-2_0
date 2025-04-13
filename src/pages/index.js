@@ -31,6 +31,7 @@ import IncomeTaxMonthlyReport from './IncomeTaxMonthlyReport';
 import DailyStockPrices from './DailyStockPrices';
 import ProfitsLossesPage from './ProfitsLossesPage';
 import AveragePriceSimulator from './AveragePriceSimulator';
+import BetaCalculator from './BetaCalculator';
 
 const SwitchControl = () => {
 
@@ -69,7 +70,8 @@ const SwitchControl = () => {
         [<IncomeTaxMonthlyReport/>, "/income-tax/monthly-report"],
         [<DailyStockPrices/>, "/maintainance/daily-stock-prices"],
         [<ProfitsLossesPage/>, "/portfolio/profits-losses"],
-        [<AveragePriceSimulator/>, "/simulation/average-price"]
+        [<AveragePriceSimulator/>, "/simulation/average-price"],
+        [<BetaCalculator/>, "/calculation/beta"]
     ]
 
     return (

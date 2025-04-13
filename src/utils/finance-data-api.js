@@ -398,5 +398,8 @@ export default {
     },
     async simulateAveragePrice(body = { asset_symbol: "", quantity_purchased: 0, purchase_price: 0 }, apiKey) {
         return await this.apiPost('/api/orders/simulate_average_price', body, apiKey);
+    },
+    async calculateBeta(params = { symbol1: "", symbol2: "" }, apiKey) {
+        return await this.apiGet('/api/assets/calculate_beta', params, apiKey);
     }
 }
