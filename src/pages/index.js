@@ -30,6 +30,7 @@ import IncomeTaxPtax from './IncomeTaxPtax';
 import IncomeTaxMonthlyReport from './IncomeTaxMonthlyReport';
 import DailyStockPrices from './DailyStockPrices';
 import ProfitsLossesPage from './ProfitsLossesPage';
+import AveragePriceSimulator from './AveragePriceSimulator';
 
 const SwitchControl = () => {
 
@@ -67,7 +68,8 @@ const SwitchControl = () => {
         [<IncomeTaxPtax/>,"/income-tax/ptax"],
         [<IncomeTaxMonthlyReport/>, "/income-tax/monthly-report"],
         [<DailyStockPrices/>, "/maintainance/daily-stock-prices"],
-        [<ProfitsLossesPage/>, "/portfolio/profits-losses"]
+        [<ProfitsLossesPage/>, "/portfolio/profits-losses"],
+        [<AveragePriceSimulator/>, "/simulation/average-price"]
     ]
 
     return (

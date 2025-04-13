@@ -395,5 +395,8 @@ export default {
             date,
             price
         }, apiKey)
+    },
+    async simulateAveragePrice(body = { asset_symbol: "", quantity_purchased: 0, purchase_price: 0 }, apiKey) {
+        return await this.apiPost('/api/orders/simulate_average_price', body, apiKey);
     }
 }
