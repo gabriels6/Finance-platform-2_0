@@ -98,7 +98,7 @@ const BetaCalculator = () => {
                         >
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="date" label={{ value: "Data Points", position: "insideBottomRight", offset: -5 }} />
-                            <YAxis />
+                            <YAxis domain={[(Math.min(...calculationData.prices1) * 0.5), (Math.max(...calculationData.prices1) * 1.5)]} />
                             <Legend />
                             <Tooltip />
                             <Line type="monotone" dataKey="price1" name="Symbol 1 Prices" stroke={colors[0]} />
