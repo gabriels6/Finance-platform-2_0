@@ -78,8 +78,29 @@ const DailyStockPrices = () => {
             })
     }
 
+    function handleImportBrazilianQuotes() {
+        financeDataApi.importBrazilianQuotes(userContext.token, userContext.integrationToken).then((data) => {
+            userContext.setMessages([
+                ...userContext.messages,
+                {
+                    type: 'success',
+                    value: 'Brazilian quotes imported successfully!'
+                }
+            ])
+        }).catch((err) => {
+            userContext.setMessages([
+                ...userContext.messages,
+                {
+                    type: 'error',
+                    value: err.error
+                }
+            ])
+        })
+    }
+
     return (
         <div className='control'>
+            <MessageHolder/>
             <div className="card">
                 <div className='value-section'>
                     <div className="info-text">
@@ -92,6 +113,11 @@ const DailyStockPrices = () => {
                 <div className='value-section'>
                     <Button variant="outline-primary" onClick={handleImportSelectedPrices}>
                         Import selected Prices
+                    </Button>
+                </div>
+                <div className='value-section'>
+                    <Button variant="outline-secondary" onClick={handleImportBrazilianQuotes}>
+                        Import Brazilian Quotes
                     </Button>
                 </div>
             </div>
