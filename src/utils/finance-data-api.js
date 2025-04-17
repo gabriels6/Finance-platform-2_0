@@ -401,5 +401,8 @@ export default {
     },
     async calculateBeta(params = { symbol1: "", symbol2: "" }, apiKey) {
         return await this.apiGet('/api/assets/calculate_beta', params, apiKey);
-    }
+    },
+    async getPortfolioValues(params = {}, apiKey) {
+        return await this.apiGet('/api/portfolio/values', params, apiKey);
+    },
 }
