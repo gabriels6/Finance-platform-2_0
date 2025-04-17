@@ -110,13 +110,11 @@ const DailyStockPrices = () => {
                         {symbolsToImport.length}
                     </div>
                 </div>
-                <div className='value-section'>
+                <div className='assets-buttons'>
                     <Button variant="outline-primary" onClick={handleImportSelectedPrices}>
                         Import selected Prices
                     </Button>
-                </div>
-                <div className='value-section'>
-                    <Button variant="outline-secondary" onClick={handleImportBrazilianQuotes}>
+                    <Button variant="outline-primary" onClick={handleImportBrazilianQuotes}>
                         Import Brazilian Quotes
                     </Button>
                 </div>
