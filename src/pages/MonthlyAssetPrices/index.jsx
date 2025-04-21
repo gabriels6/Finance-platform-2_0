@@ -58,7 +58,7 @@ const MonthlyAssetPrices = () => {
             week.push(
                 <td key={day}>
                     <div>{day}</div>
-                    <div>{priceData ? priceData.price : ''}</div>
+                    <div>{priceData ? `${(priceData.price * 1.0).format({ decimalPlaces: 2, currency: priceData.currency.symbol })}` : ''}</div>
                 </td>
             );
 
