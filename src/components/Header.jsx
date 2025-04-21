@@ -184,7 +184,6 @@ const Header = () => {
                                                                 </Nav.Link>
                                                             </LinkContainer>
                                                         </NavDropdown.Item>
-
                                                         <NavDropdown.Item>
                                                             <LinkContainer to="/management/asset-selection">
                                                                 <Nav.Link>
@@ -393,6 +392,13 @@ const Header = () => {
                                                             <LinkContainer to="/analysis/exchange-rates">
                                                                 <Nav.Link>
                                                                     Exchange Rates
+                                                                </Nav.Link>
+                                                            </LinkContainer>
+                                                        </NavDropdown.Item>
+                                                        <NavDropdown.Item>
+                                                            <LinkContainer to="/analysis/monthly-asset-prices">
+                                                                <Nav.Link>
+                                                                    Monthly Asset Prices
                                                                 </Nav.Link>
                                                             </LinkContainer>
                                                         </NavDropdown.Item>

@@ -33,6 +33,7 @@ import ProfitsLossesPage from './ProfitsLossesPage';
 import AveragePriceSimulator from './AveragePriceSimulator';
 import BetaCalculator from './BetaCalculator';
 import PortfolioValues from './PortfolioValues';
+import MonthlyAssetPrices from './MonthlyAssetPrices';
 
 const SwitchControl = () => {
 
@@ -73,7 +74,8 @@ const SwitchControl = () => {
         [<ProfitsLossesPage/>, "/portfolio/profits-losses"],
         [<AveragePriceSimulator/>, "/simulation/average-price"],
         [<BetaCalculator/>, "/calculation/beta"],
-        [<PortfolioValues/>, "/portfolio/values"]
+        [<PortfolioValues/>, "/portfolio/values"],
+        [<MonthlyAssetPrices/>, "/analysis/monthly-asset-prices"]
     ]
 
     return (
