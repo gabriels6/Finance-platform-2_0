@@ -21,7 +21,7 @@ const MonthlyAssetPrices = () => {
             symbol,
             startOfMonth.toISOString().split('T')[0],
             endOfMonth.toISOString().split('T')[0],
-            'USD',
+            '',
             API_KEY
         ).then((data) => {
             setPrices(data);
