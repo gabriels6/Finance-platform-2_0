@@ -22,6 +22,7 @@ const PortfolioValues = () => {
     });
 
     const handleFetchValues = () => {
+        setPortfolioData([]);
         financeDataApi
             .getPortfolioValues(inputData, API_KEY)
             .then((data) => {

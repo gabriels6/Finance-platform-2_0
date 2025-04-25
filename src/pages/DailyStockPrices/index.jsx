@@ -119,7 +119,6 @@ const DailyStockPrices = () => {
                     </Button>
                 </div>
             </div>
-            <MessageHolder />
             <div className="card">
                 <table>
                     <thead>
