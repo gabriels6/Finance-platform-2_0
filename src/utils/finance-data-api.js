@@ -355,6 +355,9 @@ export default {
     async importTwelveDataEodPrices(symbols, apiKey) {
         return await this.apiGet('/api/integrator/quotes/import_twelve_data_eof_prices', { symbols }, apiKey)
     },
+    async importTwelveDataAssetSeries(symbol, apiKey) {
+        return await this.apiGet('/api/integrator/quotes/import_twelve_data_time_series', { symbol }, apiKey)
+    },
     async saveEarnings(body, apiKey) {
         return await this.apiPost('/api/income_tax/earnings', body, apiKey);
     },

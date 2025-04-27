@@ -76,15 +76,15 @@ const AssetSelectionPage = () => {
 
     function importAsset(symbol, country = "") {
         financeDataApi.financeOpenImportAsset(symbol, country, userContext.token, API_KEY).then((data) => {
-            // financeDataApi.importAssetSeries(symbol, '2017-01-01',API_KEY).then((data) => {
-            //     userContext.setMessages([
-            //         ...userContext.messages,
-            //         {
-            //             type: 'success',
-            //             value: "Asset Data imported sucessfully!"
-            //         }
-            //     ]);
-            // }).catch((err) => { userContext.handleError(err); });
+            financeDataApi.importTwelveDataAssetSeries(symbol, API_KEY).then((data) => {
+                userContext.setMessages([
+                    ...userContext.messages,
+                    {
+                        type: 'success',
+                        value: "Asset Data imported sucessfully!"
+                    }
+                ]);
+            }).catch((err) => { userContext.handleError(err); });
             userContext.setMessages([
                 ...userContext.messages,
                 {
