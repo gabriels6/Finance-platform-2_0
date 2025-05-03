@@ -155,6 +155,16 @@ const PortfolioPage = () => {
                 </div>
                 <div className="value-section">
                     <div className="info-text">
+                        Portfolio Dividends
+                    </div>
+                    <div className="value-text">
+                        { (userContext.portfolioDividendYield * (userContext.portfolioAssets.reduce((prevNav, item) => {
+                            return prevNav + (item.converted_value || item.value)
+                        }, 0.0)))?.format({ decimalPlaces: 2, currency: currency}) }
+                    </div>
+                </div>
+                <div className="value-section">
+                    <div className="info-text">
                         Portfolio Yield
                     </div>
                     <div className="value-text">
