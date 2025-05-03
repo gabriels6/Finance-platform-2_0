@@ -137,6 +137,16 @@ const PortfolioPage = () => {
                 </div>
                 <div className="value-section">
                     <div className="info-text">
+                        Portfolio Dividends
+                    </div>
+                    <div className="value-text">
+                        { (userContext.portfolioDividendYield * (userContext.portfolioAssets.reduce((prevNav, item) => {
+                            return prevNav + (item.converted_value || item.value)
+                        }, 0.0)))?.format({ decimalPlaces: 2, currency: currency}) }
+                    </div>
+                </div>
+                <div className="value-section">
+                    <div className="info-text">
                         Quantity
                     </div>
                     <div className="value-text">
@@ -151,16 +161,6 @@ const PortfolioPage = () => {
                     </div>
                     <div className="value-text">
                         { (userContext.portfolioRentability * 100)?.format({ decimalPlaces: 2}) }%
-                    </div>
-                </div>
-                <div className="value-section">
-                    <div className="info-text">
-                        Portfolio Dividends
-                    </div>
-                    <div className="value-text">
-                        { (userContext.portfolioDividendYield * (userContext.portfolioAssets.reduce((prevNav, item) => {
-                            return prevNav + (item.converted_value || item.value)
-                        }, 0.0)))?.format({ decimalPlaces: 2, currency: currency}) }
                     </div>
                 </div>
                 <div className="value-section">
