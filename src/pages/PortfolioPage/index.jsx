@@ -221,7 +221,7 @@ const PortfolioPage = () => {
                     </div>
                     <ResponsiveContainer>
                         <PieChart>
-                            <Pie data={groupMethods.groupAssetsByType(userContext.portfolioAssets).map((value) => ({ ...value, type: value.type + ` (${Math.round(value.percentage * 10000,2)/100}%)` }))} nameKey="type" dataKey="value" innerRadius="35%" outerRadius="65%" label>
+                            <Pie data={groupMethods.groupAssetsByType(userContext.portfolioAssets).map((value) => ({ ...value, value: Math.round(value.value * 100.0)/100.0, type: value.type + ` (${Math.round(value.percentage * 10000,2)/100}%)` }))} nameKey="type" dataKey="value" innerRadius="35%" outerRadius="65%" label>
                                 {groupMethods.groupAssetsByType(userContext.portfolioAssets).map((asset, index) => (
                                     <Cell key={`part-${index}`} fill={colors[index % 10]}/>
                                 ))}
@@ -236,7 +236,7 @@ const PortfolioPage = () => {
                     </div>
                     <ResponsiveContainer>
                         <PieChart>
-                            <Pie data={userContext.sectorExposures.map((value) => ({ ...value, sector: value.sector + ` (${Math.round(value.percentage * 10000,2)/100 }%)`})) } nameKey="sector" dataKey="total" innerRadius="35%" outerRadius="65%" label>
+                            <Pie data={userContext.sectorExposures.map((value) => ({ ...value, total: Math.round(value.total * 100.0)/100.0, sector: value.sector + ` (${Math.round(value.percentage * 10000,2)/100 }%)`})) } nameKey="sector" dataKey="total" innerRadius="35%" outerRadius="65%" label>
                                 {userContext.sectorExposures.map((asset, index) => (
                                     <Cell key={`part-${index}`} fill={colors[index % 10]}/>
                                 ))}
