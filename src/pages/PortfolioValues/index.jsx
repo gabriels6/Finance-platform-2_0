@@ -17,7 +17,7 @@ const PortfolioValues = () => {
     const [portfolioData, setPortfolioData] = useState([]);
     const [inputData, setInputData] = useState({
         start_date: date.formatDate(new Date((new Date(userContext.date || new Date())).getFullYear() + '-01-01T00:00:00')),
-        end_date: date.formatDate(userContext.date || new Date()),
+        end_date: date.formatDate(userContext.date instanceof Date ? new Date(userContext.date+"T00:00:00") : new Date()),
         benchmark_name: '',
         portfolio_name: ''
     });
