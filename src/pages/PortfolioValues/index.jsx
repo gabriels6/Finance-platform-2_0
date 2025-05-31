@@ -6,6 +6,7 @@ import financeDataApi from '../../utils/finance-data-api';
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { schemeCategory10 } from 'd3-scale-chromatic';
 import { scaleOrdinal } from 'd3-scale';
+import date from '../../utils/date';
 
 const colors = scaleOrdinal(schemeCategory10).range();
 
@@ -15,8 +16,8 @@ const PortfolioValues = () => {
 
     const [portfolioData, setPortfolioData] = useState([]);
     const [inputData, setInputData] = useState({
-        start_date: '',
-        end_date: '',
+        start_date: date.formatDate(new Date((new Date(userContext.date || new Date())).getFullYear() + '-01-01T00:00:00')),
+        end_date: date.formatDate(userContext.date || new Date()),
         benchmark_name: '',
         portfolio_name: ''
     });
@@ -51,6 +52,7 @@ const PortfolioValues = () => {
                         placeholder="Start Date"
                         className="me-2"
                         aria-label="Start Date"
+                        value={inputData.start_date}
                         onChange={(e) => setInputData({ ...inputData, start_date: e.target.value })}
                     />
                     <FormControl
@@ -59,6 +61,7 @@ const PortfolioValues = () => {
                         placeholder="End Date"
                         className="me-2"
                         aria-label="End Date"
+                        value={inputData.end_date}
                         onChange={(e) => setInputData({ ...inputData, end_date: e.target.value })}
                     />
                     <FormControl
