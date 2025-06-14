@@ -34,6 +34,7 @@ import AveragePriceSimulator from './AveragePriceSimulator';
 import BetaCalculator from './BetaCalculator';
 import PortfolioValues from './PortfolioValues';
 import MonthlyAssetPrices from './MonthlyAssetPrices';
+import AssetValuationItem from './AssetValuationItem';
 
 const SwitchControl = () => {
 
@@ -75,7 +76,8 @@ const SwitchControl = () => {
         [<AveragePriceSimulator/>, "/simulation/average-price"],
         [<BetaCalculator/>, "/calculation/beta"],
         [<PortfolioValues/>, "/portfolio/values"],
-        [<MonthlyAssetPrices/>, "/analysis/monthly-asset-prices"]
+        [<MonthlyAssetPrices/>, "/analysis/monthly-asset-prices"],
+        [<AssetValuationItem/>, "/analysis/asset-valuation-item"]
     ]
 
     return (

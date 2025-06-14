@@ -408,4 +408,18 @@ export default {
     async getPortfolioValues(params = {}, apiKey) {
         return await this.apiGet('/api/portfolio/values', params, apiKey);
     },
+    async getAssetValuationItems(apiKey) {
+        const data = await this.apiGet('/api/asset_valuation_items', null, apiKey);
+        return data;
+    },
+
+    async createAssetValuationItem(body, apiKey) {
+        const data = await this.apiPost('/api/asset_valuation_items', body, apiKey);
+        return data;
+    },
+
+    async deleteAssetValuationItem(assetSymbol, apiKey) {
+        const data = await this.apiDelete('/api/asset_valuation_items', { asset_symbol: assetSymbol }, apiKey);
+        return data;
+    },
 }

@@ -416,6 +416,13 @@ const Header = () => {
                                                                 </Nav.Link>
                                                             </LinkContainer>
                                                         </NavDropdown.Item>
+                                                        <NavDropdown.Item>
+                                                            <LinkContainer to="/analysis/asset-valuation-item">
+                                                                <Nav.Link>
+                                                                    Asset Valuation Item
+                                                                </Nav.Link>
+                                                            </LinkContainer>
+                                                        </NavDropdown.Item>
                                                     </NavDropdown>
 
                                                     <NavDropdown title="Management" menuVariant="dark">
