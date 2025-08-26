@@ -51,7 +51,7 @@ const DividendMap = () => {
                 return firstDate > secondDate ? -1 : 1
             })
             setDividendList([...dividendArray])
-            let lastYearDividends = dividendArray.filter((value) => value?.payment_date?.split("-")[0] == '2024')
+            let lastYearDividends = dividendArray.filter((value) => value?.payment_date?.split("-")[0] == '2025')
             let newDividendMonths = lastYearDividends.map((value) => value?.payment_date?.split("-")[1])
             setFilledDividendMonths([...newDividendMonths.filter((value, index,array) => array.indexOf(value) === index)])
             setScreenData({
