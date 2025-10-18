@@ -422,4 +422,18 @@ export default {
         const data = await this.apiDelete('/api/asset_valuation_items', { asset_symbol: assetSymbol }, apiKey);
         return data;
     },
+    async parsePdf(file, apiKey) {
+        // file should be a File object (from an <input type="file" />) or Blob
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const { data } = await api.post('/api/integrator/parse-pdf', formData, {
+            headers: {
+                'x_api_key': apiKey
+                // do NOT set Content-Type here; let the browser/axios set the proper multipart boundary
+            }
+        });
+
+        return data;
+    },
 }

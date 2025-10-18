@@ -35,6 +35,7 @@ import BetaCalculator from './BetaCalculator';
 import PortfolioValues from './PortfolioValues';
 import MonthlyAssetPrices from './MonthlyAssetPrices';
 import AssetValuationItem from './AssetValuationItem';
+import ParsePdfPage from './ParsePdf';
 
 const SwitchControl = () => {
 
@@ -78,6 +79,7 @@ const SwitchControl = () => {
         [<PortfolioValues/>, "/portfolio/values"],
         [<MonthlyAssetPrices/>, "/analysis/monthly-asset-prices"],
         [<AssetValuationItem/>, "/analysis/asset-valuation-item"]
+        ,[<ParsePdfPage/>, "/management/parse-pdf"]
     ]
 
     return (

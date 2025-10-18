@@ -440,6 +440,13 @@ const Header = () => {
                                                                 </Nav.Link>
                                                             </LinkContainer>
                                                         </NavDropdown.Item>
+                                                        <NavDropdown.Item>
+                                                            <LinkContainer to="/management/parse-pdf">
+                                                                <Nav.Link>
+                                                                    Parse Portfolio PDF
+                                                                </Nav.Link>
+                                                            </LinkContainer>
+                                                        </NavDropdown.Item>
                                                     </NavDropdown>
                                                     <NavDropdown title="Projection" menuVariant="dark"> 
                                                         <NavDropdown.Item>
