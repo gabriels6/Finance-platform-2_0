@@ -201,7 +201,7 @@ const PortfolioPage = () => {
                     </div>
                     <ResponsiveContainer>
                         <PieChart>
-                            <Pie data={userContext.portfolioAssets.map((item) => ({...item, name: simplifiedName(item.asset.symbol) + "-" + item.type + " (Qty: " + item.quantity + ") (" + (item.percentage * 100).format({ decimalPlaces: 2 }) + "%)"}))} nameKey="name" dataKey={userContext.portfolioAssets[0]?.converted_value ? "converted_value" : "value"} innerRadius="45%" outerRadius="80%" label>
+                            <Pie data={userContext.portfolioAssets.map((item) => ({...item, name: simplifiedName(item.asset.symbol) + "-" + item.type + " (Qty: " + Math.round(item.quantity * 1) + ") (" + (item.percentage * 100).format({ decimalPlaces: 2 }) + "%)"}))} nameKey="name" dataKey={userContext.portfolioAssets[0]?.converted_value ? "converted_value" : "value"} innerRadius="45%" outerRadius="80%" label>
                                 { userContext.portfolioAssets.map((asset, index) => (
                                     <Cell key={`slice-${index}`} fill={colors[index % 10]}/>
                                 ))}
