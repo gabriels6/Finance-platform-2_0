@@ -20,6 +20,11 @@ const PortfolioPage = () => {
 
     const [plWithDividends, setPlWithDividends] = useState(false);
 
+    function simplifiedName(name) {
+        let currName = `${name}`
+        return currName.length <= 10 ? currName : currName.substring(0, 9);
+    }
+
     function clearPortfolio(){
         setCurrency("")
         userContext.setTopPrices([])
@@ -196,17 +201,17 @@ const PortfolioPage = () => {
                     </div>
                     <ResponsiveContainer>
                         <PieChart>
-                            <Pie data={userContext.portfolioAssets.map((item) => ({...item, name: item.asset.symbol + "-" + item.type + " (Qty: " + item.quantity + ") (" + (item.percentage * 100).format({ decimalPlaces: 2 }) + "%)"}))} nameKey="name" dataKey={userContext.portfolioAssets[0]?.converted_value ? "converted_value" : "value"} innerRadius="45%" outerRadius="80%" label>
+                            <Pie data={userContext.portfolioAssets.map((item) => ({...item, name: simplifiedName(item.asset.symbol) + "-" + item.type + " (Qty: " + item.quantity + ") (" + (item.percentage * 100).format({ decimalPlaces: 2 }) + "%)"}))} nameKey="name" dataKey={userContext.portfolioAssets[0]?.converted_value ? "converted_value" : "value"} innerRadius="45%" outerRadius="80%" label>
                                 { userContext.portfolioAssets.map((asset, index) => (
                                     <Cell key={`slice-${index}`} fill={colors[index % 10]}/>
                                 ))}
                             </Pie>
-                            <Pie data={userContext.portfolioAssets.map((item) => ({...item, name: item.asset.symbol + "-" + item.type}))} nameKey="name" dataKey={userContext.portfolioAssets[0]?.converted_purchase_value ? "converted_purchase_value" : "purchase_value"} innerRadius="15%" outerRadius="40%">
+                            <Pie data={userContext.portfolioAssets.map((item) => ({...item, name: simplifiedName(item.asset.symbol) + "-" + item.type}))} nameKey="name" dataKey={userContext.portfolioAssets[0]?.converted_purchase_value ? "converted_purchase_value" : "purchase_value"} innerRadius="15%" outerRadius="40%">
                                 { userContext.portfolioAssets.map((asset, index) => (
                                     <Cell key={`slice-${index}`} fill={colors[index % 10]}/>
                                 ))}
                             </Pie>
-                            <Pie data={userContext.portfolioAssets.map((item) => ({...item, name: item.asset.symbol + "-" + item.type}))} nameKey="name" dataKey={userContext.portfolioAssets[0]?.converted_purchase_value ? "converted_purchase_value" : "purchase_value"} innerRadius="15%" outerRadius="40%">
+                            <Pie data={userContext.portfolioAssets.map((item) => ({...item, name: simplifiedName(item.asset.symbol) + "-" + item.type}))} nameKey="name" dataKey={userContext.portfolioAssets[0]?.converted_purchase_value ? "converted_purchase_value" : "purchase_value"} innerRadius="15%" outerRadius="40%">
                                 { userContext.portfolioAssets.map((asset, index) => (
                                     <Cell key={`slice-${index}`} fill={colors[index % 10]}/>
                                 ))}
