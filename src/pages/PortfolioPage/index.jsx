@@ -333,8 +333,11 @@ const PortfolioPage = () => {
                     <thead>
                         <tr>
                             <td>Asset</td>
+                            <td>Quantity</td>
                             <td>Average Price</td>
                             <td>Current Price</td>
+                            <td>Invested Amount</td>
+                            <td>Amount</td>
                             <td>Dividend Yield 12 months</td>
                             <td>Dividend Yield on cost 12 months</td>
                         </tr>
@@ -344,8 +347,11 @@ const PortfolioPage = () => {
                             return(
                                 <tr key={index}>
                                     <td>{item.asset.symbol}</td>
+                                    <td>{item.quantity}</td>
                                     <td>{(item.average_price * 1.0)?.format({ currency: item.financial_portfolio.currency.symbol })}</td>
                                     <td>{item.price_today?.format({ currency: item.financial_portfolio.currency.symbol })}</td>
+                                    <td>{(item.average_price * item.quantity * 1.0)?.format({ currency: item.financial_portfolio.currency.symbol })}</td>
+                                    <td>{(item.price_today * item.quantity * 1.0)?.format({ currency: item.financial_portfolio.currency.symbol })}</td>
                                     <td>{(item.dividend_yield * 100.0).format({decimalPlaces: 2})}%</td>
                                     <td>{(item.dividend_yield_on_cost * 100.0).format({decimalPlaces: 2})}%</td>
                                 </tr>
