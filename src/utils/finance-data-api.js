@@ -436,4 +436,11 @@ export default {
 
         return data;
     },
+    async syncInvtoolsOrders(fromDate, toDate, apiKey) {
+        const body = {
+            from_date: fromDate,
+            to_date: toDate
+        };
+        return await this.apiPost('/api/orders/sync_invtools_orders', body, apiKey);
+    },
 }
