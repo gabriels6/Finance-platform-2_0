@@ -71,7 +71,7 @@ const OrdersPage = () => {
     }
 
     function reloadOrders() {
-        financeDataApi.apiGet('/api/orders', {}, userContext.integrationToken).then((data) => {
+        financeDataApi.apiGet('/api/orders', { date_for_year: userContext.date }, userContext.integrationToken).then((data) => {
             userContext.setOrders(data);
         });
     }
